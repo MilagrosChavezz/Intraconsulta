@@ -1,6 +1,7 @@
 package ar.edu.unlam.interfaz;
 
 public class Aula {
+	
 private static Integer capacidadMaximaAlumnos ;
 private Integer numeroAula;
 

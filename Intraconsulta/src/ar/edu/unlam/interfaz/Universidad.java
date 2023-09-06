@@ -7,13 +7,16 @@ public class Universidad {
 	private String nombre;
 	private ArrayList<Alumno> alumnos;
 	private ArrayList<Materia> materias;
+	private ArrayList<Cursada> cursadas;
 
+	
 	public Universidad(String nombre) {
 		super();
 		this.aulas = new ArrayList<Aula>();
 		this.nombre = nombre;
 		this.alumnos = new ArrayList<Alumno>();
 		this.materias = new ArrayList<Materia>();
+		this.cursadas=new ArrayList<Cursada>();
 	}
 
 	public ArrayList<Aula> getAulas() {
@@ -63,5 +66,22 @@ public class Universidad {
 		}
 		return false;
 	}
+	
+	private Boolean agregarCurso(Cursada nuevo) {
+		if (!cursadas.contains(nuevo)) {
+			cursadas.add(nuevo);
+			return true;
+		}
+		return false;
+	}
+	
+	private Boolean agregarAlumno(Alumno nuevo) {
+		if (!alumnos.contains(nuevo)) {
+			alumnos.add(nuevo);
+			return true;
+		}
+		return false;
+	}
+
 
 }
