@@ -119,6 +119,11 @@ public class Cursada {
 		return cantidadAlumnos;
 	}
 	
-	public 
+	public Integer cantidadDeProfesoresPorCursoRequerido() {
+		Integer ProfesoresRequeridos=(cantidadAlumnosAnotados()/20)+1;
+		return ProfesoresRequeridos;
+		
+	}
+	
 
 }

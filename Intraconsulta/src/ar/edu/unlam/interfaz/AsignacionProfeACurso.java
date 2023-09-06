@@ -55,7 +55,7 @@ public class AsignacionProfeACurso {
 		for (int i = 0; i < cursadaAEvaluar.size(); i++) {
 			if (cursadaAEvaluar.get(i).getDias().equals(cursada.getDias())
 					&& cursadaAEvaluar.get(i).getHorarios().equals(cursada.getHorarios())
-					&& cursada.cantidadAlumnosAnotados() < 20) {
+					&& cursada.cantidadDeProfesoresPorCursoRequerido() <= cursada.getProfesores().size()) {
 				return false;
 			}
 		}
