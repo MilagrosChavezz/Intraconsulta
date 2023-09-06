@@ -40,7 +40,8 @@ public class AsignacionProfeACurso {
 	}
 
 	public Boolean asignarProfesorACurso(Profesor profesoraAsignar, Cursada cursada) {
-		if (estaDisponible(profesoraAsignar, cursada)) {
+		
+		if (estaDisponible(profesoraAsignar, cursada)) { //&& estaIngresadoALaUniversidad(profesoraAsignar) && estaIngresadoACursada(cursada)) {
 			cursada.setProfesor(profesoraAsignar);
 			return true;
 		}

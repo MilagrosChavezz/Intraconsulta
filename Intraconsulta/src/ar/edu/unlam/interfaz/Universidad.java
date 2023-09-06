@@ -3,17 +3,17 @@ package ar.edu.unlam.interfaz;
 import java.util.ArrayList;
 
 public class Universidad {
-	private ArrayList<Aula> aulas;
 	private String nombre;
+	private ArrayList<Aula> aulas;
 	private ArrayList<Alumno> alumnos;
 	private ArrayList<Materia> materias;
 	private ArrayList<Cursada> cursadas;
-
+	private ArrayList<Profesor> profesores;
 	
 	public Universidad(String nombre) {
 		super();
-		this.aulas = new ArrayList<Aula>();
 		this.nombre = nombre;
+		this.aulas = new ArrayList<Aula>();
 		this.alumnos = new ArrayList<Alumno>();
 		this.materias = new ArrayList<Materia>();
 		this.cursadas=new ArrayList<Cursada>();
@@ -83,5 +83,20 @@ public class Universidad {
 		return false;
 	}
 
-
+	private boolean ingresarProfesorALaUniversidad(Profesor profesoraAsignar) {
+		if (!profesores.contains(profesoraAsignar)) {
+			profesores.add(profesoraAsignar);
+			return true;
+		}
+		return false;
+	}
+	
+	private boolean estaIngresadoALaUniversidad(Profesor profesoraAsignar) {
+		Boolean seIngreso = false; 
+		
+		if(alumnos.contains(profesoraAsignar)) {
+			seIngreso = true;
+		}
+		return seIngreso;
+	}
 }

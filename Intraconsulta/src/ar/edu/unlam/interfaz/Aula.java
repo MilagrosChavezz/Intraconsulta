@@ -5,7 +5,10 @@ public class Aula {
 private static Integer capacidadMaximaAlumnos ;
 private Integer numeroAula;
 
-
+public Aula(Integer numeroAula) {
+	super();
+	this.numeroAula = numeroAula;
+}
 public static Integer getCapacidadMaximaAlumnos() {
 	return capacidadMaximaAlumnos;
 }
