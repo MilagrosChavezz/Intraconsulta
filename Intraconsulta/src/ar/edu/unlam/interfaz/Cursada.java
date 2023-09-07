@@ -40,6 +40,20 @@ public class Cursada {
 		
 	}
 
+//constructor sin aula
+	public Cursada(Materia materia, Integer comision, Horario horarios, Dia dias, 
+			CicloElectivo cicloElectivo, Integer cupoMaximoAlumnos) {
+		this.alumnos = new ArrayList<Alumno>();
+		this.materia = materia;
+		this.comision = comision;
+		this.profesores = new ArrayList<Profesor>();
+		this.cicloElectivo = cicloElectivo;
+		this.dias = dias;
+		this.horarios = horarios;
+		this.cupoMaximoAlumnos = cupoMaximoAlumnos;
+		
+	}
+
 	
 
 	public Materia getMateria() {
@@ -130,6 +144,9 @@ public class Cursada {
 		
 	
 	}
-	
+	public void AgregarAula(Aula aula) {
+		if(cupoMaximoAlumnos<=Aula.getCapacidadMaximaAlumnos())
+		this.aula = aula;
+	}
 
 }

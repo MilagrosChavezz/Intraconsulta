@@ -21,14 +21,14 @@ public class CursadaTest {
 
 		String nombre = "Martin", nombreDeMateria = "pb2", nombreUniversidad = "Unlam";
 		Integer codigo = 1225, idAsignacionDeCursada = 1415, codigoMateria = 1918, comision = 64, numeroAula = 404,
-				año = 2023, cupoMaximoAlumnos = 35;
+				año = 2023, cupoMaximoAlumnos = 35 ,capacidadMaximaAulas=50;
 		Horario horarios = Horario.Mañana;
 		Dia dias = Dia.Miercoles;
 		Cuatrimestre cuatrimestre = Cuatrimestre.Primer_Cuatrimestre;
 
 		Profesor profesor = new Profesor(nombre, codigo);
 		Materia materia = new Materia(nombreDeMateria, codigoMateria);
-		Aula aula = new Aula(numeroAula);
+		Aula aula = new Aula(numeroAula, capacidadMaximaAulas);
 		CicloElectivo cicloElectivo = new CicloElectivo(año, cuatrimestre);
 		Cursada cursada = new Cursada(materia, comision, horarios, dias, aula, cicloElectivo, cupoMaximoAlumnos);
 		Universidad unlam = new Universidad(nombreUniversidad);
@@ -49,14 +49,14 @@ public class CursadaTest {
 	public void pruebaParaQueUnProfesorNoEsteDisponibleNoPuedaAsignarseleUnaCursada() {
 		String nombre = "Martin", nombreDeMateria = "pb2", nombreUniversidad = "Unlam";
 		Integer codigo = 1225, idAsignacionDeCursada = 1415, codigoMateria = 1918, comision = 64, numeroAula = 404,
-				año = 2023, cupoMaximoAlumnos = 35;
+				año = 2023, cupoMaximoAlumnos = 35,capacidadMaximaAulas=40;;
 		Horario horarios = Horario.Mañana;
 		Dia dias = Dia.Miercoles;
 		Cuatrimestre cuatrimestre = Cuatrimestre.Primer_Cuatrimestre;
 
 		Profesor profesor = new Profesor(nombre, codigo);
 		Materia materia = new Materia(nombreDeMateria, codigoMateria);
-		Aula aula = new Aula(numeroAula);
+		Aula aula = new Aula(numeroAula, capacidadMaximaAulas);
 		CicloElectivo cicloElectivo = new CicloElectivo(año, cuatrimestre);
 		Cursada cursada = new Cursada(materia, comision, horarios, dias, aula, cicloElectivo, cupoMaximoAlumnos);
 		Universidad unlam = new Universidad(nombreUniversidad);
@@ -83,7 +83,7 @@ public class CursadaTest {
 		Integer cupoMaximoAlumnos2=10;
 		
 		Materia materia2 = new Materia(nombreDeMateria2, codigoMateria2);
-		Aula aula2 = new Aula(numeroAula2);
+		Aula aula2 = new Aula(numeroAula2, cupoMaximoAlumnos2);
 		CicloElectivo cicloElectivo2 = new CicloElectivo(año2, cuatrimestre2);
 		Cursada cursada2 = new Cursada(materia2, comision2, horarios2, dias2, aula2, cicloElectivo2, cupoMaximoAlumnos2);
 		

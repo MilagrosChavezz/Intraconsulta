@@ -28,7 +28,7 @@ public class UniversidadTest {
 
 		Profesor profesor = new Profesor(nombre, codigo);
 		Materia materia = new Materia(nombreDeMateria, codigoMateria);
-		Aula aula = new Aula(numeroAula);
+		Aula aula = new Aula(numeroAula, 50);
 		CicloElectivo cicloElectivo = new CicloElectivo(año, cuatrimestre);
 		Cursada cursada = new Cursada(materia, comision, horarios, dias, aula, cicloElectivo, cupoMaximoAlumnos);
 		Universidad unlam = new Universidad(nombreUniversidad);
@@ -53,7 +53,7 @@ public class UniversidadTest {
 
 		
 		Materia materia = new Materia(nombreDeMateria, codigoMateria);
-		Aula aula = new Aula(numeroAula);
+		Aula aula = new Aula(numeroAula, 50);
 		CicloElectivo cicloElectivo = new CicloElectivo(año, cuatrimestre);
 		Cursada cursada = new Cursada(materia, comision, horarios, dias, aula, cicloElectivo, cupoMaximoAlumnos);
 		Universidad unlam = new Universidad(nombreUniversidad);
@@ -76,7 +76,7 @@ public class UniversidadTest {
 
 		Profesor profesor = new Profesor(nombre, codigo);
 		Materia materia = new Materia(nombreDeMateria, codigoMateria);
-		Aula aula = new Aula(numeroAula);
+		Aula aula = new Aula(numeroAula, 50);
 		CicloElectivo cicloElectivo = new CicloElectivo(año, cuatrimestre);
 		Cursada cursada = new Cursada(materia, comision, horarios, dias, aula, cicloElectivo, cupoMaximoAlumnos);
 		Universidad unlam = new Universidad(nombreUniversidad);
