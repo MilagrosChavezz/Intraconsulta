@@ -85,16 +85,16 @@ public class Cursada {
 		return alumnos;
 	}
 
-	public void setAlumnos(ArrayList<Alumno> alumnos) {
-		this.alumnos = alumnos;
-	}
-
 	public ArrayList<Profesor> getProfesores() {
 		return profesores;
 	}
 
 	public void setProfesores(Profesor profesor) {
 		profesores.add(profesor);
+	}
+	
+	public void setAlumnos(Alumno alumno) {
+		alumnos.add(alumno);
 	}
 
 	public Horario getHorarios() {
@@ -142,7 +142,6 @@ public class Cursada {
 		Integer ProfesoresRequeridos=(cantidadAlumnosAnotados()/20)+1;
 		return ProfesoresRequeridos;
 		
-	
 	}
 	public void AgregarAula(Aula aula) {
 		if(cupoMaximoAlumnos<=Aula.getCapacidadMaximaAlumnos())

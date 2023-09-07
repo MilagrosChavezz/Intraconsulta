@@ -4,7 +4,7 @@ public class Nota {
 private Integer valor;
 private Evaluacion evaluacion;
 	
-	public Nota () {
+	public Nota (Integer valor, Evaluacion evaluacion) {
 		this.valor=0;
 	}
 

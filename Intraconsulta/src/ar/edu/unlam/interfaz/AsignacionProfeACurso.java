@@ -54,7 +54,7 @@ public class AsignacionProfeACurso {
 
 	}
 
-	private boolean estaDisponible(Profesor profesoraAsignar, Cursada cursada) {
+	public Boolean estaDisponible(Profesor profesoraAsignar, Cursada cursada) {
 		// TODO Auto-generated method stub
 		ArrayList<Cursada> cursadaAEvaluar = profesoraAsignar.getCursadasActuales();
 
