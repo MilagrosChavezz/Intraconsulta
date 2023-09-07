@@ -9,7 +9,7 @@ public class CicloElectivo {
 		this.año = año;
 		this.cuatrimestre = cuatrimestre;
 	}
-
+ 
 	public Integer getAño() {
 		return año;
 	}

@@ -9,14 +9,15 @@ public class Universidad {
 	private ArrayList<Materia> materias;
 	private ArrayList<Cursada> cursadas;
 	private ArrayList<Profesor> profesores;
-	
+
 	public Universidad(String nombre) {
 		super();
 		this.nombre = nombre;
 		this.aulas = new ArrayList<Aula>();
 		this.alumnos = new ArrayList<Alumno>();
 		this.materias = new ArrayList<Materia>();
-		this.cursadas=new ArrayList<Cursada>();
+		this.cursadas = new ArrayList<Cursada>();
+		this.profesores = new ArrayList<Profesor>();
 	}
 
 	public ArrayList<Aula> getAulas() {
@@ -51,52 +52,52 @@ public class Universidad {
 		this.materias = materias;
 	}
 
-	private Boolean agregarAula(Aula nueva) {
-		if (!aulas.contains(nueva)) {
+	public Boolean agregarAula(Aula nueva) {
+		if (!aulas.contains(nueva) && nueva != null) {
 			aulas.add(nueva);
 			return true;
 		}
 		return false;
 	}
 
-	private Boolean agregarMateria(Materia nueva) {
-		if (!materias.contains(nueva)) {
+	public Boolean agregarMateria(Materia nueva) {
+		if (!materias.contains(nueva) && nueva != null) {
 			materias.add(nueva);
 			return true;
 		}
 		return false;
 	}
-	
-	private Boolean agregarCurso(Cursada nuevo) {
-		if (!cursadas.contains(nuevo)) {
+
+	public Boolean agregarCurso(Cursada nuevo) {
+		if (!cursadas.contains(nuevo) && nuevo != null) {
 			cursadas.add(nuevo);
 			return true;
 		}
 		return false;
 	}
-	
-	private Boolean agregarAlumno(Alumno nuevo) {
-		if (!alumnos.contains(nuevo)) {
+
+	public Boolean agregarAlumno(Alumno nuevo) {
+		if (!alumnos.contains(nuevo) && nuevo != null) {
 			alumnos.add(nuevo);
 			return true;
 		}
 		return false;
 	}
 
-	private boolean ingresarProfesorALaUniversidad(Profesor profesoraAsignar) {
-		if (!profesores.contains(profesoraAsignar)) {
+	public boolean ingresarProfesorALaUniversidad(Profesor profesoraAsignar) {
+		if (!profesores.contains(profesoraAsignar) && profesoraAsignar != null) {
 			profesores.add(profesoraAsignar);
 			return true;
 		}
 		return false;
 	}
-	
-	private boolean estaIngresadoALaUniversidad(Profesor profesoraAsignar) {
-		Boolean seIngreso = false; 
-		
-		if(alumnos.contains(profesoraAsignar)) {
-			seIngreso = true;
-		}
-		return seIngreso;
+
+	public Boolean estaIngresadoALaUniversidad(Profesor profesoraABuscar) {
+		return profesoraABuscar != null && profesores.contains(profesoraABuscar);
 	}
+
+	public Boolean estaIngresadaLaCursada(Cursada cursada) {
+		return cursada != null && cursadas.contains(cursada);
+	}
+
 }

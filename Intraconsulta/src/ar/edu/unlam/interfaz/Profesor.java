@@ -9,10 +9,10 @@ public class Profesor {
 	private ArrayList<Cursada> cursadasActuales;
 
 	public Profesor(String nombre, Integer codigoProfesor) {
-		super();
+		
 		this.nombre = nombre;
 		this.codigoProfesor = codigoProfesor;
-		this.cursadasActuales = cursadasActuales;
+		this.cursadasActuales = new ArrayList<Cursada>();
 	}
 
 	public ArrayList<Cursada> getCursadasActuales() {
@@ -37,6 +37,9 @@ public class Profesor {
 
 	public void setCodigoProfesor(Integer codigoProfesor) {
 		this.codigoProfesor = codigoProfesor;
+	}
+	public Boolean seAgregaCursadaActual(Cursada cursoNuevo) {
+		return cursadasActuales.add( cursoNuevo);
 	}
 
 }

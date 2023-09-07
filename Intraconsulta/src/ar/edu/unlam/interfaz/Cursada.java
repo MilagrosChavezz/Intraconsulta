@@ -14,6 +14,17 @@ public class Cursada {
 	private Dia dias;
 	private Aula aula;
 	private CicloElectivo cicloElectivo;
+	private AsignacionProfeACurso profesorAAgregar;
+
+	public Integer getCupoMaximoAlumnos() {
+		return cupoMaximoAlumnos;
+	}
+
+	public void setCupoMaximoAlumnos(Integer cupoMaximoAlumnos) {
+		this.cupoMaximoAlumnos = cupoMaximoAlumnos;
+	}
+
+
 
 	public Cursada(Materia materia, Integer comision, Horario horarios, Dia dias, Aula aula,
 			CicloElectivo cicloElectivo, Integer cupoMaximoAlumnos) {
@@ -25,17 +36,11 @@ public class Cursada {
 		this.cicloElectivo = cicloElectivo;
 		this.dias = dias;
 		this.horarios = horarios;
-		this.profesor = profesor;
 		this.cupoMaximoAlumnos = cupoMaximoAlumnos;
+		
 	}
 
-	public Profesor getProfesor() {
-		return profesor;
-	}
-
-	public void setProfesor(Profesor profesor) {
-		this.profesor = profesor;
-	}
+	
 
 	public Materia getMateria() {
 		return materia;
@@ -74,8 +79,8 @@ public class Cursada {
 		return profesores;
 	}
 
-	public void setProfesores(ArrayList<Profesor> profesores) {
-		this.profesores = profesores;
+	public void setProfesores(Profesor profesor) {
+		profesores.add(profesor);
 	}
 
 	public Horario getHorarios() {
@@ -118,11 +123,12 @@ public class Cursada {
 		}
 		return cantidadAlumnos;
 	}
-	
+	 
 	public Integer cantidadDeProfesoresPorCursoRequerido() {
 		Integer ProfesoresRequeridos=(cantidadAlumnosAnotados()/20)+1;
 		return ProfesoresRequeridos;
 		
+	
 	}
 	
 
