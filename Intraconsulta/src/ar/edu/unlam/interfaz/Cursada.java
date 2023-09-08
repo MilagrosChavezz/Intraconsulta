@@ -15,6 +15,7 @@ public class Cursada {
 	private Aula aula;
 	private CicloElectivo cicloElectivo;
 	private AsignacionProfeACurso profesorAAgregar;
+	
 
 	public Integer getCupoMaximoAlumnos() {
 		return cupoMaximoAlumnos;
@@ -64,14 +65,6 @@ public class Cursada {
 		this.materia = materia;
 	}
 
-	/*
-	 * public void calificar(Integer valor) {
-	 * 
-	 * nota.asignarValor(valor);
-	 * 
-	 * 
-	 * }
-	 */
 
 	public Integer getComision() {
 		return comision;
@@ -143,9 +136,10 @@ public class Cursada {
 		return ProfesoresRequeridos;
 		
 	}
+	
 	public void AgregarAula(Aula aula) {
 		if(cupoMaximoAlumnos<=Aula.getCapacidadMaximaAlumnos())
 		this.aula = aula;
 	}
-
+	
 }
