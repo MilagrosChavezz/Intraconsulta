@@ -43,11 +43,8 @@ public class AsignacionAlumnoACurso {
 	}
 
 	public void AgregarNota(Nota notaNueva) {
-		
-			this.notas.add(notaNueva);
-		
-		
-		
+
+		this.notas.add(notaNueva);
 
 	}
 
@@ -83,12 +80,12 @@ public class AsignacionAlumnoACurso {
 		this.alumno = alumno;
 	}
 
-
 	public Boolean inscribirAlumno(Alumno alumnoAsignar, Cursada cursada) {
 		boolean sePuedeInscribir = false;
 
 		if (curso.cantidadAlumnosAnotados() <= curso.getCupoMaximoAlumnos()
-				&& !curso.getAlumnos().contains(alumnoAsignar) && aproboCorrelativas() && unlam.estaIngresadoALaUniversidadAlumno(alumnoAsignar)) {
+				&& !curso.getAlumnos().contains(alumnoAsignar) && aproboCorrelativas()
+				&& unlam.estaIngresadoALaUniversidadAlumno(alumnoAsignar)) {
 			cursada.setAlumnos(alumnoAsignar);
 			sePuedeInscribir = true;
 		}
@@ -139,32 +136,38 @@ public class AsignacionAlumnoACurso {
 
 	}
 
-	public Boolean aprobarRecuperatorio(/* Evaluacion evaluacionNota */) {
-		Boolean recuperaPrimerParcial = recuperaPrimerParcial();
-		Boolean recuperaSegundoParcial = recuperaSegundoParcial();
-		// Nota notaBuscada= buscarNotas( evaluacionNota);
-		 Nota notaACambiar=buscarNotas(Evaluacion.PRIMER_PARCIAL);
-		 Nota notaACambiarSegundo=buscarNotas(Evaluacion.SEGUNDO_PARCIAL);
+	public Boolean aprobarRecuperatorio() {
 
-		 //si la nota del recuperatorio es mayor a 7 se aprueba el 1ro o 2do parcial
-		if (recuperaPrimerParcial) {
-			for (int i = 0; i < notas.size(); i++) {
-				if (notas.get(i).getValor() >= 7 && notas.get(i).getEvaluacion().equals(Evaluacion.RECUPERATORIO)) {
+		Nota notaBuscada = buscarNotas(Evaluacion.RECUPERATORIO);
 
-					notaACambiar = notas.get(i);
-					return true;
-				}
+		// si la nota del recuperatorio es mayor a 7 se aprueba el 1ro o 2do parcial
+		if (recuperaPrimerParcial()) {
+
+			if (notaBuscada.getValor() >= 7) {
+
+				asignarNotaRecuperatorio(Evaluacion.PRIMER_PARCIAL, notaBuscada);
+				return true;
 			}
-		} else {
-			for (int i = 0; i < notas.size(); i++) {
-				if (notas.get(i).getValor() >= 7 && notas.get(i).getEvaluacion().equals(Evaluacion.RECUPERATORIO)) {
 
-					notaACambiarSegundo = notas.get(i);
+			if (recuperaSegundoParcial()) {
+
+				if (notaBuscada.getValor() >= 7) {
+
+					asignarNotaRecuperatorio(Evaluacion.SEGUNDO_PARCIAL, notaBuscada);
 					return true;
 				}
+
 			}
 		}
 		return false;
+	}
+
+	public void asignarNotaRecuperatorio(Evaluacion parcial, Nota notaDelRecuperatorio) {
+		// TODO Auto-generated method stub
+		Nota notaACambiar=buscarNotas(parcial);
+		if(notaACambiar!=null)
+		notaACambiar.asignarValor(notaDelRecuperatorio.getValor());
+
 	}
 
 	public Boolean promocionaMateria() {
@@ -175,35 +178,33 @@ public class AsignacionAlumnoACurso {
 		return false;
 	}
 
-
 	public Boolean aproboCorrelativas() {
-	    ArrayList<Integer> correlativasRequeridas = curso.getMateria().getCorrelativas();
+		ArrayList<Integer> correlativasRequeridas = curso.getMateria().getCorrelativas();
 
-	    if (correlativasRequeridas == null) {
-	        return true; // No hay correlativas requeridas, por lo tanto, se considera aprobado
-	    }
+		if (correlativasRequeridas == null) {
+			return true; // No hay correlativas requeridas, por lo tanto, se considera aprobado
+		}
 
-	    ArrayList<Materia> materiasAprobadasPorAlumno = alumno.getMateriasAprobadas();
+		ArrayList<Materia> materiasAprobadasPorAlumno = alumno.getMateriasAprobadas();
 
-	    for (int i = 0; i < correlativasRequeridas.size(); i++) {
-	        Integer correlativaRequerida = correlativasRequeridas.get(i);
-	        boolean encontrada = false;
+		for (int i = 0; i < correlativasRequeridas.size(); i++) {
+			Integer correlativaRequerida = correlativasRequeridas.get(i);
+			boolean encontrada = false;
 
-	        for (int j = 0; j < materiasAprobadasPorAlumno.size(); j++) {
-	            Materia materiaAprobada = materiasAprobadasPorAlumno.get(j);
-	            if (materiaAprobada.getCodigoMateria().equals(correlativaRequerida)) {
-	                encontrada = true;
-	                break; // Salir del bucle interno si se encuentra la correlativa requerida
-	            }
-	        }
+			for (int j = 0; j < materiasAprobadasPorAlumno.size(); j++) {
+				Materia materiaAprobada = materiasAprobadasPorAlumno.get(j);
+				if (materiaAprobada.getCodigoMateria().equals(correlativaRequerida)) {
+					encontrada = true;
+					break; // Salir del bucle interno si se encuentra la correlativa requerida
+				}
+			}
 
-	        if (!encontrada) {
-	            return false;
-	        }
-	    }
+			if (!encontrada) {
+				return false;
+			}
+		}
 
-	    return true; // Si todas las correlativas requeridas se encuentran, retornar true
+		return true; // Si todas las correlativas requeridas se encuentran, retornar true
 	}
-
 
 }

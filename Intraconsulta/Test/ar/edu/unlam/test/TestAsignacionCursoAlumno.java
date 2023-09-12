@@ -130,7 +130,7 @@ unlam.agregarAula(aula);
 	}
 
 	@Test
-	public void quePuedaPromocionarUnaMateria() {
+	public void queNOPuedaPromocionarUnaMateria() {
 
 		String nombre = "Juan", apellido = "Lopez", nombre2 = "Pedro", apellido2 = "Sanchez", nombreDeMateria = "pb2",
 				nombreUniversidad = "Unlam";
@@ -154,7 +154,7 @@ unlam.agregarAula(aula);
 		unlam.agregarCurso(cursada);
 		unlam.agregarMateria(materia);
 
-		Nota notaCorrelativa = new Nota(10, Evaluacion.PRIMER_PARCIAL);
+		Nota notaCorrelativa = new Nota(1, Evaluacion.PRIMER_PARCIAL);
 		Nota notaCorrelativa2 = new Nota(10, Evaluacion.SEGUNDO_PARCIAL);
 		Materia materiaCorrelativa = new Materia("taller Web", 1234);
 		Aula aulaCorrelativa = new Aula(789, 78);
@@ -170,7 +170,7 @@ unlam.agregarAula(aula);
 		asignacionCorrelativa.AgregarNota(notaCorrelativa2);
 
 		Boolean promocionaMateria = asignacionCorrelativa.promocionaMateria();
-		assertTrue(promocionaMateria);
+		assertFalse(promocionaMateria);
 
 	}
 
@@ -299,5 +299,64 @@ unlam.agregarAula(aula);
 
 	}
 	
+
+	@Test
+	public void noApruebeElPrimerParcialYVallaARecuperatorio() {
+
+		String nombre = "Juan", apellido = "Lopez", nombre2 = "Pedro", apellido2 = "Sanchez", nombreDeMateria = "pb2",
+				nombreUniversidad = "Unlam";
+		Integer dni = 7869, dni2 = 6852, año = 2023, comision = 64, cupoMaximoAlumnos = 10, numeroAula = 404,
+				capacidadMaximaAulas = 10, codigoMateria = 1015, valorNota = 7;
+		Horario horarios = Horario.Mañana;
+		Dia dias = Dia.Miercoles;
+		Cuatrimestre cuatrimestre = Cuatrimestre.Primer_Cuatrimestre;
+		Evaluacion evaluacion = Evaluacion.PRIMER_PARCIAL;
+
+		Universidad unlam = new Universidad(nombreUniversidad);
+		Alumno alumno = new Alumno(dni, apellido, nombre);
+		Materia materia = new Materia(nombreDeMateria, codigoMateria);
+		Aula aula = new Aula(numeroAula, capacidadMaximaAulas);
+		CicloElectivo cicloElectivo = new CicloElectivo(año, cuatrimestre);
+		Cursada cursada = new Cursada(materia, comision, horarios, dias, aula, cicloElectivo, cupoMaximoAlumnos);
+		AsignacionAlumnoACurso asignacion = new AsignacionAlumnoACurso(1, cursada, alumno, unlam);
+
+		cursada.AgregarAula(aula);
+		unlam.agregarAlumno(alumno);
+		unlam.agregarCurso(cursada);
+		unlam.agregarMateria(materia);
+
+		Nota notaCorrelativa = new Nota(10, Evaluacion.PRIMER_PARCIAL);
+		Nota notaCorrelativa2 = new Nota(0, Evaluacion.SEGUNDO_PARCIAL);
+		Materia materiaCorrelativa = new Materia("taller Web", 1234);
+		Aula aulaCorrelativa = new Aula(789, 78);
+		CicloElectivo cicloElectivoCorrelativa = new CicloElectivo(año, cuatrimestre);
+		Cursada cursadaCorelativa = new Cursada(materiaCorrelativa, 78, horarios, dias, aula, cicloElectivoCorrelativa,
+				cupoMaximoAlumnos);
+		AsignacionAlumnoACurso asignacionCorrelativa = new AsignacionAlumnoACurso(8, cursadaCorelativa, alumno, unlam);
+		materia.agregarMateriasCorrelativas(1234);
+		unlam.agregarMateria(materiaCorrelativa);
+		unlam.agregarCurso(cursadaCorelativa);
+		unlam.agregarAula(aulaCorrelativa);
+		asignacionCorrelativa.AgregarNota(notaCorrelativa);
+		asignacionCorrelativa.AgregarNota(notaCorrelativa2);
+
+		asignacion.apruebaPrimerParcial();
+		asignacion.apruebaSegundoParcial();
+		Nota recuperatorio = new Nota(7, Evaluacion.RECUPERATORIO);
+		
+		asignacion.AgregarNota(recuperatorio);
+		asignacion.recuperaPrimerParcial();
+		asignacion.recuperaSegundoParcial();
+		
+		asignacion.aprobarRecuperatorio();
+		
+		
+		
+		
+		Boolean promocionaMateria = asignacionCorrelativa.promocionaMateria();
+		assertTrue(	asignacion.recuperaPrimerParcial());
+
+	}
+
 
 }
