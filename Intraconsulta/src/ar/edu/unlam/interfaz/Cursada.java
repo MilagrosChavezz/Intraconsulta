@@ -16,16 +16,6 @@ public class Cursada {
 	private CicloElectivo cicloElectivo;
 	private AsignacionProfeACurso profesorAAgregar;
 
-	public Integer getCupoMaximoAlumnos() {
-		return cupoMaximoAlumnos;
-	}
-
-	public void setCupoMaximoAlumnos(Integer cupoMaximoAlumnos) {
-		this.cupoMaximoAlumnos = cupoMaximoAlumnos;
-	}
-
-
-
 	public Cursada(Materia materia, Integer comision, Horario horarios, Dia dias, Aula aula,
 			CicloElectivo cicloElectivo, Integer cupoMaximoAlumnos) {
 		this.alumnos = new ArrayList<Alumno>();
@@ -37,12 +27,12 @@ public class Cursada {
 		this.dias = dias;
 		this.horarios = horarios;
 		this.cupoMaximoAlumnos = cupoMaximoAlumnos;
-		
+
 	}
 
 //constructor sin aula
-	public Cursada(Materia materia, Integer comision, Horario horarios, Dia dias, 
-			CicloElectivo cicloElectivo, Integer cupoMaximoAlumnos) {
+	public Cursada(Materia materia, Integer comision, Horario horarios, Dia dias, CicloElectivo cicloElectivo,
+			Integer cupoMaximoAlumnos) {
 		this.alumnos = new ArrayList<Alumno>();
 		this.materia = materia;
 		this.comision = comision;
@@ -51,10 +41,16 @@ public class Cursada {
 		this.dias = dias;
 		this.horarios = horarios;
 		this.cupoMaximoAlumnos = cupoMaximoAlumnos;
-		
+
 	}
 
-	
+	public Integer getCupoMaximoAlumnos() {
+		return cupoMaximoAlumnos;
+	}
+
+	public void setCupoMaximoAlumnos(Integer cupoMaximoAlumnos) {
+		this.cupoMaximoAlumnos = cupoMaximoAlumnos;
+	}
 
 	public Materia getMateria() {
 		return materia;
@@ -63,15 +59,6 @@ public class Cursada {
 	public void setMateria(Materia materia) {
 		this.materia = materia;
 	}
-
-	/*
-	 * public void calificar(Integer valor) {
-	 * 
-	 * nota.asignarValor(valor);
-	 * 
-	 * 
-	 * }
-	 */
 
 	public Integer getComision() {
 		return comision;
@@ -92,7 +79,7 @@ public class Cursada {
 	public void setProfesores(Profesor profesor) {
 		profesores.add(profesor);
 	}
-	
+
 	public void setAlumnos(Alumno alumno) {
 		alumnos.add(alumno);
 	}
@@ -137,15 +124,28 @@ public class Cursada {
 		}
 		return cantidadAlumnos;
 	}
-	 
+
 	public Integer cantidadDeProfesoresPorCursoRequerido() {
-		Integer ProfesoresRequeridos=(cantidadAlumnosAnotados()/20)+1;
+		Integer ProfesoresRequeridos = (cantidadAlumnosAnotados() / 20) + 1;
 		return ProfesoresRequeridos;
-		
+
 	}
+
 	public void AgregarAula(Aula aula) {
-		if(cupoMaximoAlumnos<=Aula.getCapacidadMaximaAlumnos())
-		this.aula = aula;
+		if (cupoMaximoAlumnos <= Aula.getCapacidadMaximaAlumnos())
+			this.aula = aula;
+	}
+
+	public Alumno buscarAlumnoPorDni(Integer dniAlumno) {
+		Alumno alumnosBuscado = null;
+		for (int i = 0; i < alumnos.size(); i++) {
+			if (alumnos.get(i).getDni().equals(dniAlumno) && alumnos.get(i) != null) {
+				alumnosBuscado = alumnos.get(i);
+			}
+
+		}
+		return alumnosBuscado;
+
 	}
 
 }
