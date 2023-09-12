@@ -28,7 +28,7 @@ public class UniversidadTest {
 
 		Profesor profesor = new Profesor(nombre, codigo);
 		Materia materia = new Materia(nombreDeMateria, codigoMateria);
-		Aula aula = new Aula(numeroAula);
+		Aula aula = new Aula(numeroAula, cupoMaximoAlumnos);
 		CicloElectivo cicloElectivo = new CicloElectivo(año, cuatrimestre);
 		Cursada cursada = new Cursada(materia, comision, horarios, dias, aula, cicloElectivo, cupoMaximoAlumnos);
 		Universidad unlam = new Universidad(nombreUniversidad);
@@ -53,7 +53,7 @@ public class UniversidadTest {
 
 		
 		Materia materia = new Materia(nombreDeMateria, codigoMateria);
-		Aula aula = new Aula(numeroAula);
+		Aula aula = new Aula(numeroAula, cupoMaximoAlumnos);
 		CicloElectivo cicloElectivo = new CicloElectivo(año, cuatrimestre);
 		Cursada cursada = new Cursada(materia, comision, horarios, dias, aula, cicloElectivo, cupoMaximoAlumnos);
 		Universidad unlam = new Universidad(nombreUniversidad);
@@ -76,12 +76,12 @@ public class UniversidadTest {
 
 		Profesor profesor = new Profesor(nombre, codigo);
 		Materia materia = new Materia(nombreDeMateria, codigoMateria);
-		Aula aula = new Aula(numeroAula);
+		Aula aula = new Aula(numeroAula, cupoMaximoAlumnos);
 		CicloElectivo cicloElectivo = new CicloElectivo(año, cuatrimestre);
 		Cursada cursada = new Cursada(materia, comision, horarios, dias, aula, cicloElectivo, cupoMaximoAlumnos);
 		Universidad unlam = new Universidad(nombreUniversidad);
 		AsignacionProfeACurso nuevaAsignacion = new AsignacionProfeACurso(profesor, cursada, idAsignacionDeCursada, unlam);
-
+Integer cantidadAlumnos =cursada.cantidadAlumnosAnotados();
 		unlam.agregarMateria(materia);
 		unlam.agregarCurso(cursada);
 		unlam.agregarAula(aula);

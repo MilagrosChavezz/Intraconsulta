@@ -91,9 +91,13 @@ public class Universidad {
 		}
 		return false;
 	}
+	
 
 	public Boolean estaIngresadoALaUniversidad(Profesor profesoraABuscar) {
 		return profesoraABuscar != null && profesores.contains(profesoraABuscar);
+	}
+	public Boolean estaIngresadoALaUniversidadAlumno(Alumno alumno) {
+		return alumno != null && alumnos.contains(alumno);
 	}
 
 	public Boolean estaIngresadaLaCursada(Cursada cursada) {
