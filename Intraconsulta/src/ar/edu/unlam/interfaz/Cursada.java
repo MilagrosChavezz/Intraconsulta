@@ -164,11 +164,11 @@ cantidadAlumnosAnotados=alumnos.size();
 	
 
 	public Integer cantidadDeProfesoresActuales() {
-		for (int i = 0; i < profesores.size(); i++) {
+		
 			
-			cantidadDeProfesoresEnCursada++;
+			cantidadDeProfesoresEnCursada=profesores.size();
 
-		}
+		
 		return cantidadDeProfesoresEnCursada;
 	}
 

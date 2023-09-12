@@ -43,8 +43,11 @@ public class AsignacionAlumnoACurso {
 	}
 
 	public void AgregarNota(Nota notaNueva) {
-		if (notaNueva != null)
-			notas.add(notaNueva);
+		
+			this.notas.add(notaNueva);
+		
+		
+		
 
 	}
 
@@ -174,30 +177,32 @@ public class AsignacionAlumnoACurso {
 
 
 	public Boolean aproboCorrelativas() {
-		ArrayList<Integer> correlativasRequeridas = curso.getMateria().getCorrelativas();
-		ArrayList<Materia> materiasAprobadasPorAlumno = alumno.getMateriasAprobadas();
+	    ArrayList<Integer> correlativasRequeridas = curso.getMateria().getCorrelativas();
 
-		for (int i = 0; i < correlativasRequeridas.size(); i++) {
-			Integer correlativaRequerida = correlativasRequeridas.get(i);
-			boolean encontrada = false;
+	    if (correlativasRequeridas == null) {
+	        return true; // No hay correlativas requeridas, por lo tanto, se considera aprobado
+	    }
 
-			for (int j = 0; j < materiasAprobadasPorAlumno.size(); j++) {
-				Materia materiaAprobada = materiasAprobadasPorAlumno.get(j);
-				if (materiaAprobada.getCodigoMateria().equals(correlativaRequerida)) {
-					encontrada = true;
-					break; // Salir del bucle interno si se encuentra la correlativa requerida
-				}
-			}
+	    ArrayList<Materia> materiasAprobadasPorAlumno = alumno.getMateriasAprobadas();
 
-			if (!encontrada) {
-				return false;
-			}
-		}
+	    for (int i = 0; i < correlativasRequeridas.size(); i++) {
+	        Integer correlativaRequerida = correlativasRequeridas.get(i);
+	        boolean encontrada = false;
 
-		if (correlativasRequeridas.equals(null)) {
-			return true; // Si todas las correlativas requeridas se encuentran, retornar true
-		}
-		return true;
+	        for (int j = 0; j < materiasAprobadasPorAlumno.size(); j++) {
+	            Materia materiaAprobada = materiasAprobadasPorAlumno.get(j);
+	            if (materiaAprobada.getCodigoMateria().equals(correlativaRequerida)) {
+	                encontrada = true;
+	                break; // Salir del bucle interno si se encuentra la correlativa requerida
+	            }
+	        }
+
+	        if (!encontrada) {
+	            return false;
+	        }
+	    }
+
+	    return true; // Si todas las correlativas requeridas se encuentran, retornar true
 	}
 
 
