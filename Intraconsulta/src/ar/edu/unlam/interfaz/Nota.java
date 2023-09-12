@@ -4,10 +4,10 @@ public class Nota {
 private Integer valor;
 private Evaluacion evaluacion;
 	
-<<<<<<< Updated upstream
+
 	public Nota (Integer valor, Evaluacion evaluacion) {
 		this.valor=0;
-=======
+	}
 	
 
 
@@ -15,7 +15,6 @@ private Evaluacion evaluacion;
 	public Evaluacion getEvaluacion() {
 		return evaluacion;
 
->>>>>>> Stashed changes
 	}
 
 	public Integer getValor() {
