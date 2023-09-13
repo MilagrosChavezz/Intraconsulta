@@ -1,11 +1,13 @@
 package ar.edu.unlam.interfaz;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class Cursada {
 
 	private ArrayList<Alumno> alumnos;
 	private ArrayList<Profesor> profesores;
+	private ArrayList<AsignacionAlumnoACurso> asignacionAlumnos;
 	private Profesor profesor;
 	private Materia materia;
 	private Integer comision;
@@ -15,6 +17,16 @@ public class Cursada {
 	private Aula aula;
 	private CicloElectivo cicloElectivo;
 	private AsignacionProfeACurso profesorAAgregar;
+	private Integer cantidadAlumnosAnotados;
+	private Integer cantidadDeProfesoresEnCursada;
+
+	public Integer getCupoMaximoAlumnos() {
+		return cupoMaximoAlumnos;
+	}
+
+	public void setCupoMaximoAlumnos(Integer cupoMaximoAlumnos) {
+		this.cupoMaximoAlumnos = cupoMaximoAlumnos;
+	}
 
 	public Cursada(Materia materia, Integer comision, Horario horarios, Dia dias, Aula aula,
 			CicloElectivo cicloElectivo, Integer cupoMaximoAlumnos) {
@@ -27,7 +39,8 @@ public class Cursada {
 		this.dias = dias;
 		this.horarios = horarios;
 		this.cupoMaximoAlumnos = cupoMaximoAlumnos;
-
+		this.cantidadAlumnosAnotados = 0;
+		this.cantidadDeProfesoresEnCursada = 0;
 	}
 
 //constructor sin aula
@@ -41,15 +54,17 @@ public class Cursada {
 		this.dias = dias;
 		this.horarios = horarios;
 		this.cupoMaximoAlumnos = cupoMaximoAlumnos;
+		this.cantidadAlumnosAnotados = 0;
+		this.cantidadDeProfesoresEnCursada = 0;
 
 	}
 
-	public Integer getCupoMaximoAlumnos() {
-		return cupoMaximoAlumnos;
+	public Integer getCantidadAlumnosAnotados() {
+		return cantidadAlumnosAnotados;
 	}
 
-	public void setCupoMaximoAlumnos(Integer cupoMaximoAlumnos) {
-		this.cupoMaximoAlumnos = cupoMaximoAlumnos;
+	public void setCantidadAlumnosAnotados(Integer cantidadAlumnosAnotados) {
+		this.cantidadAlumnosAnotados = cantidadAlumnosAnotados;
 	}
 
 	public Materia getMateria() {
@@ -72,6 +87,10 @@ public class Cursada {
 		return alumnos;
 	}
 
+	public void setAlumnos(ArrayList<Alumno> alumnos) {
+		this.alumnos = alumnos;
+	}
+
 	public ArrayList<Profesor> getProfesores() {
 		return profesores;
 	}
@@ -80,8 +99,8 @@ public class Cursada {
 		profesores.add(profesor);
 	}
 
-	public void setAlumnos(Alumno alumno) {
-		alumnos.add(alumno);
+	public void setAlumnos(Alumno alumnoAsignar) {
+		alumnos.add(alumnoAsignar);
 	}
 
 	public Horario getHorarios() {
@@ -115,20 +134,24 @@ public class Cursada {
 	public void setCicloElectivo(CicloElectivo cicloElectivo) {
 		this.cicloElectivo = cicloElectivo;
 	}
-
+	
 	public Integer cantidadAlumnosAnotados() {
-		Integer cantidadAlumnos = 0;
-		for (int i = 0; i < alumnos.size(); i++) {
-			cantidadAlumnos++;
 
-		}
-		return cantidadAlumnos;
+		cantidadAlumnosAnotados = alumnos.size();
+		return cantidadAlumnosAnotados;
 	}
 
 	public Integer cantidadDeProfesoresPorCursoRequerido() {
 		Integer ProfesoresRequeridos = (cantidadAlumnosAnotados() / 20) + 1;
 		return ProfesoresRequeridos;
 
+	}
+
+	public Integer cantidadDeProfesoresActuales() {
+
+		cantidadDeProfesoresEnCursada = profesores.size();
+
+		return cantidadDeProfesoresEnCursada;
 	}
 
 	public void AgregarAula(Aula aula) {

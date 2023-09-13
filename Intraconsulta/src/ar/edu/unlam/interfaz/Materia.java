@@ -23,14 +23,6 @@ public class Materia {
 		this.codigoMateriascorrelativas = codigoMateriascorrelativas;
 	}
 
-	public Aula getAula() {
-		return aula;
-	}
-
-	public void setAula(Aula aula) {
-		this.aula = aula;
-	}
-
 	public Integer getCodigoMateria() {
 		return codigoMateria;
 	}
@@ -45,6 +37,22 @@ public class Materia {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+
+	public ArrayList<Integer> getCorrelativas() {
+		return codigoMateriascorrelativas;
+	}
+
+	public void setCorrelativas(ArrayList<Integer> correlativas) {
+		this.codigoMateriascorrelativas = correlativas;
+	}
+
+	public Aula getAula() {
+		return aula;
+	}
+
+	public void setAula(Aula aula) {
+		this.aula = aula;
 	}
 
 	public Boolean agregarMateriasCorrelativas(Integer codigoMateriaCorrelativa) {

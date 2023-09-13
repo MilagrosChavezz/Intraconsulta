@@ -5,19 +5,21 @@ public class Nota {
 	private Evaluacion evaluacion;
 
 	public Nota(Integer valor, Evaluacion evaluacion) {
-		this.valor = 0;
+		this.valor = valor;
+		this.evaluacion = evaluacion;
 	}
 
-	public Evaluacion getEvaluacion() {
-		return evaluacion;
+	public void setValor(Integer valor) {
+		this.valor = valor;
 	}
 
 	public void setEvaluacion(Evaluacion evaluacion) {
 		this.evaluacion = evaluacion;
 	}
 
-	public void setValor(Integer valor) {
-		this.valor = valor;
+	public Evaluacion getEvaluacion() {
+		return evaluacion;
+
 	}
 
 	public Integer getValor() {
