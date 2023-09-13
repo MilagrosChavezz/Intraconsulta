@@ -25,7 +25,7 @@ public class TestAsignacionCursoAlumno {
 
 		String nombre = "Juan", apellido = "Lopez", nombreDeMateria = "pb2", nombreUniversidad = "Unlam";
 		Integer dni = 7869, año = 2023, comision = 64, cupoMaximoAlumnos = 10, numeroAula = 404,
-				capacidadMaximaAulas = 100, codigoMateria = 1015, valorNota = 7;
+				capacidadMaximaAulas = 100, codigoMateria = 1015, valorNota = 7, fechadoNac = 2004, fechaIngreso = 2023, idCicloElectivo = 63;
 		Horario horarios = Horario.Mañana;
 		Dia dias = Dia.Miercoles;
 		Cuatrimestre cuatrimestre = Cuatrimestre.Primer_Cuatrimestre;
@@ -33,10 +33,10 @@ public class TestAsignacionCursoAlumno {
 
 		Universidad unlam = new Universidad(nombreUniversidad);
 		Nota nota = new Nota(valorNota, evaluacion);
-		Alumno alumno = new Alumno(dni, apellido, nombre);
+		Alumno alumno = new Alumno(dni, apellido, nombre, fechaIngreso, fechadoNac);
 		Materia materia = new Materia(nombreDeMateria, codigoMateria);
 		Aula aula = new Aula(numeroAula, capacidadMaximaAulas);
-		CicloElectivo cicloElectivo = new CicloElectivo(año, cuatrimestre);
+		CicloElectivo cicloElectivo = new CicloElectivo(2023, 2024, 2024, 2025, idCicloElectivo,cuatrimestre);
 		Cursada cursada = new Cursada(materia, comision, horarios, dias, aula, cicloElectivo, cupoMaximoAlumnos);
 		AsignacionAlumnoACurso asignacion = new AsignacionAlumnoACurso(capacidadMaximaAulas, cursada, alumno, unlam);
 		unlam.agregarCurso(cursada);
@@ -55,7 +55,7 @@ public class TestAsignacionCursoAlumno {
 		String nombre = "Juan", apellido = "Lopez", nombre2 = "Pedro", apellido2 = "Sanchez", nombreDeMateria = "pb2",
 				nombreUniversidad = "Unlam";
 		Integer dni = 7869, dni2 = 6852, año = 2023, comision = 64, cupoMaximoAlumnos = 10, numeroAula = 404,
-				capacidadMaximaAulas = 10, codigoMateria = 1015, valorNota = 7;
+				capacidadMaximaAulas = 10, codigoMateria = 1015, valorNota = 7, fechadoNac = 2004, fechaIngreso = 2023, idCicloElectivo = 63;
 		Horario horarios = Horario.Mañana;
 		Dia dias = Dia.Miercoles;
 		Cuatrimestre cuatrimestre = Cuatrimestre.Primer_Cuatrimestre;
@@ -63,11 +63,11 @@ public class TestAsignacionCursoAlumno {
 
 		Universidad unlam = new Universidad(nombreUniversidad);
 		Nota nota = new Nota(valorNota, evaluacion);
-		Alumno alumno = new Alumno(dni, apellido, nombre);
-		Alumno alumno2 = new Alumno(dni2, apellido2, nombre2);
+		Alumno alumno = new Alumno(dni, apellido, nombre, fechaIngreso, fechadoNac);
+		Alumno alumno2 = new Alumno(dni2, apellido2, nombre2, fechaIngreso, fechadoNac);
 		Materia materia = new Materia(nombreDeMateria, codigoMateria);
 		Aula aula = new Aula(numeroAula, capacidadMaximaAulas);
-		CicloElectivo cicloElectivo = new CicloElectivo(año, cuatrimestre);
+		CicloElectivo cicloElectivo = new CicloElectivo(2023, 2024, 2024, 2025, idCicloElectivo,cuatrimestre);
 		Cursada cursada = new Cursada(materia, comision, horarios, dias, aula, cicloElectivo, cupoMaximoAlumnos);
 		AsignacionAlumnoACurso asignacion = new AsignacionAlumnoACurso(capacidadMaximaAulas, cursada, alumno, unlam);
 		AsignacionAlumnoACurso asignacion2 = new AsignacionAlumnoACurso(capacidadMaximaAulas, cursada, alumno2, unlam);
@@ -90,17 +90,17 @@ public class TestAsignacionCursoAlumno {
 		String nombre = "Juan", apellido = "Lopez", nombre2 = "Pedro", apellido2 = "Sanchez", nombreDeMateria = "pb2",
 				nombreUniversidad = "Unlam";
 		Integer dni = 7869, dni2 = 6852, año = 2023, comision = 64, cupoMaximoAlumnos = 10, numeroAula = 404,
-				capacidadMaximaAulas = 10, codigoMateria = 1015, valorNota = 7;
+				capacidadMaximaAulas = 10, codigoMateria = 1015, valorNota = 7, fechadoNac = 2004, fechaIngreso = 2023, idCicloElectivo = 63;
 		Horario horarios = Horario.Mañana;
 		Dia dias = Dia.Miercoles;
 		Cuatrimestre cuatrimestre = Cuatrimestre.Primer_Cuatrimestre;
 		Evaluacion evaluacion = Evaluacion.PRIMER_PARCIAL;
 
 		Universidad unlam = new Universidad(nombreUniversidad);
-		Alumno alumno = new Alumno(dni, apellido, nombre);
+		Alumno alumno = new Alumno(dni, apellido, nombre, fechaIngreso, fechadoNac);
 		Materia materia = new Materia(nombreDeMateria, codigoMateria);
 		Aula aula = new Aula(numeroAula, capacidadMaximaAulas);
-		CicloElectivo cicloElectivo = new CicloElectivo(año, cuatrimestre);
+		CicloElectivo cicloElectivo = new CicloElectivo(2023, 2024, 2024, 2025, idCicloElectivo,cuatrimestre);
 		Cursada cursada = new Cursada(materia, comision, horarios, dias, aula, cicloElectivo, cupoMaximoAlumnos);
 		AsignacionAlumnoACurso asignacion = new AsignacionAlumnoACurso(capacidadMaximaAulas, cursada, alumno, unlam);
 
@@ -112,7 +112,7 @@ public class TestAsignacionCursoAlumno {
 		Nota notaCorrelativa2 = new Nota(10, Evaluacion.SEGUNDO_PARCIAL);
 		Materia materiaCorrelativa = new Materia("taller Web", 1234);
 		Aula aulaCorrelativa = new Aula(789, 78);
-		CicloElectivo cicloElectivoCorrelativa = new CicloElectivo(año, cuatrimestre);
+		CicloElectivo cicloElectivoCorrelativa = new CicloElectivo(2023, 2024, 2024, 2025, idCicloElectivo,cuatrimestre);
 		Cursada cursadaCorelativa = new Cursada(materiaCorrelativa, 78, horarios, dias, aula, cicloElectivoCorrelativa,
 				cupoMaximoAlumnos);
 		AsignacionAlumnoACurso asignacionCorrelativa = new AsignacionAlumnoACurso(8, cursadaCorelativa, alumno, unlam);
@@ -135,17 +135,17 @@ public class TestAsignacionCursoAlumno {
 		String nombre = "Juan", apellido = "Lopez", nombre2 = "Pedro", apellido2 = "Sanchez", nombreDeMateria = "pb2",
 				nombreUniversidad = "Unlam";
 		Integer dni = 7869, dni2 = 6852, año = 2023, comision = 64, cupoMaximoAlumnos = 10, numeroAula = 404,
-				capacidadMaximaAulas = 10, codigoMateria = 1015, valorNota = 7;
+				capacidadMaximaAulas = 10, codigoMateria = 1015, valorNota = 7, fechadoNac = 2004, fechaIngreso = 2023, idCicloElectivo = 63;
 		Horario horarios = Horario.Mañana;
 		Dia dias = Dia.Miercoles;
 		Cuatrimestre cuatrimestre = Cuatrimestre.Primer_Cuatrimestre;
 		Evaluacion evaluacion = Evaluacion.PRIMER_PARCIAL;
 
 		Universidad unlam = new Universidad(nombreUniversidad);
-		Alumno alumno = new Alumno(dni, apellido, nombre);
+		Alumno alumno = new Alumno(dni, apellido, nombre, fechaIngreso, fechadoNac);
 		Materia materia = new Materia(nombreDeMateria, codigoMateria);
 		Aula aula = new Aula(numeroAula, capacidadMaximaAulas);
-		CicloElectivo cicloElectivo = new CicloElectivo(año, cuatrimestre);
+		CicloElectivo cicloElectivo = new CicloElectivo(2023, 2024, 2024, 2025, idCicloElectivo,cuatrimestre);
 		Cursada cursada = new Cursada(materia, comision, horarios, dias, aula, cicloElectivo, cupoMaximoAlumnos);
 		AsignacionAlumnoACurso asignacion = new AsignacionAlumnoACurso(1, cursada, alumno, unlam);
 
@@ -158,7 +158,7 @@ public class TestAsignacionCursoAlumno {
 		Nota notaCorrelativa2 = new Nota(10, Evaluacion.SEGUNDO_PARCIAL);
 		Materia materiaCorrelativa = new Materia("taller Web", 1234);
 		Aula aulaCorrelativa = new Aula(789, 78);
-		CicloElectivo cicloElectivoCorrelativa = new CicloElectivo(año, cuatrimestre);
+		CicloElectivo cicloElectivoCorrelativa = new CicloElectivo(2023, 2024, 2024, 2025, idCicloElectivo,cuatrimestre);
 		Cursada cursadaCorelativa = new Cursada(materiaCorrelativa, 78, horarios, dias, aula, cicloElectivoCorrelativa,
 				cupoMaximoAlumnos);
 		AsignacionAlumnoACurso asignacionCorrelativa = new AsignacionAlumnoACurso(8, cursadaCorelativa, alumno, unlam);
@@ -180,21 +180,21 @@ public class TestAsignacionCursoAlumno {
 		String nombre = "Juan", apellido = "Lopez", nombre2 = "Pedro", apellido2 = "Sanchez", nombreDeMateria = "pb2",
 				nombreUniversidad = "Unlam";
 		Integer dni = 7869, dni2 = 6852, año = 2023, comision = 64, cupoMaximoAlumnos = 10, numeroAula = 404,
-				capacidadMaximaAulas = 10, codigoMateria = 1015, valorNota = 7;
+				capacidadMaximaAulas = 10, codigoMateria = 1015, valorNota = 7, fechadoNac = 2004, fechaIngreso = 2023, idCicloElectivo = 63;
 		Horario horarios = Horario.Mañana;
 		Dia dias = Dia.Miercoles;
 		Cuatrimestre cuatrimestre = Cuatrimestre.Primer_Cuatrimestre;
 		Evaluacion evaluacion = Evaluacion.PRIMER_PARCIAL;
 
 		Universidad unlam = new Universidad(nombreUniversidad);
-		Alumno alumno = new Alumno(dni, apellido, nombre);
+		Alumno alumno = new Alumno(dni, apellido, nombre, fechaIngreso, fechadoNac);
 		Materia materia = new Materia(nombreDeMateria, codigoMateria);
 		Aula aula = new Aula(numeroAula, capacidadMaximaAulas);
 		Nota notaCorrelativa = new Nota(10, Evaluacion.PRIMER_PARCIAL);
 		Nota notaCorrelativa2 = new Nota(10, Evaluacion.SEGUNDO_PARCIAL);
 		Materia materiaCorrelativa = new Materia("taller Web", 1234);
 		Aula aulaCorrelativa = new Aula(789, 78);
-		CicloElectivo cicloElectivoCorrelativa = new CicloElectivo(año, cuatrimestre);
+		CicloElectivo cicloElectivoCorrelativa = new CicloElectivo(2023, 2024, 2024, 2025, idCicloElectivo,cuatrimestre);
 		Cursada cursadaCorelativa = new Cursada(materiaCorrelativa, 78, horarios, dias, aula, cicloElectivoCorrelativa,
 				cupoMaximoAlumnos);
 
@@ -209,7 +209,7 @@ public class TestAsignacionCursoAlumno {
 		asignacionCorrelativa.AgregarNota(notaCorrelativa2);
 		asignacionCorrelativa.promocionaMateria();
 
-		CicloElectivo cicloElectivo = new CicloElectivo(año, cuatrimestre);
+		CicloElectivo cicloElectivo = new CicloElectivo(2023, 2024, 2024, 2025, idCicloElectivo,cuatrimestre);
 		Cursada cursada = new Cursada(materia, comision, horarios, dias, aula, cicloElectivo, cupoMaximoAlumnos);
 		AsignacionAlumnoACurso asignacion = new AsignacionAlumnoACurso(1, cursada, alumno, unlam);
 
@@ -230,7 +230,7 @@ public class TestAsignacionCursoAlumno {
 		String nombre = "Juan", apellido = "Lopez", nombre2 = "Pedro", apellido2 = "Sanchez", nombreDeMateria = "pb2",
 				nombreUniversidad = "Unlam";
 		Integer dni = 7869, dni2 = 6852, año = 2023, comision = 64, cupoMaximoAlumnos = 10, numeroAula = 404,
-				capacidadMaximaAulas = 10, codigoMateria = 1015, valorNota = 7;
+				capacidadMaximaAulas = 10, codigoMateria = 1015, valorNota = 7, fechadoNac = 2004, fechaIngreso = 2023, idCicloElectivo = 63;
 		Horario horarios = Horario.Mañana;
 		Dia dias = Dia.Miercoles;
 		Cuatrimestre cuatrimestre = Cuatrimestre.Primer_Cuatrimestre;
@@ -238,7 +238,7 @@ public class TestAsignacionCursoAlumno {
 
 		// materia principal
 		Universidad unlam = new Universidad(nombreUniversidad);
-		Alumno alumno = new Alumno(dni, apellido, nombre);
+		Alumno alumno = new Alumno(dni, apellido, nombre, fechaIngreso, fechadoNac);
 		Materia materia = new Materia(nombreDeMateria, codigoMateria);
 		Aula aula = new Aula(numeroAula, capacidadMaximaAulas);
 
@@ -249,7 +249,7 @@ public class TestAsignacionCursoAlumno {
 		Nota notaCorrelativa2 = new Nota(1, Evaluacion.SEGUNDO_PARCIAL);
 		Materia materiaCorrelativa = new Materia("taller Web", 1234);
 		Aula aulaCorrelativa = new Aula(789, 78);
-		CicloElectivo cicloElectivoCorrelativa = new CicloElectivo(año, cuatrimestre);
+		CicloElectivo cicloElectivoCorrelativa = new CicloElectivo(2023, 2024, 2024, 2025, idCicloElectivo,cuatrimestre);
 		Cursada cursadaCorelativa = new Cursada(materiaCorrelativa, 78, horarios, dias, aula, cicloElectivoCorrelativa,
 				cupoMaximoAlumnos);
 
@@ -269,7 +269,7 @@ public class TestAsignacionCursoAlumno {
 		Nota notaCorrelativaBD2 = new Nota(10, Evaluacion.SEGUNDO_PARCIAL);
 		Materia materiaCorrelativa2 = new Materia("Base de Datos", 1238);
 		Aula aulaCorrelativa2 = new Aula(78, 98);
-		CicloElectivo cicloElectivoCorrelativa2 = new CicloElectivo(año, cuatrimestre);
+		CicloElectivo cicloElectivoCorrelativa2 = new CicloElectivo(2023, 2024, 2024, 2025, idCicloElectivo,cuatrimestre);
 		Cursada cursadaCorelativa2 = new Cursada(materiaCorrelativa2, 78, horarios, dias, aula,
 				cicloElectivoCorrelativa, cupoMaximoAlumnos);
 
@@ -285,7 +285,7 @@ public class TestAsignacionCursoAlumno {
 		asignacionCorrelativa2.AgregarNota(notaCorrelativaBD);
 		asignacionCorrelativa2.promocionaMateria();
 
-		CicloElectivo cicloElectivo = new CicloElectivo(año, cuatrimestre);
+		CicloElectivo cicloElectivo = new CicloElectivo(2023, 2024, 2024, 2025, idCicloElectivo,cuatrimestre);
 		Cursada cursada = new Cursada(materia, comision, horarios, dias, aula, cicloElectivo, cupoMaximoAlumnos);
 		AsignacionAlumnoACurso asignacion = new AsignacionAlumnoACurso(1, cursada, alumno, unlam);
 
@@ -305,17 +305,17 @@ public class TestAsignacionCursoAlumno {
 		String nombre = "Juan", apellido = "Lopez", nombre2 = "Pedro", apellido2 = "Sanchez", nombreDeMateria = "pb2",
 				nombreUniversidad = "Unlam";
 		Integer dni = 7869, dni2 = 6852, año = 2023, comision = 64, cupoMaximoAlumnos = 10, numeroAula = 404,
-				capacidadMaximaAulas = 10, codigoMateria = 1015, valorNota = 7;
+				capacidadMaximaAulas = 10, codigoMateria = 1015, valorNota = 7, fechadoNac = 2004, fechaIngreso = 2023, idCicloElectivo = 63;
 		Horario horarios = Horario.Mañana;
 		Dia dias = Dia.Miercoles;
 		Cuatrimestre cuatrimestre = Cuatrimestre.Primer_Cuatrimestre;
 		Evaluacion evaluacion = Evaluacion.PRIMER_PARCIAL;
 
 		Universidad unlam = new Universidad(nombreUniversidad);
-		Alumno alumno = new Alumno(dni, apellido, nombre);
+		Alumno alumno = new Alumno(dni, apellido, nombre, fechaIngreso, fechadoNac);
 		Materia materia = new Materia(nombreDeMateria, codigoMateria);
 		Aula aula = new Aula(numeroAula, capacidadMaximaAulas);
-		CicloElectivo cicloElectivo = new CicloElectivo(año, cuatrimestre);
+		CicloElectivo cicloElectivo = new CicloElectivo(2023, 2024, 2024, 2025, idCicloElectivo,cuatrimestre);
 		Cursada cursada = new Cursada(materia, comision, horarios, dias, aula, cicloElectivo, cupoMaximoAlumnos);
 		AsignacionAlumnoACurso asignacion = new AsignacionAlumnoACurso(1, cursada, alumno, unlam);
 
@@ -328,7 +328,7 @@ public class TestAsignacionCursoAlumno {
 		Nota notaCorrelativa2 = new Nota(0, Evaluacion.SEGUNDO_PARCIAL);
 		Materia materiaCorrelativa = new Materia("taller Web", 1234);
 		Aula aulaCorrelativa = new Aula(789, 78);
-		CicloElectivo cicloElectivoCorrelativa = new CicloElectivo(año, cuatrimestre);
+		CicloElectivo cicloElectivoCorrelativa = new CicloElectivo(2023, 2024, 2024, 2025, idCicloElectivo,cuatrimestre);
 		Cursada cursadaCorelativa = new Cursada(materiaCorrelativa, 78, horarios, dias, aula, cicloElectivoCorrelativa,
 				cupoMaximoAlumnos);
 		AsignacionAlumnoACurso asignacionCorrelativa = new AsignacionAlumnoACurso(8, cursadaCorelativa, alumno, unlam);
@@ -354,4 +354,56 @@ public class TestAsignacionCursoAlumno {
 
 	}
 
+	@Test
+	public void pruebaParaVerPromedioDeNotaFinal() {
+
+		String nombre = "Juan", apellido = "Lopez", nombre2 = "Pedro", apellido2 = "Sanchez", nombreDeMateria = "pb2",
+				nombreUniversidad = "Unlam";
+		Integer dni = 7869, dni2 = 6852, año = 2023, comision = 64, cupoMaximoAlumnos = 10, numeroAula = 404,
+				capacidadMaximaAulas = 10, codigoMateria = 1015, valorNota = 7, fechadoNac = 2004, fechaIngreso = 2023, idCicloElectivo = 63;
+		Horario horarios = Horario.Mañana;
+		Dia dias = Dia.Miercoles;
+		Cuatrimestre cuatrimestre = Cuatrimestre.Primer_Cuatrimestre;
+		Evaluacion evaluacion = Evaluacion.PRIMER_PARCIAL;
+
+		Universidad unlam = new Universidad(nombreUniversidad);
+		Alumno alumno = new Alumno(dni, apellido, nombre, fechaIngreso, fechadoNac);
+		Materia materia = new Materia(nombreDeMateria, codigoMateria);
+		Aula aula = new Aula(numeroAula, capacidadMaximaAulas);
+		CicloElectivo cicloElectivo = new CicloElectivo(2023, 2024, 2024, 2025, idCicloElectivo,cuatrimestre);
+		Cursada cursada = new Cursada(materia, comision, horarios, dias, aula, cicloElectivo, cupoMaximoAlumnos);
+		AsignacionAlumnoACurso asignacion = new AsignacionAlumnoACurso(1, cursada, alumno, unlam);
+
+		cursada.AgregarAula(aula);
+		unlam.agregarAlumno(alumno);
+		unlam.agregarCurso(cursada);
+		unlam.agregarMateria(materia);
+
+		Nota notaCorrelativa = new Nota(10, Evaluacion.PRIMER_PARCIAL);
+		Nota notaCorrelativa2 = new Nota(4, Evaluacion.SEGUNDO_PARCIAL);
+		Materia materiaCorrelativa = new Materia("taller Web", 1234);
+		Aula aulaCorrelativa = new Aula(789, 78);
+		CicloElectivo cicloElectivoCorrelativa = new CicloElectivo(2023, 2024, 2024, 2025, idCicloElectivo,cuatrimestre);
+		Cursada cursadaCorelativa = new Cursada(materiaCorrelativa, 78, horarios, dias, aula, cicloElectivoCorrelativa,
+				cupoMaximoAlumnos);
+		AsignacionAlumnoACurso asignacionCorrelativa = new AsignacionAlumnoACurso(8, cursadaCorelativa, alumno, unlam);
+		materia.agregarMateriasCorrelativas(1234);
+		unlam.agregarMateria(materiaCorrelativa);
+		unlam.agregarCurso(cursadaCorelativa);
+		unlam.agregarAula(aulaCorrelativa);
+		asignacionCorrelativa.AgregarNota(notaCorrelativa);
+		asignacionCorrelativa.AgregarNota(notaCorrelativa2);
+
+		asignacion.apruebaPrimerParcial();
+		asignacion.apruebaSegundoParcial();
+		Nota recuperatorio = new Nota(3, Evaluacion.RECUPERATORIO);
+
+		asignacion.AgregarNota(recuperatorio);
+		asignacion.recuperaPrimerParcial();
+		
+		Integer resultado = asignacion.obtenerNotaFinal(notaCorrelativa, notaCorrelativa2);
+		
+		assertEquals(7, resultado, 0.01);
+
+	}
 }

@@ -6,13 +6,33 @@ public class Alumno {
 	private String nombre;
 	private String apellido;
 	private Integer dni;
-	private ArrayList<Materia>materiasAprobadas;
+	private Integer fechaIngreso;
+	private Integer fechaNacimineto;
+	private ArrayList<Materia> materiasAprobadas;
 
-	public Alumno(Integer dni, String apellido, String nombre) {
-		this.nombre=nombre;
-		this.apellido=apellido;
-		this.dni=dni;
-		this.materiasAprobadas=new ArrayList<Materia>();
+	public Alumno(Integer dni, String apellido, String nombre, Integer fechaIngreso, Integer fechaNacimineto) {
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.dni = dni;
+		this.fechaIngreso = fechaIngreso;
+		this.fechaNacimineto = fechaNacimineto;
+		this.materiasAprobadas = new ArrayList<Materia>();
+	}
+
+	public Integer getFechaIngreso() {
+		return fechaIngreso;
+	}
+
+	public void setFechaIngreso(Integer fechaIngreso) {
+		this.fechaIngreso = fechaIngreso;
+	}
+
+	public Integer getFechaNacimineto() {
+		return fechaNacimineto;
+	}
+
+	public void setFechaNacimineto(Integer fechaNacimineto) {
+		this.fechaNacimineto = fechaNacimineto;
 	}
 
 	public String getNombre() {
@@ -43,9 +63,9 @@ public class Alumno {
 		return materiasAprobadas;
 	}
 
-	public void setMateriasAprobadas(Materia  materiasAprobadas) {
+	public void setMateriasAprobadas(Materia materiasAprobadas) {
 		this.materiasAprobadas.add(materiasAprobadas);
-		
+
 	}
 
 }

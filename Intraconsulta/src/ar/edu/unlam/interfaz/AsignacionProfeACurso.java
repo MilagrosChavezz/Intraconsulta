@@ -15,7 +15,6 @@ public class AsignacionProfeACurso {
 		this.curso = curso;
 		this.id = id;
 		this.unlam = unlam;
-
 	}
 
 	public Profesor getProfesor() {
@@ -60,7 +59,7 @@ public class AsignacionProfeACurso {
 	    for (int i = 0; i < cursadaAEvaluar.size(); i++) {
 	        if (cursadaAEvaluar.get(i).getDias().equals(cursada.getDias())
 	                && cursadaAEvaluar.get(i).getHorarios().equals(cursada.getHorarios())
-	                && cursadaAEvaluar.get(i).getCicloElectivo().getAño().equals(cursada.getCicloElectivo().getAño())
+	                && cursadaAEvaluar.get(i).getCicloElectivo().getfechaInicioCicloLectivo().equals(cursada.getCicloElectivo().getfechaInicioCicloLectivo())
 	                && cursadaAEvaluar.get(i).getCicloElectivo().getCuatrimestre().equals(cursada.getCicloElectivo().getCuatrimestre())) {
 	            return false; // El profesor tiene otra cursada en el mismo horario y día
 	        }

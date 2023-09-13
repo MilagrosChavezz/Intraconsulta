@@ -134,7 +134,7 @@ public class Cursada {
 	public void setCicloElectivo(CicloElectivo cicloElectivo) {
 		this.cicloElectivo = cicloElectivo;
 	}
-	
+
 	public Integer cantidadAlumnosAnotados() {
 
 		cantidadAlumnosAnotados = alumnos.size();
@@ -170,5 +170,4 @@ public class Cursada {
 		return alumnosBuscado;
 
 	}
-
 }

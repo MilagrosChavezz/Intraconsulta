@@ -1,6 +1,7 @@
 package ar.edu.unlam.interfaz;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class AsignacionAlumnoACurso {
 	private Integer id;
@@ -163,6 +164,11 @@ public class AsignacionAlumnoACurso {
 
 	}
 
+	public Integer obtenerNotaFinal(Nota primerParcial, Nota segundoParcial) {
+		Integer notaFinal = ((primerParcial.getValor() + segundoParcial.getValor()) / 2);
+		return notaFinal; 
+	}
+	
 	public Boolean promocionaMateria() {
 		if (apruebaSegundoParcial() && apruebaPrimerParcial() && aproboCorrelativas()) {
 			alumno.setMateriasAprobadas(curso.getMateria());

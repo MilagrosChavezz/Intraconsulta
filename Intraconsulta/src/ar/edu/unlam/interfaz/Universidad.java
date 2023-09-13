@@ -91,11 +91,11 @@ public class Universidad {
 		}
 		return false;
 	}
-	
 
 	public Boolean estaIngresadoALaUniversidad(Profesor profesoraABuscar) {
 		return profesoraABuscar != null && profesores.contains(profesoraABuscar);
 	}
+
 	public Boolean estaIngresadoALaUniversidadAlumno(Alumno alumno) {
 		return alumno != null && alumnos.contains(alumno);
 	}
@@ -104,4 +104,12 @@ public class Universidad {
 		return cursada != null && cursadas.contains(cursada);
 	}
 
+	public Boolean asignarMateria(Materia materiaAsignada, Integer codigoMateria) {
+		Boolean seAsignoMateria = false;
+		if (!materias.contains(materiaAsignada) && !materiaAsignada.getCodigoMateria().equals(codigoMateria)) {
+				materias.add(materiaAsignada);
+				seAsignoMateria = true;
+			}
+		return seAsignoMateria;
+	}
 }
