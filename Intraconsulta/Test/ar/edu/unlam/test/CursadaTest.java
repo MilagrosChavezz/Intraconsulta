@@ -2,6 +2,9 @@ package ar.edu.unlam.test;
 
 import static org.junit.Assert.*;
 
+import java.time.LocalDate;
+import java.time.Month;
+
 import org.junit.Test;
 import ar.edu.unlam.interfaz.Universidad;
 import ar.edu.unlam.interfaz.Alumno;
@@ -25,16 +28,31 @@ public class CursadaTest {
 
 		String nombre = "Martin", nombreDeMateria = "pb2", nombreUniversidad = "Unlam";
 		Integer codigo = 1225, idAsignacionDeCursada = 1415, codigoMateria = 1918, comision = 64, numeroAula = 404,
+<<<<<<< Updated upstream
 				año = 2023, cupoMaximoAlumnos = 35;
+=======
+				cupoMaximoAlumnos = 35;
+>>>>>>> Stashed changes
 		Horario horarios = Horario.Mañana;
 		Dia dias = Dia.Miercoles;
 		Cuatrimestre cuatrimestre = Cuatrimestre.Primer_Cuatrimestre;
+		Evaluacion evaluacion = Evaluacion.PRIMER_PARCIAL;
+		LocalDate fechaInicioCicloLectivo = LocalDate.of(2023, Month.MARCH, 1);
+		LocalDate fechaFinalizacionCicloLectivo = LocalDate.of(2023, Month.JULY, 15);
+		LocalDate fechaInicioInscripcion = LocalDate.of(2023, Month.MARCH, 6);
+		LocalDate fechaFinalizacionInscripcion = LocalDate.of(2023, Month.MARCH, 30);
 
 		Profesor profesor = new Profesor(nombre, codigo);
 		Materia materia = new Materia(nombreDeMateria, codigoMateria);
 		Aula aula = new Aula(numeroAula, cupoMaximoAlumnos);
+<<<<<<< Updated upstream
 		CicloElectivo cicloElectivo = new CicloElectivo(año, cuatrimestre);
 		Cursada cursada = new Cursada(materia, comision, horarios, dias, aula, cicloElectivo, cupoMaximoAlumnos);
+=======
+		CicloElectivo cicloElectivo = new CicloElectivo(fechaInicioCicloLectivo, fechaFinalizacionCicloLectivo,
+				fechaInicioInscripcion, fechaFinalizacionInscripcion, cuatrimestre);
+		Cursada cursada = new Cursada(materia, comision, horarios, dias, cicloElectivo, cupoMaximoAlumnos);
+>>>>>>> Stashed changes
 		Universidad unlam = new Universidad(nombreUniversidad);
 		AsignacionProfeACurso nuevaAsignacion = new AsignacionProfeACurso(profesor, cursada, idAsignacionDeCursada,
 				unlam);
@@ -43,7 +61,7 @@ public class CursadaTest {
 		unlam.agregarCurso(cursada);
 		unlam.agregarAula(aula);
 		unlam.ingresarProfesorALaUniversidad(profesor);
-
+		cursada.AgregarAula(aula);
 		Boolean resultado = nuevaAsignacion.asignarProfesorACurso(profesor, cursada);
 
 		assertTrue(resultado);
@@ -53,15 +71,29 @@ public class CursadaTest {
 	public void pruebaParaQueUnProfesorNoEsteDisponibleNoPuedaAsignarseleUnaCursada() {
 		String nombre = "Martin", nombreDeMateria = "pb2", nombreUniversidad = "Unlam";
 		Integer codigo = 1225, idAsignacionDeCursada = 1415, codigoMateria = 1918, comision = 64, numeroAula = 404,
+<<<<<<< Updated upstream
 				año = 2023, cupoMaximoAlumnos = 35;
+=======
+				cupoMaximoAlumnos = 35;
+>>>>>>> Stashed changes
 		Horario horarios = Horario.Mañana;
 		Dia dias = Dia.Miercoles;
 		Cuatrimestre cuatrimestre = Cuatrimestre.Primer_Cuatrimestre;
+		Evaluacion evaluacion = Evaluacion.PRIMER_PARCIAL;
+		LocalDate fechaInicioCicloLectivo = LocalDate.of(2023, Month.MARCH, 1);
+		LocalDate fechaFinalizacionCicloLectivo = LocalDate.of(2023, Month.JULY, 15);
+		LocalDate fechaInicioInscripcion = LocalDate.of(2023, Month.MARCH, 6);
+		LocalDate fechaFinalizacionInscripcion = LocalDate.of(2023, Month.MARCH, 30);
 
 		Profesor profesor = new Profesor(nombre, codigo);
 		Materia materia = new Materia(nombreDeMateria, codigoMateria);
 		Aula aula = new Aula(numeroAula, cupoMaximoAlumnos);
+<<<<<<< Updated upstream
 		CicloElectivo cicloElectivo = new CicloElectivo(año, cuatrimestre);
+=======
+		CicloElectivo cicloElectivo = new CicloElectivo(fechaInicioCicloLectivo, fechaFinalizacionCicloLectivo,
+				fechaInicioInscripcion, fechaFinalizacionInscripcion, cuatrimestre);
+>>>>>>> Stashed changes
 		Cursada cursada = new Cursada(materia, comision, horarios, dias, aula, cicloElectivo, cupoMaximoAlumnos);
 		Universidad unlam = new Universidad(nombreUniversidad);
 		AsignacionProfeACurso nuevaAsignacion = new AsignacionProfeACurso(profesor, cursada, idAsignacionDeCursada,
@@ -98,9 +130,17 @@ public class CursadaTest {
 
 		Materia materia2 = new Materia(nombreDeMateria2, codigoMateria2);
 		Aula aula2 = new Aula(numeroAula2, cupoMaximoAlumnos2);
+<<<<<<< Updated upstream
 		CicloElectivo cicloElectivo2 = new CicloElectivo(año2, cuatrimestre2);
 		Cursada cursada2 = new Cursada(materia2, comision2, horarios2, dias2, aula2, cicloElectivo2, cupoMaximoAlumnos2);
 		
+=======
+		CicloElectivo cicloElectivo2 = new CicloElectivo(fechaInicioCicloLectivo, fechaFinalizacionCicloLectivo,
+				fechaInicioInscripcion, fechaFinalizacionInscripcion, cuatrimestre);
+		Cursada cursada2 = new Cursada(materia2, comision2, horarios2, dias2, aula2, cicloElectivo2,
+				cupoMaximoAlumnos2);
+
+>>>>>>> Stashed changes
 		unlam.agregarMateria(materia2);
 		unlam.agregarCurso(cursada2);
 		unlam.agregarAula(aula2);
@@ -122,15 +162,28 @@ public class CursadaTest {
 	public void pruebaParaQueNoSePuedaAsignarUnAulaSiLaCapacidadDeLaMismaEsMenorQueElCupoDeAlumnos() {
 		String nombre = "Martin", nombreDeMateria = "pb2", nombreUniversidad = "Unlam";
 		Integer codigo = 1225, idAsignacionDeCursada = 1415, codigoMateria = 1918, comision = 64, numeroAula = 404,
+<<<<<<< Updated upstream
 				año = 2023, cupoMaximoAlumnos = 55, capacidadMaximaAulas = 40;
+=======
+				cupoMaximoAlumnos = 55, capacidadMaximaAulas = 40;
+>>>>>>> Stashed changes
 		Horario horarios = Horario.Mañana;
 		Dia dias = Dia.Miercoles;
 		Cuatrimestre cuatrimestre = Cuatrimestre.Primer_Cuatrimestre;
+		LocalDate fechaInicioCicloLectivo = LocalDate.of(2023, Month.MARCH, 1);
+		LocalDate fechaFinalizacionCicloLectivo = LocalDate.of(2023, Month.JULY, 15);
+		LocalDate fechaInicioInscripcion = LocalDate.of(2023, Month.MARCH, 6);
+		LocalDate fechaFinalizacionInscripcion = LocalDate.of(2023, Month.MARCH, 30);
 
 		Profesor profesor = new Profesor(nombre, codigo);
 		Materia materia = new Materia(nombreDeMateria, codigoMateria);
 		Aula aula = new Aula(numeroAula, capacidadMaximaAulas);
+<<<<<<< Updated upstream
 		CicloElectivo cicloElectivo = new CicloElectivo(año, cuatrimestre);
+=======
+		CicloElectivo cicloElectivo = new CicloElectivo(fechaInicioCicloLectivo, fechaFinalizacionCicloLectivo,
+				fechaInicioInscripcion, fechaFinalizacionInscripcion, cuatrimestre);
+>>>>>>> Stashed changes
 		Cursada cursada = new Cursada(materia, comision, horarios, dias, cicloElectivo, cupoMaximoAlumnos);
 		Universidad unlam = new Universidad(nombreUniversidad);
 		AsignacionProfeACurso nuevaAsignacion = new AsignacionProfeACurso(profesor, cursada, idAsignacionDeCursada,
@@ -159,11 +212,20 @@ public class CursadaTest {
 		Horario horarios = Horario.Mañana;
 		Dia dias = Dia.Miercoles;
 		Cuatrimestre cuatrimestre = Cuatrimestre.Primer_Cuatrimestre;
+		LocalDate fechaInicioCicloLectivo = LocalDate.of(2023, Month.MARCH, 1);
+		LocalDate fechaFinalizacionCicloLectivo = LocalDate.of(2023, Month.JULY, 15);
+		LocalDate fechaInicioInscripcion = LocalDate.of(2023, Month.MARCH, 6);
+		LocalDate fechaFinalizacionInscripcion = LocalDate.of(2023, Month.MARCH, 30);
 
 		Profesor profesor = new Profesor(nombre, codigo);
 		Materia materia = new Materia(nombreDeMateria, codigoMateria);
 		Aula aula = new Aula(numeroAula, capacidadMaximaAulas);
+<<<<<<< Updated upstream
 		CicloElectivo cicloElectivo = new CicloElectivo(año, cuatrimestre);
+=======
+		CicloElectivo cicloElectivo = new CicloElectivo(fechaInicioCicloLectivo, fechaFinalizacionCicloLectivo,
+				fechaInicioInscripcion, fechaFinalizacionInscripcion, cuatrimestre);
+>>>>>>> Stashed changes
 		Cursada cursada = new Cursada(materia, comision, horarios, dias, aula, cicloElectivo, cupoMaximoAlumnos);
 		Universidad unlam = new Universidad(nombreUniversidad);
 		AsignacionProfeACurso nuevaAsignacion = new AsignacionProfeACurso(profesor, cursada, idAsignacionDeCursada,
@@ -188,5 +250,90 @@ public class CursadaTest {
 	    assertFalse(seAsignaProfesor2);
 	}
 
+<<<<<<< Updated upstream
 
 }
+=======
+	@Test
+	public void pruebaParaQueSePuedaBuscarUnAlumnoPorSuDNI() {
+		String nombre = "Martin", apellido = "Perez", nombreDeMateria = "pb2", nombreUniversidad = "Unlam";
+		Integer codigoMateria = 1918, comision = 64, numeroAula = 404, año = 2023, cupoMaximoAlumnos = 100,
+				capacidadMaximaAulas = 100, dni = 45369851;
+
+		Horario horarios = Horario.Mañana;
+		Dia dias = Dia.Miercoles;
+		Cuatrimestre cuatrimestre = Cuatrimestre.Primer_Cuatrimestre;
+		LocalDate fechaIngreso = LocalDate.of(2023, Month.MARCH, 27);
+		LocalDate fechaNacimineto = LocalDate.of(2004, Month.MAY, 26);
+		LocalDate fechaInicioCicloLectivo = LocalDate.of(2023, Month.MARCH, 1);
+		LocalDate fechaFinalizacionCicloLectivo = LocalDate.of(2023, Month.JULY, 15);
+		LocalDate fechaInicioInscripcion = LocalDate.of(2023, Month.MARCH, 6);
+		LocalDate fechaFinalizacionInscripcion = LocalDate.of(2023, Month.MARCH, 30);
+
+		Alumno alumno = new Alumno(dni, apellido, nombre, fechaIngreso, fechaNacimineto);
+		Materia materia = new Materia(nombreDeMateria, codigoMateria);
+		Aula aula = new Aula(numeroAula, capacidadMaximaAulas);
+		CicloElectivo cicloElectivo = new CicloElectivo(fechaInicioCicloLectivo, fechaFinalizacionCicloLectivo,
+				fechaInicioInscripcion, fechaFinalizacionInscripcion, cuatrimestre);
+		Cursada cursada = new Cursada(materia, comision, horarios, dias, aula, cicloElectivo, cupoMaximoAlumnos);
+		Universidad unlam = new Universidad(nombreUniversidad);
+		AsignacionAlumnoACurso asignacion = new AsignacionAlumnoACurso(capacidadMaximaAulas, cursada, alumno, unlam);
+
+		unlam.agregarAlumno(alumno);
+		unlam.agregarCurso(cursada);
+		asignacion.inscribirAlumno(alumno, cursada);
+
+		Integer dniAlumno = alumno.getDni();
+
+		assertNotNull(cursada.buscarAlumnoPorDni(dniAlumno));
+	}
+
+	@Test
+	public void pruebaParaObtenerCantidadDeAlumnosPromocionados() {
+
+		String nombre = "Juan", apellido = "Lopez", nombre2 = "Pedro", apellido2 = "Sanchez", nombreDeMateria = "pb2",
+				nombreUniversidad = "Unlam";
+		Integer dni = 7869, dni2 = 6852, año = 2023, comision = 64, cupoMaximoAlumnos = 10, numeroAula = 404,
+				capacidadMaximaAulas = 100, codigoMateria = 1015, valorNota = 7;
+
+		Horario horarios = Horario.Mañana;
+		Dia dias = Dia.Miercoles;
+		Cuatrimestre cuatrimestre = Cuatrimestre.Primer_Cuatrimestre;
+		Evaluacion evaluacion = Evaluacion.PRIMER_PARCIAL;
+		LocalDate fechaIngreso = LocalDate.of(2023, Month.MARCH, 27);
+		LocalDate fechaNacimineto = LocalDate.of(2004, Month.MAY, 26);
+		LocalDate fechaInicioCicloLectivo = LocalDate.of(2023, Month.MARCH, 1);
+		LocalDate fechaFinalizacionCicloLectivo = LocalDate.of(2023, Month.JULY, 15);
+		LocalDate fechaInicioInscripcion = LocalDate.of(2023, Month.MARCH, 6);
+		LocalDate fechaFinalizacionInscripcion = LocalDate.of(2023, Month.MARCH, 30);
+
+		Universidad unlam = new Universidad(nombreUniversidad);
+		Alumno alumno = new Alumno(dni, apellido, nombre, fechaIngreso, fechaNacimineto);
+		Materia materia = new Materia(nombreDeMateria, codigoMateria);
+		Aula aula = new Aula(numeroAula, capacidadMaximaAulas);
+		CicloElectivo cicloElectivo = new CicloElectivo(fechaInicioCicloLectivo, fechaFinalizacionCicloLectivo,
+				fechaInicioInscripcion, fechaFinalizacionInscripcion, cuatrimestre);
+		Cursada cursada = new Cursada(materia, comision, horarios, dias, aula, cicloElectivo, cupoMaximoAlumnos);
+		AsignacionAlumnoACurso asignacion = new AsignacionAlumnoACurso(capacidadMaximaAulas, cursada, alumno, unlam);
+		Nota nota1 = new Nota(valorNota, evaluacion);
+		Nota nota2 = new Nota(valorNota, Evaluacion.SEGUNDO_PARCIAL);
+
+		unlam.agregarAlumno(alumno);
+		unlam.agregarCurso(cursada);
+		unlam.agregarMateria(materia);
+		unlam.agregarAula(aula);
+		cursada.AgregarAula(aula);
+
+		asignacion.inscribirAlumno(alumno, cursada);
+		asignacion.AgregarNota(nota1);
+		asignacion.AgregarNota(nota2);
+		asignacion.promocionaMateria();
+
+		Integer resultado = cursada.cantidadAlumnosPromocionados();
+		Integer resultadoEsperado = 1;
+
+		assertEquals(resultadoEsperado, resultado);
+
+	}
+}
+>>>>>>> Stashed changes

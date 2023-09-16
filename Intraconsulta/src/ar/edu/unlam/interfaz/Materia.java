@@ -8,11 +8,13 @@ public class Materia {
 	private Integer codigoMateria;
 	private ArrayList<Integer> codigoMateriascorrelativas;
 	private Aula aula;
+	private static Integer id = 0;
 
 	public Materia(String nombre, Integer codigoMateria) {
 		this.nombre = nombre;
 		this.codigoMateria=codigoMateria;
 		this.codigoMateriascorrelativas = new ArrayList<Integer>();
+		id++;
 	}
 	
 	

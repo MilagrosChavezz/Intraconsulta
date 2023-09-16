@@ -21,6 +21,10 @@ public class Cursada {
 
 	private Integer cantidadAlumnosAnotados; 
 	private Integer cantidadDeProfesoresEnCursada;
+	private static Integer id = 0;
+	private Integer cantidadAlumnosPromocionados;
+	private Integer cantidadAlumnosAFinal;
+	private Integer cantidadAlumnosReprobados;
 
 
 	public Integer getCupoMaximoAlumnos() {
@@ -42,6 +46,7 @@ public class Cursada {
 		this.dias = dias;
 		this.horarios = horarios;
 		this.cupoMaximoAlumnos = cupoMaximoAlumnos;
+<<<<<<< Updated upstream
 		 this.cantidadAlumnosAnotados = 0;
 		 this.cantidadDeProfesoresEnCursada=0;
 	
@@ -50,6 +55,16 @@ public class Cursada {
 
 
 //constructor sin aula
+=======
+		this.cantidadAlumnosPromocionados = 0;
+		this.cantidadAlumnosReprobados = 0;
+		this.cantidadAlumnosAFinal = 0;
+
+		id++;
+	}
+
+	// constructor sin aula se le asigna luego
+>>>>>>> Stashed changes
 	public Cursada(Materia materia, Integer comision, Horario horarios, Dia dias, CicloElectivo cicloElectivo,
 			Integer cupoMaximoAlumnos) {
 		this.alumnos = new ArrayList<Alumno>();
@@ -60,8 +75,18 @@ public class Cursada {
 		this.dias = dias;
 		this.horarios = horarios;
 		this.cupoMaximoAlumnos = cupoMaximoAlumnos;
+<<<<<<< Updated upstream
 		 this.cantidadAlumnosAnotados = 0;
 		this.cantidadDeProfesoresEnCursada=0;
+=======
+		this.cantidadAlumnosAnotados = 0;
+		this.cantidadDeProfesoresEnCursada = 0;
+		this.cantidadAlumnosPromocionados = 0;
+		this.cantidadAlumnosReprobados = 0;
+		this.cantidadAlumnosAFinal = 0;
+
+		id++;
+>>>>>>> Stashed changes
 
 	}
 
@@ -189,6 +214,52 @@ cantidadAlumnosAnotados=alumnos.size();
 
 	}
 
+<<<<<<< Updated upstream
 	
 
 }
+=======
+	public Integer cantidadAlumnosPromocionados() {
+
+		for (int i = 0; i < alumnos.size(); i++) {
+
+			ArrayList<Materia> alumnosMateriasAprobadas = alumnos.get(i).getMateriasAprobadas();
+
+			for (int j = 0; j < alumnosMateriasAprobadas.size(); j++) {
+
+				if (alumnos.get(j).getMateriasAprobadas().get(j).getNombre().equals(materia.getNombre())) {
+					cantidadAlumnosPromocionados++;
+
+				}
+			}
+
+		}
+		return cantidadAlumnosPromocionados;
+	}
+
+	public Integer cantidadAlumnosAfinal() {
+
+		for (int i = 0; i < alumnos.size(); i++) {
+
+			ArrayList<Materia> alumnosMateriasAFinal = alumnos.get(i).getMateriasAFinal();
+
+			for (int j = 0; j < alumnosMateriasAFinal.size(); j++) {
+
+				if (alumnos.get(j).getMateriasAFinal().get(j).getNombre().equals(materia.getNombre())) {
+					cantidadAlumnosAFinal++;
+
+				}
+			}
+
+		}
+		return cantidadAlumnosAFinal;
+	}
+
+	public Integer cantidadAlumnosReprobados() {
+
+		cantidadAlumnosReprobados = cantidadAlumnosAnotados - cantidadAlumnosAfinal() - cantidadAlumnosPromocionados();
+		return cantidadAlumnosReprobados;
+
+	}
+}
+>>>>>>> Stashed changes

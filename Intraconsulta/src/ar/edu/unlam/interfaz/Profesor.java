@@ -7,12 +7,14 @@ public class Profesor {
 	private String nombre;
 	private Integer codigoProfesor;
 	private ArrayList<Cursada> cursadasActuales;
+	private static Integer id = 0;
 
 	public Profesor(String nombre, Integer codigoProfesor) {
 		
 		this.nombre = nombre;
 		this.codigoProfesor = codigoProfesor;
 		this.cursadasActuales = new ArrayList<Cursada>();
+		id++;
 	}
 
 	public ArrayList<Cursada> getCursadasActuales() {

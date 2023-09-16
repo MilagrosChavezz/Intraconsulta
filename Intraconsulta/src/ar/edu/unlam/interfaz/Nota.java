@@ -1,6 +1,12 @@
 package ar.edu.unlam.interfaz;
 
 public class Nota {
+<<<<<<< Updated upstream
+=======
+	private Integer valor;
+	private Evaluacion evaluacion;
+	private static Integer id = 0;
+>>>>>>> Stashed changes
 
 private Integer valor;
 private Evaluacion evaluacion;
@@ -17,6 +23,7 @@ private Evaluacion evaluacion;
 
 	public void setEvaluacion(Evaluacion evaluacion) {
 		this.evaluacion = evaluacion;
+		id++;
 	}
 
 	public void setValor(Integer valor) {

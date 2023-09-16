@@ -60,16 +60,24 @@ public class Universidad {
 		return false;
 	}
 
-	public Boolean agregarMateria(Materia nueva) {
-		if (!materias.contains(nueva) && nueva != null) {
-			materias.add(nueva);
-			return true;
+	public Boolean mismaCursada(Cursada curso) {
+
+		for (int i = 0; i < cursadas.size(); i++) {
+			if (cursadas.get(i).getComision().equals(curso.getComision())
+					&& cursadas.get(i).getHorarios().equals(curso.getHorarios())
+					&& cursadas.get(i).getMateria().equals(curso.getMateria())
+					&& cursadas.get(i).getDias().equals(curso.getDias())) {
+
+				return true;
+				
+			}
 		}
 		return false;
+
 	}
 
 	public Boolean agregarCurso(Cursada nuevo) {
-		if (!cursadas.contains(nuevo) && nuevo != null) {
+		if (!cursadas.contains(nuevo) && nuevo != null && !mismaCursada(nuevo)) {
 			cursadas.add(nuevo);
 			return true;
 		}
@@ -104,4 +112,25 @@ public class Universidad {
 		return cursada != null && cursadas.contains(cursada);
 	}
 
+<<<<<<< Updated upstream
 }
+=======
+	public Boolean existeMateria(Integer codigoMateria) {
+		for (int i = 0; i < materias.size(); i++) {
+			if (materias.get(i).getCodigoMateria().equals(codigoMateria)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public Boolean agregarMateria(Materia materiaAsignada) {
+		Boolean seAsignoMateria = false;
+		if (!existeMateria(materiaAsignada.getCodigoMateria()) && materiaAsignada != null) {
+			materias.add(materiaAsignada);
+			seAsignoMateria = true;
+		}
+		return seAsignoMateria;
+	}
+}
+>>>>>>> Stashed changes
