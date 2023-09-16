@@ -4,16 +4,25 @@ public class Aula {
 
 	private static Integer capacidadMaximaAlumnos;
 	private Integer numeroAula;
+	private static Integer id = 0;
 
-	public Aula(Integer numeroAula,Integer capacidadMaximaAlumnos) {
-		super();
+	public Aula(Integer numeroAula, Integer capacidadMaximaAlumnos) {
 		this.numeroAula = numeroAula;
-		Aula.capacidadMaximaAlumnos=capacidadMaximaAlumnos;
+		Aula.capacidadMaximaAlumnos = capacidadMaximaAlumnos;
+		id++;
+	}
+
+	public static Integer getId() {
+		return id;
+	}
+
+	public static void setId(Integer id) {
+		Aula.id = id;
 	}
 
 	public static Integer getCapacidadMaximaAlumnos() {
 		return capacidadMaximaAlumnos;
-	} 
+	}
 
 	public static void setCapacidadMaximaAlumnos(Integer capacidadMaximaAlumnos) {
 		Aula.capacidadMaximaAlumnos = capacidadMaximaAlumnos;

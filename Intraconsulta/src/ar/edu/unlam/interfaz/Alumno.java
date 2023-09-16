@@ -1,37 +1,62 @@
 package ar.edu.unlam.interfaz;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Alumno {
 	private String nombre;
 	private String apellido;
 	private Integer dni;
-	private Integer fechaIngreso;
-	private Integer fechaNacimineto;
+	private LocalDate fechaIngreso;
+	private LocalDate fechaNacimineto;
 	private ArrayList<Materia> materiasAprobadas;
+	private ArrayList<Materia> materiasAFinal;
+	private static Integer id = 0;
 
-	public Alumno(Integer dni, String apellido, String nombre, Integer fechaIngreso, Integer fechaNacimineto) {
+	public Alumno(Integer dni, String apellido, String nombre, LocalDate fechaIngreso, LocalDate fechaNacimineto) {
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.dni = dni;
 		this.fechaIngreso = fechaIngreso;
 		this.fechaNacimineto = fechaNacimineto;
 		this.materiasAprobadas = new ArrayList<Materia>();
+		this.materiasAFinal = new ArrayList<Materia>();
+		id++;
 	}
 
-	public Integer getFechaIngreso() {
+	public ArrayList<Materia> getMateriasAFinal() {
+		return materiasAFinal;
+	}
+
+	public void setMateriasAFinal(Materia materiasAFinal) {
+		this.materiasAFinal.add(materiasAFinal);
+	}
+
+	public static Integer getId() {
+		return id;
+	}
+
+	public static void setId(Integer id) {
+		Alumno.id = id;
+	}
+
+	public void setMateriasAprobadas(Materia materiasAprobadas) {
+		this.materiasAprobadas.add(materiasAprobadas);
+	}	
+
+	public LocalDate getFechaIngreso() {
 		return fechaIngreso;
 	}
 
-	public void setFechaIngreso(Integer fechaIngreso) {
+	public void setFechaIngreso(LocalDate fechaIngreso) {
 		this.fechaIngreso = fechaIngreso;
 	}
 
-	public Integer getFechaNacimineto() {
+	public LocalDate getFechaNacimineto() {
 		return fechaNacimineto;
 	}
 
-	public void setFechaNacimineto(Integer fechaNacimineto) {
+	public void setFechaNacimineto(LocalDate fechaNacimineto) {
 		this.fechaNacimineto = fechaNacimineto;
 	}
 
@@ -62,10 +87,4 @@ public class Alumno {
 	public ArrayList<Materia> getMateriasAprobadas() {
 		return materiasAprobadas;
 	}
-
-	public void setMateriasAprobadas(Materia materiasAprobadas) {
-		this.materiasAprobadas.add(materiasAprobadas);
-
-	}
-
 }

@@ -4,22 +4,45 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 public class AsignacionAlumnoACurso {
-	private Integer id;
 	private Cursada curso;
 	private Alumno alumno;
 	private Universidad unlam;
 	private ArrayList<Nota> notas;
 	private ArrayList<Materia> materiasCorrelaAprobadas;
+	private Integer capacidadMaximaAlumnos;
+	private static Integer id = 0;
 
-	public AsignacionAlumnoACurso(Integer id, Cursada curso, Alumno alumno, Universidad universidad) {
+	public AsignacionAlumnoACurso(Integer capacidadMaximaAlumnos, Cursada curso, Alumno alumno,
+			Universidad universidad) {
 		super();
-		this.id = id;
 		this.curso = curso;
 		this.alumno = alumno;
 		this.unlam = universidad;
+		this.capacidadMaximaAlumnos = capacidadMaximaAlumnos;
 		this.materiasCorrelaAprobadas = new ArrayList<Materia>();
 		this.notas = new ArrayList<Nota>();
+		id++;
 
+	}
+
+	public Integer getCapacidadMaximaAlumnos() {
+		return capacidadMaximaAlumnos;
+	}
+
+	public void setCapacidadMaximaAlumnos(Integer capacidadMaximaAlumnos) {
+		this.capacidadMaximaAlumnos = capacidadMaximaAlumnos;
+	}
+
+	public static Integer getId() {
+		return id;
+	}
+
+	public static void setId(Integer id) {
+		AsignacionAlumnoACurso.id = id;
+	}
+
+	public void setNotas(ArrayList<Nota> notas) {
+		this.notas = notas;
 	}
 
 	public ArrayList<Materia> getMateriasAprobadas() {
@@ -50,14 +73,6 @@ public class AsignacionAlumnoACurso {
 		this.materiasCorrelaAprobadas = materiasCorrelaAprobadas;
 	}
 
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
 	public Cursada getCurso() {
 		return curso;
 	}
@@ -78,10 +93,12 @@ public class AsignacionAlumnoACurso {
 		boolean sePuedeInscribir = false;
 
 		if (curso.cantidadAlumnosAnotados() <= curso.getCupoMaximoAlumnos()
-				&& !curso.getAlumnos().contains(alumnoAsignar) && aproboCorrelativas()
-				&& unlam.estaIngresadoALaUniversidadAlumno(alumnoAsignar)) {
-			cursada.setAlumnos(alumnoAsignar);
-			sePuedeInscribir = true;
+				&& !curso.getAlumnos().contains(alumnoAsignar) && unlam.estaIngresadoALaUniversidadAlumno(alumnoAsignar)
+				&& inscripcionDentroDeFecha()) {
+			if (aproboCorrelativas() || adeudaCorrelativas() || !recursa()) {
+				cursada.setAlumnos(alumnoAsignar);
+				sePuedeInscribir = true;
+			}
 		}
 		return sePuedeInscribir;
 	}
@@ -166,15 +183,39 @@ public class AsignacionAlumnoACurso {
 
 	public Integer obtenerNotaFinal(Nota primerParcial, Nota segundoParcial) {
 		Integer notaFinal = ((primerParcial.getValor() + segundoParcial.getValor()) / 2);
-		return notaFinal; 
+		return notaFinal;
 	}
-	
+
 	public Boolean promocionaMateria() {
 		if (apruebaSegundoParcial() && apruebaPrimerParcial() && aproboCorrelativas()) {
 			alumno.setMateriasAprobadas(curso.getMateria());
 			return true;
 		}
 		return false;
+	}
+
+	public Boolean debeIrAFinal() {
+
+		for (int i = 0; i < notas.size(); i++) {
+			if (notas.get(i).getEvaluacion().equals(Evaluacion.PRIMER_PARCIAL) && notas.get(i).getValor() >= 4
+					&& notas.get(i).getValor() <= 6 && notas.get(i).getEvaluacion().equals(Evaluacion.SEGUNDO_PARCIAL)
+					&& notas.get(i).getValor() >= 4 && notas.get(i).getValor() <= 6) {
+				alumno.setMateriasAFinal(curso.getMateria());
+				return true;
+
+			}
+		}
+		return false;
+
+	}
+
+	public Boolean recursa() {
+
+		if (!debeIrAFinal() && !promocionaMateria()) {
+			return true;
+		}
+		return false;
+
 	}
 
 	public Boolean aproboCorrelativas() {
@@ -206,4 +247,42 @@ public class AsignacionAlumnoACurso {
 		return true; // Si todas las correlativas requeridas se encuentran, retornar true
 	}
 
+	public Boolean adeudaCorrelativas() {
+		ArrayList<Integer> correlativasRequeridas = curso.getMateria().getCorrelativas();
+
+		if (correlativasRequeridas == null) {
+			return true; // No hay correlativas requeridas, por lo tanto, se considera aprobado
+		}
+
+		ArrayList<Materia> materiasAdeudaAlumno = alumno.getMateriasAFinal();
+
+		for (int i = 0; i < correlativasRequeridas.size(); i++) {
+			Integer correlativaRequerida = correlativasRequeridas.get(i);
+			boolean encontrada = false;
+
+			for (int j = 0; j < materiasAdeudaAlumno.size(); j++) {
+				Materia materiasAdeuda = materiasAdeudaAlumno.get(j);
+				if (materiasAdeuda.getCodigoMateria().equals(correlativaRequerida)) {
+					encontrada = true;
+					break; // Salir del bucle interno si se encuentra la correlativa requerida
+				}
+			}
+
+			if (!encontrada) {
+				return false;
+			}
+		}
+
+		return true; // Si todas las correlativas requeridas se encuentran, retornar true
+	}
+
+	public Boolean inscripcionDentroDeFecha() {
+
+		if (curso.getCicloElectivo().getFechaInicioInscripcion().compareTo(alumno.getFechaIngreso()) < 0
+				&& curso.getCicloElectivo().getFechaFinalizacionInscripcion().compareTo(alumno.getFechaIngreso()) > 0) {
+			return true;
+		}
+		return false;
+
+	}
 }

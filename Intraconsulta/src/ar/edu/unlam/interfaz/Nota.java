@@ -3,10 +3,20 @@ package ar.edu.unlam.interfaz;
 public class Nota {
 	private Integer valor;
 	private Evaluacion evaluacion;
+	private static Integer id = 0;
 
 	public Nota(Integer valor, Evaluacion evaluacion) {
 		this.valor = valor;
 		this.evaluacion = evaluacion;
+		id++;
+	}
+
+	public static Integer getId() {
+		return id;
+	}
+
+	public static void setId(Integer id) {
+		Nota.id = id;
 	}
 
 	public void setValor(Integer valor) {

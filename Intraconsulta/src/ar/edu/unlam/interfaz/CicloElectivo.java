@@ -1,54 +1,55 @@
 package ar.edu.unlam.interfaz;
 
-public class CicloElectivo {
-	private Integer fechaInicioCicloLectivo;
-	private Integer fechaFinalizacionCicloLectivo;
-	private Integer fechaInicioInscripcion;
-	private Integer fechaFinalizacionInscripcion;
-	private Cuatrimestre cuatrimestre;
-	private Integer id;
+import java.time.LocalDate;
 
-	public CicloElectivo(Integer fechaInicioCicloLectivo, Integer fechaFinalizacionCicloLectivo,
-			Integer fechaInicioInscripcion, Integer fechaFinalizacionInscripcion, Integer id,
-			Cuatrimestre cuatrimestre) {
+public class CicloElectivo {
+	private LocalDate fechaInicioCicloLectivo;
+	private LocalDate fechaFinalizacionCicloLectivo;
+	private LocalDate fechaInicioInscripcion;
+	private LocalDate fechaFinalizacionInscripcion;
+	private Cuatrimestre cuatrimestre;
+	private static Integer id = 0;
+
+	public CicloElectivo(LocalDate fechaInicioCicloLectivo, LocalDate fechaFinalizacionCicloLectivo,
+			LocalDate fechaInicioInscripcion, LocalDate fechaFinalizacionInscripcion, Cuatrimestre cuatrimestre) {
 		this.fechaInicioCicloLectivo = fechaInicioCicloLectivo;
 		this.fechaFinalizacionCicloLectivo = fechaFinalizacionCicloLectivo;
 		this.fechaInicioInscripcion = fechaInicioInscripcion;
 		this.fechaFinalizacionInscripcion = fechaFinalizacionInscripcion;
 		this.cuatrimestre = cuatrimestre;
-		this.id = id;
+		id++;
 	}
 
-	public Integer getFechaFinalizacionCicloLectivo() {
+	public LocalDate getFechaFinalizacionCicloLectivo() {
 		return fechaFinalizacionCicloLectivo;
 	}
 
-	public void setFechaFinalizacionCicloLectivo(Integer fechaFinalizacionCicloLectivo) {
+	public void setFechaFinalizacionCicloLectivo(LocalDate fechaFinalizacionCicloLectivo) {
 		this.fechaFinalizacionCicloLectivo = fechaFinalizacionCicloLectivo;
 	}
 
-	public Integer getFechaInicioInscripcion() {
+	public LocalDate getFechaInicioInscripcion() {
 		return fechaInicioInscripcion;
 	}
 
-	public void setFechaInicioInscripcion(Integer fechaInicioInscripcion) {
+	public void setFechaInicioInscripcion(LocalDate fechaInicioInscripcion) {
 		this.fechaInicioInscripcion = fechaInicioInscripcion;
 	}
 
-	public Integer getFechaFinalizacionInscripcion() {
+	public LocalDate getFechaFinalizacionInscripcion() {
 		return fechaFinalizacionInscripcion;
 	}
 
-	public void setFechaFinalizacionInscripcion(Integer fechaFinalizacionInscripcion) {
+	public void setFechaFinalizacionInscripcion(LocalDate fechaFinalizacionInscripcion) {
 		this.fechaFinalizacionInscripcion = fechaFinalizacionInscripcion;
 	}
 
-	public Integer getfechaInicioCicloLectivo() {
+	public LocalDate getfechaInicioCicloLectivo() {
 		return fechaInicioCicloLectivo;
 	}
 
-	public void setfechaInicioCicloLectivo(Integer año) {
-		this.fechaInicioCicloLectivo = año;
+	public void setfechaInicioCicloLectivo(LocalDate fechaInicioCicloLectivo) {
+		this.fechaInicioCicloLectivo = fechaInicioCicloLectivo;
 	}
 
 	public Cuatrimestre getCuatrimestre() {
@@ -59,12 +60,14 @@ public class CicloElectivo {
 		this.cuatrimestre = cuatrimestre;
 	}
 
-	public Integer getId() {
+	public static Integer getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public static void setId(Integer id) {
+		CicloElectivo.id = id;
 	}
+
+	
 
 }
