@@ -7,19 +7,7 @@ public class Alumno {
 	private String nombre;
 	private String apellido;
 	private Integer dni;
-<<<<<<< Updated upstream
-	private ArrayList<Materia>materiasAprobadas;
 
-	public Alumno(Integer dni, String apellido, String nombre) {
-		this.nombre=nombre;
-		this.apellido=apellido;
-		this.dni=dni;
-		this.materiasAprobadas=new ArrayList<Materia>();
-	}
-
-	public String  getNombre() {
-		// TODO Auto-generated method stub
-=======
 	private LocalDate fechaIngreso;
 	private LocalDate fechaNacimineto;
 	private ArrayList<Materia> materiasAprobadas;
@@ -73,7 +61,7 @@ public class Alumno {
 	}
 
 	public String getNombre() {
->>>>>>> Stashed changes
+
 		return this.nombre;
 	}
 

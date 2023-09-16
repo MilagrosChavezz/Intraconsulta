@@ -69,7 +69,7 @@ public class Universidad {
 					&& cursadas.get(i).getDias().equals(curso.getDias())) {
 
 				return true;
-				
+
 			}
 		}
 		return false;
@@ -99,11 +99,11 @@ public class Universidad {
 		}
 		return false;
 	}
-	
 
 	public Boolean estaIngresadoALaUniversidad(Profesor profesoraABuscar) {
 		return profesoraABuscar != null && profesores.contains(profesoraABuscar);
 	}
+
 	public Boolean estaIngresadoALaUniversidadAlumno(Alumno alumno) {
 		return alumno != null && alumnos.contains(alumno);
 	}
@@ -112,9 +112,6 @@ public class Universidad {
 		return cursada != null && cursadas.contains(cursada);
 	}
 
-<<<<<<< Updated upstream
-}
-=======
 	public Boolean existeMateria(Integer codigoMateria) {
 		for (int i = 0; i < materias.size(); i++) {
 			if (materias.get(i).getCodigoMateria().equals(codigoMateria)) {
@@ -133,4 +130,3 @@ public class Universidad {
 		return seAsignoMateria;
 	}
 }
->>>>>>> Stashed changes

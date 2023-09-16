@@ -13,7 +13,7 @@ public class AsignacionProfeACurso {
 		super();
 		this.profesor = profesor;
 		this.curso = curso;
-	id++;
+		id++;
 		this.unlam = unlam;
 
 	}
@@ -38,53 +38,32 @@ public class AsignacionProfeACurso {
 		return id;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
 	public Boolean asignarProfesorACurso(Profesor profesoraAsignar, Cursada cursada) {
-
-
-		if (estaDisponible(profesoraAsignar, cursada) 
-				&& unlam.estaIngresadaLaCursada(cursada) && profesoraAsignar != null && unlam.estaIngresadoALaUniversidad(profesoraAsignar)) {
-			profesor.seAgregaCursadaActual(cursada);
-			cursada.setProfesores(profesoraAsignar);
-			return true;
-		}
-		
-
-
-	    if (estaDisponible(profesoraAsignar, cursada) && profesoraAsignar != null) {
-	        // Verifica si el profesor ya está asignado a esta cursada
-	        if (!cursada.getProfesores().contains(profesoraAsignar) && cursada.cantidadDeProfesoresPorCursoRequerido() > cursada.cantidadDeProfesoresActuales()) {
-	            profesor.seAgregaCursadaActual(cursada);
-	            cursada.setProfesores(profesoraAsignar);
-	            return true;
-	        }
-	    }
-	return false;
-	    }
-
-	private boolean estaDisponible(Profesor profesoraAsignar, Cursada cursada) {
-		// TODO Auto-generated method stub
-		ArrayList<Cursada> cursadaAEvaluar = profesoraAsignar.getCursadasActuales();
-
-		
-
-			for (int i = 0; i < cursadaAEvaluar.size(); i++) {
-				if (cursadaAEvaluar.get(i).getDias().equals(cursada.getDias())
-						&& cursadaAEvaluar.get(i).getHorarios().equals(cursada.getHorarios())
-						&& cursadaAEvaluar.get(i).getCicloElectivo().getAño()
-								.equals(cursada.getCicloElectivo().getAño())
-						&& cursadaAEvaluar.get(i).getCicloElectivo().getCuatrimestre()
-								.equals(cursada.getCicloElectivo().getCuatrimestre())
-						&& !unlam.estaIngresadoALaUniversidad(profesoraAsignar)) {
-					return false;
-				}
-
+		if (estaDisponible(profesoraAsignar, cursada) && profesoraAsignar != null) {
+			// Verifica si el profesor ya está asignado a esta cursada
+			if (!cursada.getProfesores().contains(profesoraAsignar)
+					&& cursada.cantidadDeProfesoresPorCursoRequerido() > cursada.cantidadDeProfesoresActuales()) {
+				profesor.seAgregaCursadaActual(cursada);
+				cursada.setProfesores(profesoraAsignar);
 				return true;
 			}
-			return false;
 		}
+		return false;
 	}
 
+	public Boolean estaDisponible(Profesor profesoraAsignar, Cursada cursada) {
+	    ArrayList<Cursada> cursadaAEvaluar = profesoraAsignar.getCursadasActuales();
+
+	    for (int i = 0; i < cursadaAEvaluar.size(); i++) {
+	        if (cursadaAEvaluar.get(i).getDias().equals(cursada.getDias())
+	                && cursadaAEvaluar.get(i).getHorarios().equals(cursada.getHorarios())
+	                && cursadaAEvaluar.get(i).getCicloElectivo().getfechaInicioCicloLectivo().equals(cursada.getCicloElectivo().getfechaInicioCicloLectivo())
+	                && cursadaAEvaluar.get(i).getCicloElectivo().getCuatrimestre().equals(cursada.getCicloElectivo().getCuatrimestre())) {
+	            return false; // El profesor tiene otra cursada en el mismo horario y día
+	        }
+	    }
+		return true;
+	}
+}
+	    
+	

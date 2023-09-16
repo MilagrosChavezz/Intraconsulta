@@ -19,13 +19,12 @@ public class Cursada {
 
 	private AsignacionProfeACurso profesorAAgregar;
 
-	private Integer cantidadAlumnosAnotados; 
+	private Integer cantidadAlumnosAnotados;
 	private Integer cantidadDeProfesoresEnCursada;
 	private static Integer id = 0;
 	private Integer cantidadAlumnosPromocionados;
 	private Integer cantidadAlumnosAFinal;
 	private Integer cantidadAlumnosReprobados;
-
 
 	public Integer getCupoMaximoAlumnos() {
 		return cupoMaximoAlumnos;
@@ -46,16 +45,6 @@ public class Cursada {
 		this.dias = dias;
 		this.horarios = horarios;
 		this.cupoMaximoAlumnos = cupoMaximoAlumnos;
-<<<<<<< Updated upstream
-		 this.cantidadAlumnosAnotados = 0;
-		 this.cantidadDeProfesoresEnCursada=0;
-	
-
-	}
-
-
-//constructor sin aula
-=======
 		this.cantidadAlumnosPromocionados = 0;
 		this.cantidadAlumnosReprobados = 0;
 		this.cantidadAlumnosAFinal = 0;
@@ -64,7 +53,6 @@ public class Cursada {
 	}
 
 	// constructor sin aula se le asigna luego
->>>>>>> Stashed changes
 	public Cursada(Materia materia, Integer comision, Horario horarios, Dia dias, CicloElectivo cicloElectivo,
 			Integer cupoMaximoAlumnos) {
 		this.alumnos = new ArrayList<Alumno>();
@@ -75,18 +63,12 @@ public class Cursada {
 		this.dias = dias;
 		this.horarios = horarios;
 		this.cupoMaximoAlumnos = cupoMaximoAlumnos;
-<<<<<<< Updated upstream
-		 this.cantidadAlumnosAnotados = 0;
-		this.cantidadDeProfesoresEnCursada=0;
-=======
 		this.cantidadAlumnosAnotados = 0;
 		this.cantidadDeProfesoresEnCursada = 0;
 		this.cantidadAlumnosPromocionados = 0;
 		this.cantidadAlumnosReprobados = 0;
 		this.cantidadAlumnosAFinal = 0;
-
 		id++;
->>>>>>> Stashed changes
 
 	}
 
@@ -98,7 +80,6 @@ public class Cursada {
 		this.cantidadAlumnosAnotados = cantidadAlumnosAnotados;
 	}
 
-
 	public Materia getMateria() {
 		return materia;
 	}
@@ -106,7 +87,6 @@ public class Cursada {
 	public void setMateria(Materia materia) {
 		this.materia = materia;
 	}
-
 
 	public Integer getComision() {
 		return comision;
@@ -132,11 +112,9 @@ public class Cursada {
 		profesores.add(profesor);
 	}
 
-
 	public void setAlumnos(Alumno alumnoAsignar) {
 		alumnos.add(alumnoAsignar);
 	}
-
 
 	public Horario getHorarios() {
 		return horarios;
@@ -171,8 +149,8 @@ public class Cursada {
 	}
 
 	public Integer cantidadAlumnosAnotados() {
-		
-cantidadAlumnosAnotados=alumnos.size();
+
+		cantidadAlumnosAnotados = alumnos.size();
 		return cantidadAlumnosAnotados;
 	}
 
@@ -180,20 +158,12 @@ cantidadAlumnosAnotados=alumnos.size();
 		Integer ProfesoresRequeridos = (cantidadAlumnosAnotados() / 20) + 1;
 		return ProfesoresRequeridos;
 
-	
 	}
-	
-
-
-
-	
 
 	public Integer cantidadDeProfesoresActuales() {
-		for (int i = 0; i < profesores.size(); i++) {
-			
-			cantidadDeProfesoresEnCursada++;
 
-		}
+		cantidadDeProfesoresEnCursada = profesores.size();
+
 		return cantidadDeProfesoresEnCursada;
 	}
 
@@ -214,11 +184,6 @@ cantidadAlumnosAnotados=alumnos.size();
 
 	}
 
-<<<<<<< Updated upstream
-	
-
-}
-=======
 	public Integer cantidadAlumnosPromocionados() {
 
 		for (int i = 0; i < alumnos.size(); i++) {
@@ -262,4 +227,3 @@ cantidadAlumnosAnotados=alumnos.size();
 
 	}
 }
->>>>>>> Stashed changes

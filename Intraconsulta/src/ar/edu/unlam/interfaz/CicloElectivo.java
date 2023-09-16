@@ -1,19 +1,6 @@
 package ar.edu.unlam.interfaz;
 
-<<<<<<< Updated upstream
-public class CicloElectivo {
-	private Integer año;
-	private Cuatrimestre cuatrimestre;
 
-	public CicloElectivo(Integer año, Cuatrimestre cuatrimestre) {
-		super();
-		this.año = año;
-		this.cuatrimestre = cuatrimestre;
-	}
- 
-	public Integer getAño() {
-		return año;
-=======
 import java.time.LocalDate;
 
 public class CicloElectivo {
@@ -33,14 +20,11 @@ public class CicloElectivo {
 		this.fechaFinalizacionInscripcion = fechaFinalizacionInscripcion;
 		this.cuatrimestre = cuatrimestre;
 		id++;
->>>>>>> Stashed changes
+
 	}
 	
 
-<<<<<<< Updated upstream
-	public void setAño(Integer año) {
-		this.año = año;
-=======
+
 	public LocalDate getFechaFinalizacionCicloLectivo() {
 		return fechaFinalizacionCicloLectivo;
 	}
@@ -71,7 +55,7 @@ public class CicloElectivo {
 
 	public void setfechaInicioCicloLectivo(LocalDate fechaInicioCicloLectivo) {
 		this.fechaInicioCicloLectivo = fechaInicioCicloLectivo;
->>>>>>> Stashed changes
+
 	}
 
 	public Cuatrimestre getCuatrimestre() {

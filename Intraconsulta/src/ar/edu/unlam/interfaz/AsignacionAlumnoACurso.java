@@ -45,19 +45,14 @@ public class AsignacionAlumnoACurso {
 		return notas;
 	}
 
-<<<<<<< Updated upstream
-	public void AgregarNota(Nota notaNueva) {
-		if (notaNueva != null)
-			notas.add(notaNueva);
 
-=======
 	public Boolean AgregarNota(Nota notaNueva) {
 		if (aproboCorrelativas()) {
 			this.notas.add(notaNueva);
 			return true;
 		}
 		return false;
->>>>>>> Stashed changes
+
 	}
 
 	public ArrayList<Materia> getMateriasCorrelaAprobadas() {
@@ -72,9 +67,6 @@ public class AsignacionAlumnoACurso {
 		return id;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
 
 	public Cursada getCurso() {
 		return curso;
@@ -97,18 +89,14 @@ public class AsignacionAlumnoACurso {
 		boolean sePuedeInscribir = false;
 
 		if (curso.cantidadAlumnosAnotados() <= curso.getCupoMaximoAlumnos()
-<<<<<<< Updated upstream
-				&& !curso.getAlumnos().contains(alumnoAsignar) && aproboCorrelativas() && unlam.estaIngresadoALaUniversidadAlumno(alumnoAsignar)) {
-			cursada.setAlumnos(alumnoAsignar);
-			sePuedeInscribir = true;
-=======
+
 				&& !curso.getAlumnos().contains(alumnoAsignar)
 				&& unlam.estaIngresadoALaUniversidadAlumno(alumnoAsignar) && inscripcionDentroDeFecha()) {
 			if (aproboCorrelativas() || adeudaCorrelativas() || !recursa()) {
 				cursada.setAlumnos(alumnoAsignar);
 				sePuedeInscribir = true;
 			}
->>>>>>> Stashed changes
+
 		}
 		return sePuedeInscribir;
 	}
@@ -186,8 +174,6 @@ public class AsignacionAlumnoACurso {
 		return false;
 	}
 
-<<<<<<< Updated upstream
-=======
 	public void asignarNotaRecuperatorio(Evaluacion parcial, Nota notaDelRecuperatorio) {
 		// TODO Auto-generated method stub
 		Nota notaACambiar = buscarNotas(parcial);
@@ -201,7 +187,7 @@ public class AsignacionAlumnoACurso {
 		return notaFinal;
 	}
 
->>>>>>> Stashed changes
+
 	public Boolean promocionaMateria() {
 		if (apruebaSegundoParcial() && apruebaPrimerParcial() && aproboCorrelativas()) {
 			alumno.setMateriasAprobadas(curso.getMateria());
@@ -210,8 +196,7 @@ public class AsignacionAlumnoACurso {
 		return false;
 	}
 
-<<<<<<< Updated upstream
-=======
+
 	public Boolean debeIrAFinal() {
 
 		for (int i = 0; i < notas.size(); i++) {
@@ -235,7 +220,7 @@ public class AsignacionAlumnoACurso {
 		return false;
 
 	}
->>>>>>> Stashed changes
+
 
 	public Boolean aproboCorrelativas() {
 		ArrayList<Integer> correlativasRequeridas = curso.getMateria().getCorrelativas();
@@ -264,10 +249,8 @@ public class AsignacionAlumnoACurso {
 		return true;
 	}
 
-<<<<<<< Updated upstream
 
-}
-=======
+
 	public Boolean adeudaCorrelativas() {
 		ArrayList<Integer> correlativasRequeridas = curso.getMateria().getCorrelativas();
 
@@ -308,4 +291,4 @@ public class AsignacionAlumnoACurso {
 	}
 
 }
->>>>>>> Stashed changes
+
