@@ -12,18 +12,22 @@ public class Materia {
 
 	public Materia(String nombre, Integer codigoMateria) {
 		this.nombre = nombre;
-		this.codigoMateria=codigoMateria;
+		this.codigoMateria = codigoMateria;
 		this.codigoMateriascorrelativas = new ArrayList<Integer>();
 		id++;
 	}
-	
-	
-	
+
+	public static Integer getId() {
+		return id;
+	}
+
+	public static void setId(Integer id) {
+		Materia.id = id;
+	}
+
 	public ArrayList<Integer> getCodigoMateriascorrelativas() {
 		return codigoMateriascorrelativas;
 	}
-
-
 
 	public void setCodigoMateriascorrelativas(ArrayList<Integer> codigoMateriascorrelativas) {
 		this.codigoMateriascorrelativas = codigoMateriascorrelativas;
@@ -44,7 +48,7 @@ public class Materia {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	
+
 	public ArrayList<Integer> getCorrelativas() {
 		return codigoMateriascorrelativas;
 	}
@@ -62,15 +66,14 @@ public class Materia {
 	}
 
 	public Boolean agregarMateriasCorrelativas(Integer codigoMateriaCorrelativa) {
-		
-		Boolean seAgrego=false;
-		if(!codigoMateriascorrelativas.contains(codigoMateriaCorrelativa)) {
+
+		Boolean seAgrego = false;
+		if (!codigoMateriascorrelativas.contains(codigoMateriaCorrelativa)) {
 			codigoMateriascorrelativas.add(codigoMateriaCorrelativa);
-			seAgrego=true;
+			seAgrego = true;
 		}
 		return seAgrego;
-		
+
 	}
-	
 
 }
