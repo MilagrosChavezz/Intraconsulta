@@ -42,7 +42,7 @@ public class Alumno {
 
 	public void setMateriasAprobadas(Materia materiasAprobadas) {
 		this.materiasAprobadas.add(materiasAprobadas);
-	}	
+	}
 
 	public LocalDate getFechaIngreso() {
 		return fechaIngreso;

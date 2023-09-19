@@ -8,13 +8,11 @@ public class AsignacionProfeACurso {
 	private Cursada curso;
 	private static Integer id = 0;
 
-
 	public AsignacionProfeACurso(Profesor profesor, Cursada curso) {
 		super();
 		this.profesor = profesor;
 		this.curso = curso;
 		id++;
-		
 
 	}
 
@@ -52,18 +50,18 @@ public class AsignacionProfeACurso {
 	}
 
 	public Boolean estaDisponible(Profesor profesoraAsignar, Cursada cursada) {
-	    ArrayList<Cursada> cursadaAEvaluar = profesoraAsignar.getCursadasActuales();
+		ArrayList<Cursada> cursadaAEvaluar = profesoraAsignar.getCursadasActuales();
 
-	    for (int i = 0; i < cursadaAEvaluar.size(); i++) {
-	        if (cursadaAEvaluar.get(i).getDias().equals(cursada.getDias())
-	                && cursadaAEvaluar.get(i).getHorarios().equals(cursada.getHorarios())
-	                && cursadaAEvaluar.get(i).getCicloElectivo().getfechaInicioCicloLectivo().equals(cursada.getCicloElectivo().getfechaInicioCicloLectivo())
-	                && cursadaAEvaluar.get(i).getCicloElectivo().getCuatrimestre().equals(cursada.getCicloElectivo().getCuatrimestre())) {
-	            return false; // El profesor tiene otra cursada en el mismo horario y día
-	        }
-	    }
+		for (int i = 0; i < cursadaAEvaluar.size(); i++) {
+			if (cursadaAEvaluar.get(i).getDias().equals(cursada.getDias())
+					&& cursadaAEvaluar.get(i).getHorarios().equals(cursada.getHorarios())
+					&& cursadaAEvaluar.get(i).getCicloElectivo().getfechaInicioCicloLectivo()
+							.equals(cursada.getCicloElectivo().getfechaInicioCicloLectivo())
+					&& cursadaAEvaluar.get(i).getCicloElectivo().getCuatrimestre()
+							.equals(cursada.getCicloElectivo().getCuatrimestre())) {
+				return false; // El profesor tiene otra cursada en el mismo horario y día
+			}
+		}
 		return true;
 	}
 }
-	    
-	

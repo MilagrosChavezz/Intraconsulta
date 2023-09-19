@@ -228,20 +228,20 @@ public class AsignacionAlumnoACurso {
 
 	public Boolean recursa() {
 
-		if (!debeIrAFinal() && !promocionaMateria() ) {
+		if (!debeIrAFinal() && !promocionaMateria()) {
 			return true;
 		}
 		return false;
 
 	}
-	
+
 	public Boolean apruebaFinal() {
-		if(debeIrAFinal() && buscarNota(Evaluacion.FINAL)!=null && buscarNota(Evaluacion.FINAL).getValor()>=4) {
-			
+		if (debeIrAFinal() && buscarNota(Evaluacion.FINAL) != null && buscarNota(Evaluacion.FINAL).getValor() >= 4) {
+
 			return true;
 		}
 		return false;
-		
+
 	}
 
 	public Boolean aproboCorrelativas() {
@@ -277,7 +277,7 @@ public class AsignacionAlumnoACurso {
 		ArrayList<Integer> correlativasRequeridas = curso.getMateria().getCorrelativas();
 
 		if (correlativasRequeridas == null) {
-			return true; // No hay correlativas requeridas, por lo tanto, se considera aprobado
+			return false; // No hay correlativas requeridas, por lo tanto, se considera aprobado
 		}
 
 		ArrayList<Materia> materiasAdeudaAlumno = alumno.getMateriasAFinal();
@@ -290,7 +290,7 @@ public class AsignacionAlumnoACurso {
 				Materia materiasAdeuda = materiasAdeudaAlumno.get(j);
 				if (materiasAdeuda.getCodigoMateria().equals(correlativaRequerida)) {
 					encontrada = true;
-					break; // Salir del bucle interno si se encuentra la correlativa requerida
+					break;
 				}
 			}
 

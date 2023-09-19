@@ -35,7 +35,7 @@ public class Cursada {
 
 	// constructor sin aula se le asigna luego
 	public Cursada(Materia materia, Integer comision, Horario horarios, Dia dias, Integer cupoMaximoAlumnos,
-			Universidad universidad,CicloElectivo cicloElectivo) {
+			Universidad universidad, CicloElectivo cicloElectivo) {
 		this.alumnos = new ArrayList<Alumno>();
 		this.materia = materia;
 		this.comision = comision;
@@ -49,12 +49,10 @@ public class Cursada {
 		this.cantidadAlumnosReprobados = 0;
 		this.cantidadAlumnosAFinal = 0;
 		this.unlam = universidad;
-		this.cicloElectivo=cicloElectivo;
+		this.cicloElectivo = cicloElectivo;
 		id++;
 
 	}
-	
-	
 
 	public Integer getCantidadAlumnosAnotados() {
 		return cantidadAlumnosAnotados;
@@ -178,15 +176,13 @@ public class Cursada {
 	public Integer cantidadAlumnosPromocionados() {
 
 		for (int i = 0; i < alumnos.size(); i++) {
-
 			ArrayList<Materia> alumnosMateriasAprobadas = alumnos.get(i).getMateriasAprobadas();
-
 			for (int j = 0; j < alumnosMateriasAprobadas.size(); j++) {
-
-				if (alumnos.get(j).getMateriasAprobadas().get(j).getNombre().equals(materia.getNombre())) {
+				if (alumnosMateriasAprobadas.get(i).getCodigoMateria().equals(this.materia.getCodigoMateria())) {
 					cantidadAlumnosPromocionados++;
-
+					break;
 				}
+
 			}
 
 		}

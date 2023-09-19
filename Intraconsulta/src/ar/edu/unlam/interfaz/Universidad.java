@@ -336,9 +336,8 @@ public class Universidad {
 
 	}
 
-	public Materia BuscarMateria(Integer idMateria) {
+	private Materia BuscarMateria(Integer idMateria) {
 		Materia materiaBuscada = null;
-
 		for (int i = 0; i < materias.size(); i++) {
 
 			if (materias.get(i).getId().equals(idMateria)) {

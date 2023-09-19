@@ -3,7 +3,6 @@ package ar.edu.unlam.interfaz;
 import java.time.LocalDate;
 
 public class CicloElectivo {
-
 	private LocalDate fechaInicioCicloLectivo;
 	private LocalDate fechaFinalizacionCicloLectivo;
 	private LocalDate fechaInicioInscripcion;
