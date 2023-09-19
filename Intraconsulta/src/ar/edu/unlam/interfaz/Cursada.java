@@ -176,11 +176,12 @@ public class Cursada {
 	public Integer cantidadAlumnosPromocionados() {
 
 		for (int i = 0; i < alumnos.size(); i++) {
+
 			ArrayList<Materia> alumnosMateriasAprobadas = alumnos.get(i).getMateriasAprobadas();
 			for (int j = 0; j < alumnosMateriasAprobadas.size(); j++) {
-				if (alumnosMateriasAprobadas.get(i).getCodigoMateria().equals(this.materia.getCodigoMateria())) {
+				if (alumnosMateriasAprobadas.get(j).getCodigoMateria().equals(this.materia.getCodigoMateria())) {
 					cantidadAlumnosPromocionados++;
-					break;
+					
 				}
 
 			}

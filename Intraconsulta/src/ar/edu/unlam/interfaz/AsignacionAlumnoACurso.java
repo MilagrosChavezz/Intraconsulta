@@ -196,7 +196,7 @@ public class AsignacionAlumnoACurso {
 
 	public Integer obtenerNotaFinal() {
 		Integer notaFinal = null;
-		if (apruebaPrimerParcial() && apruebaSegundoParcial()) {
+		if (promocionaMateria()) {
 			notaFinal = (buscarNota(Evaluacion.PRIMER_PARCIAL).getValor()
 					+ buscarNota(Evaluacion.SEGUNDO_PARCIAL).getValor()) / 2;
 		}

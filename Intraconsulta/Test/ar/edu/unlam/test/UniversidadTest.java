@@ -672,12 +672,12 @@ public class UniversidadTest {
 		unlam.inscribirAlumnoACursada(dniAlumno, idComision);
 		unlam.registrarNota(idComision, dniAlumno, nota1);
 		unlam.registrarNota(idComision, dniAlumno, nota2);
-		asignacion.AgregarNota(nota1);
-		asignacion.AgregarNota(nota2);
-
+		
+		unlam.promociono(dniAlumno, idComision);
+		
 //		Boolean resultado = asignacion.adeudaCorrelativas();
 
-		Integer resultado = cursada.cantidadAlumnosPromocionados();
+		Integer resultado = unlam.cantidadAlumnosPromocionados(dniAlumno, idComision);
 		Integer resultadoEsperado = 1;
 
 		assertEquals(resultadoEsperado, resultado);

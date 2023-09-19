@@ -335,6 +335,30 @@ public class Universidad {
 		return notaFinal;
 
 	}
+	
+	public Boolean promociono(Integer dni ,Integer idCursada ) {
+		AsignacionAlumnoACurso asignacion = buscarAsignacion(idCursada, dni);
+		if(asignacion.promocionaMateria()) {
+			return true;
+		}
+		return false;
+	}
+	
+
+	public Boolean recurso(Integer dni ,Integer idCursada ) {
+		AsignacionAlumnoACurso asignacion = buscarAsignacion(idCursada, dni);
+		if(asignacion.recursa()) {
+			return true;
+		}
+		return false;
+	}
+	public Boolean adeudaMateria(Integer dni ,Integer idCursada ) {
+		AsignacionAlumnoACurso asignacion = buscarAsignacion(idCursada, dni);
+		if(asignacion.adeudaCorrelativas()) {
+			return true;
+		}
+		return false;
+	}
 
 	private Materia BuscarMateria(Integer idMateria) {
 		Materia materiaBuscada = null;
@@ -353,6 +377,8 @@ public class Universidad {
 		Integer alumnosPromocionados = null;
 
 		if (cursadaBuscada != null) {
+
+			
 			alumnosPromocionados = cursadaBuscada.cantidadAlumnosPromocionados();
 		}
 
