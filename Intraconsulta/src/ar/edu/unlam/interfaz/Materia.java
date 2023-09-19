@@ -9,10 +9,27 @@ public class Materia {
 	private ArrayList<Integer> codigoMateriascorrelativas;
 	private Aula aula;
 
+<<<<<<< Updated upstream
 	public Materia(String nombre, Integer codigoMateria) {
 		this.nombre = nombre;
 		this.codigoMateria = codigoMateria;
 		this.codigoMateriascorrelativas = new ArrayList<Integer>();
+=======
+	public Materia(String nombre, Integer codigoMateria, Universidad universidad) {
+		this.nombre = nombre;
+		this.codigoMateria = codigoMateria;
+		this.codigoMateriascorrelativas = new ArrayList<Integer>();
+
+		id++;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public static void setId(Integer id) {
+		Materia.id = id;
+>>>>>>> Stashed changes
 	}
 
 	public ArrayList<Integer> getCodigoMateriascorrelativas() {
@@ -49,12 +66,45 @@ public class Materia {
 
 	public Boolean agregarMateriasCorrelativas(Integer codigoMateriaCorrelativa) {
 
+<<<<<<< Updated upstream
 		Boolean seAgrego = false;
 		if (!codigoMateriascorrelativas.contains(codigoMateriaCorrelativa)) {
 			codigoMateriascorrelativas.add(codigoMateriaCorrelativa);
 			seAgrego = true;
 		}
 		return seAgrego;
+=======
+	public void setCorrelativas(ArrayList<Integer> correlativas) {
+		this.codigoMateriascorrelativas = correlativas;
+	}
+
+	public Aula getAula() {
+		return aula;
+	}
+
+	public void setAula(Aula aula) {
+		this.aula = aula;
+	}
+
+	public void agregarMateriasCorrelativas(Integer codigoMateriaCorrelativa) {
+
+		codigoMateriascorrelativas.add(codigoMateriaCorrelativa);
+
+	}
+
+	public void eliminarCorrelatividad(Integer idCorrelativaAELiminar) {
+
+		Integer codigoMateriascorrelativasAEliminar = null;
+
+		for (int i = 0; i < codigoMateriascorrelativas.size(); i++) {
+
+			if (codigoMateriascorrelativas.get(i).equals(idCorrelativaAELiminar)) {
+				codigoMateriascorrelativasAEliminar = codigoMateriascorrelativas.get(i);
+				codigoMateriascorrelativasAEliminar = null;
+
+			}
+		}
+>>>>>>> Stashed changes
 
 	}
 
