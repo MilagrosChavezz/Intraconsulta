@@ -3,9 +3,12 @@ package ar.edu.unlam.interfaz;
 public class Nota {
 	private Integer valor;
 	private Evaluacion evaluacion;
+	private static Integer id = 0;
 
 	public Nota(Integer valor, Evaluacion evaluacion) {
-		this.valor = 0;
+		this.valor = valor;
+		this.evaluacion = evaluacion;
+		id++;
 	}
 
 	public Evaluacion getEvaluacion() {
@@ -29,5 +32,4 @@ public class Nota {
 		if (valor >= 1 && valor <= 10)
 			this.valor = valor;
 	}
-
 }

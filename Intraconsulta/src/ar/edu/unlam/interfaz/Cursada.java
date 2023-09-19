@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class Cursada {
 
+	private Universidad unlam;
 	private ArrayList<Alumno> alumnos;
 	private ArrayList<Profesor> profesores;
 	private Profesor profesor;
@@ -15,43 +16,12 @@ public class Cursada {
 	private Aula aula;
 	private CicloElectivo cicloElectivo;
 	private AsignacionProfeACurso profesorAAgregar;
-<<<<<<< Updated upstream
-
-	public Cursada(Materia materia, Integer comision, Horario horarios, Dia dias, Aula aula,
-			CicloElectivo cicloElectivo, Integer cupoMaximoAlumnos) {
-		this.alumnos = new ArrayList<Alumno>();
-		this.materia = materia;
-		this.comision = comision;
-		this.profesores = new ArrayList<Profesor>();
-		this.aula = aula;
-		this.cicloElectivo = cicloElectivo;
-		this.dias = dias;
-		this.horarios = horarios;
-		this.cupoMaximoAlumnos = cupoMaximoAlumnos;
-
-	}
-
-//constructor sin aula
-	public Cursada(Materia materia, Integer comision, Horario horarios, Dia dias, CicloElectivo cicloElectivo,
-			Integer cupoMaximoAlumnos) {
-		this.alumnos = new ArrayList<Alumno>();
-		this.materia = materia;
-		this.comision = comision;
-		this.profesores = new ArrayList<Profesor>();
-		this.cicloElectivo = cicloElectivo;
-		this.dias = dias;
-		this.horarios = horarios;
-		this.cupoMaximoAlumnos = cupoMaximoAlumnos;
-
-	}
-=======
 	private Integer cantidadAlumnosAnotados;
 	private Integer cantidadDeProfesoresEnCursada;
-	private Integer cantidadAlumnosPromocionados = 0;
+	private static Integer id = 0;
+	private Integer cantidadAlumnosPromocionados;
 	private Integer cantidadAlumnosAFinal;
 	private Integer cantidadAlumnosReprobados;
-	private static Integer id = 0;
->>>>>>> Stashed changes
 
 	public Integer getCupoMaximoAlumnos() {
 		return cupoMaximoAlumnos;
@@ -61,8 +31,7 @@ public class Cursada {
 		this.cupoMaximoAlumnos = cupoMaximoAlumnos;
 	}
 
-<<<<<<< Updated upstream
-=======
+	// constructor sin aula se le asigna luego
 	public Cursada(Materia materia, Integer comision, Horario horarios, Dia dias, Integer cupoMaximoAlumnos,
 			Universidad universidad, CicloElectivo cicloElectivo) {
 		this.alumnos = new ArrayList<Alumno>();
@@ -74,6 +43,7 @@ public class Cursada {
 		this.cupoMaximoAlumnos = cupoMaximoAlumnos;
 		this.cantidadAlumnosAnotados = 0;
 		this.cantidadDeProfesoresEnCursada = 0;
+		this.cantidadAlumnosPromocionados = 0;
 		this.cantidadAlumnosReprobados = 0;
 		this.cantidadAlumnosAFinal = 0;
 		this.unlam = universidad;
@@ -98,9 +68,16 @@ public class Cursada {
 		this.cantidadAlumnosAnotados = cantidadAlumnosAnotados;
 	}
 
->>>>>>> Stashed changes
 	public Materia getMateria() {
 		return materia;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public static void setId(Integer id) {
+		Cursada.id = id;
 	}
 
 	public void setMateria(Materia materia) {
@@ -119,16 +96,21 @@ public class Cursada {
 		return alumnos;
 	}
 
+	public void setAlumnos(ArrayList<Alumno> alumnos) {
+		this.alumnos = alumnos;
+	}
+
 	public ArrayList<Profesor> getProfesores() {
 		return profesores;
 	}
 
 	public void setProfesores(Profesor profesor) {
-		profesores.add(profesor);
+		if (!profesores.contains(profesor))
+			profesores.add(profesor);
 	}
 
-	public void setAlumnos(Alumno alumno) {
-		alumnos.add(alumno);
+	public void setAlumnos(Alumno alumnoAsignar) {
+		alumnos.add(alumnoAsignar);
 	}
 
 	public Horario getHorarios() {
@@ -159,17 +141,16 @@ public class Cursada {
 		return cicloElectivo;
 	}
 
-	public void setCicloElectivo(CicloElectivo cicloElectivo) {
+	public void AgregarCicloElectivo(CicloElectivo cicloElectivo) {
+
 		this.cicloElectivo = cicloElectivo;
+
 	}
 
 	public Integer cantidadAlumnosAnotados() {
-		Integer cantidadAlumnos = 0;
-		for (int i = 0; i < alumnos.size(); i++) {
-			cantidadAlumnos++;
 
-		}
-		return cantidadAlumnos;
+		cantidadAlumnosAnotados = alumnos.size();
+		return cantidadAlumnosAnotados;
 	}
 
 	public Integer cantidadDeProfesoresPorCursoRequerido() {
@@ -178,31 +159,56 @@ public class Cursada {
 
 	}
 
+	public Integer cantidadDeProfesoresActuales() {
+
+		cantidadDeProfesoresEnCursada = profesores.size();
+
+		return cantidadDeProfesoresEnCursada;
+	}
+
 	public void AgregarAula(Aula aula) {
 		if (cupoMaximoAlumnos <= Aula.getCapacidadMaximaAlumnos())
 			this.aula = aula;
 	}
 
-	public Alumno buscarAlumnoPorDni(Integer dniAlumno) {
-		Alumno alumnosBuscado = null;
+	public Integer cantidadAlumnosPromocionados() {
+
 		for (int i = 0; i < alumnos.size(); i++) {
-<<<<<<< Updated upstream
-			if (alumnos.get(i).getDni().equals(dniAlumno) && alumnos.get(i) != null) {
-				alumnosBuscado = alumnos.get(i);
-=======
 			ArrayList<Materia> alumnosMateriasAprobadas = alumnos.get(i).getMateriasAprobadas();
 			for (int j = 0; j < alumnosMateriasAprobadas.size(); j++) {
-				if (alumnosMateriasAprobadas.get(i).getCodigoMateria().equals(materia.getCodigoMateria())) {
+				if (alumnosMateriasAprobadas.get(i).getCodigoMateria().equals(this.materia.getCodigoMateria())) {
 					cantidadAlumnosPromocionados++;
 					break;
 				}
 
->>>>>>> Stashed changes
 			}
 
 		}
-		return alumnosBuscado;
-
+		return cantidadAlumnosPromocionados;
 	}
 
+	public Integer cantidadAlumnosAfinal() {
+
+		for (int i = 0; i < alumnos.size(); i++) {
+
+			ArrayList<Materia> alumnosMateriasAFinal = alumnos.get(i).getMateriasAFinal();
+
+			for (int j = 0; j < alumnosMateriasAFinal.size(); j++) {
+
+				if (alumnos.get(j).getMateriasAFinal().get(j).getNombre().equals(materia.getNombre())) {
+					cantidadAlumnosAFinal++;
+
+				}
+			}
+
+		}
+		return cantidadAlumnosAFinal;
+	}
+
+	public Integer cantidadAlumnosReprobados() {
+
+		cantidadAlumnosReprobados = cantidadAlumnosAnotados - cantidadAlumnosAfinal() - cantidadAlumnosPromocionados();
+		return cantidadAlumnosReprobados;
+
+	}
 }

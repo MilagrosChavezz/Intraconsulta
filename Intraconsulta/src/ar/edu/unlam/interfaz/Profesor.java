@@ -7,12 +7,14 @@ public class Profesor {
 	private String nombre;
 	private Integer codigoProfesor;
 	private ArrayList<Cursada> cursadasActuales;
+	private static Integer id = 0;
 
-	public Profesor(String nombre, Integer codigoProfesor) {
-		
+	public Profesor(String nombre, String apellido, Integer codigoProfesor) {
+
 		this.nombre = nombre;
 		this.codigoProfesor = codigoProfesor;
 		this.cursadasActuales = new ArrayList<Cursada>();
+		id++;
 	}
 
 	public ArrayList<Cursada> getCursadasActuales() {
@@ -38,8 +40,17 @@ public class Profesor {
 	public void setCodigoProfesor(Integer codigoProfesor) {
 		this.codigoProfesor = codigoProfesor;
 	}
+
 	public Boolean seAgregaCursadaActual(Cursada cursoNuevo) {
-		return cursadasActuales.add( cursoNuevo);
+		return cursadasActuales.add(cursoNuevo);
+	}
+
+	public static Integer getId() {
+		return id;
+	}
+
+	public static void setId(Integer id) {
+		Profesor.id = id;
 	}
 
 }

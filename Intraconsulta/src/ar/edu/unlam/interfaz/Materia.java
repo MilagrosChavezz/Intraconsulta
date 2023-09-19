@@ -8,13 +8,8 @@ public class Materia {
 	private Integer codigoMateria;
 	private ArrayList<Integer> codigoMateriascorrelativas;
 	private Aula aula;
+	private static Integer id = 0;
 
-<<<<<<< Updated upstream
-	public Materia(String nombre, Integer codigoMateria) {
-		this.nombre = nombre;
-		this.codigoMateria = codigoMateria;
-		this.codigoMateriascorrelativas = new ArrayList<Integer>();
-=======
 	public Materia(String nombre, Integer codigoMateria, Universidad universidad) {
 		this.nombre = nombre;
 		this.codigoMateria = codigoMateria;
@@ -29,7 +24,6 @@ public class Materia {
 
 	public static void setId(Integer id) {
 		Materia.id = id;
->>>>>>> Stashed changes
 	}
 
 	public ArrayList<Integer> getCodigoMateriascorrelativas() {
@@ -38,14 +32,6 @@ public class Materia {
 
 	public void setCodigoMateriascorrelativas(ArrayList<Integer> codigoMateriascorrelativas) {
 		this.codigoMateriascorrelativas = codigoMateriascorrelativas;
-	}
-
-	public Aula getAula() {
-		return aula;
-	}
-
-	public void setAula(Aula aula) {
-		this.aula = aula;
 	}
 
 	public Integer getCodigoMateria() {
@@ -64,16 +50,10 @@ public class Materia {
 		this.nombre = nombre;
 	}
 
-	public Boolean agregarMateriasCorrelativas(Integer codigoMateriaCorrelativa) {
+	public ArrayList<Integer> getCorrelativas() {
+		return codigoMateriascorrelativas;
+	}
 
-<<<<<<< Updated upstream
-		Boolean seAgrego = false;
-		if (!codigoMateriascorrelativas.contains(codigoMateriaCorrelativa)) {
-			codigoMateriascorrelativas.add(codigoMateriaCorrelativa);
-			seAgrego = true;
-		}
-		return seAgrego;
-=======
 	public void setCorrelativas(ArrayList<Integer> correlativas) {
 		this.codigoMateriascorrelativas = correlativas;
 	}
@@ -93,19 +73,17 @@ public class Materia {
 	}
 
 	public void eliminarCorrelatividad(Integer idCorrelativaAELiminar) {
-
-		Integer codigoMateriascorrelativasAEliminar = null;
+		
+		Integer codigoMateriascorrelativasAEliminar=null;
 
 		for (int i = 0; i < codigoMateriascorrelativas.size(); i++) {
-
+			
 			if (codigoMateriascorrelativas.get(i).equals(idCorrelativaAELiminar)) {
 				codigoMateriascorrelativasAEliminar = codigoMateriascorrelativas.get(i);
-				codigoMateriascorrelativasAEliminar = null;
-
+				codigoMateriascorrelativasAEliminar=null;
+				
 			}
 		}
->>>>>>> Stashed changes
-
+	
 	}
-
 }

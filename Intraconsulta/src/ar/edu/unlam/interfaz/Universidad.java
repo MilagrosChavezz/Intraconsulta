@@ -9,6 +9,8 @@ public class Universidad {
 	private ArrayList<Materia> materias;
 	private ArrayList<Cursada> cursadas;
 	private ArrayList<Profesor> profesores;
+	private ArrayList<AsignacionAlumnoACurso> asignaciones;
+	private ArrayList<CicloElectivo> ciclosElectivos;
 
 	public Universidad(String nombre) {
 		super();
@@ -18,6 +20,8 @@ public class Universidad {
 		this.materias = new ArrayList<Materia>();
 		this.cursadas = new ArrayList<Cursada>();
 		this.profesores = new ArrayList<Profesor>();
+		this.ciclosElectivos = new ArrayList<CicloElectivo>();
+		this.asignaciones = new ArrayList<AsignacionAlumnoACurso>();
 	}
 
 	public ArrayList<Aula> getAulas() {
@@ -53,55 +57,112 @@ public class Universidad {
 	}
 
 	public Boolean agregarAula(Aula nueva) {
-		if (!aulas.contains(nueva) && nueva != null) {
+		if (buscarAula(nueva.getNumeroAula()) == null) {
 			aulas.add(nueva);
 			return true;
 		}
 		return false;
 	}
 
-	public Boolean agregarMateria(Materia nueva) {
-		if (!materias.contains(nueva) && nueva != null) {
-			materias.add(nueva);
-			return true;
+	public Aula buscarAula(Integer codigoAula) {
+		Aula aulaBuscada = null;
+		for (int i = 0; i < aulas.size(); i++) {
+			if (aulas.get(i).getNumeroAula().equals(codigoAula)) {
+				aulaBuscada = aulas.get(i);
+			}
+		}
+		return aulaBuscada;
+	}
+
+	public Boolean mismaCursada(Cursada curso) {
+
+		for (int i = 0; i < cursadas.size(); i++) {
+			if (cursadas.get(i).getComision().equals(curso.getComision())
+					&& cursadas.get(i).getHorarios().equals(curso.getHorarios())
+					&& cursadas.get(i).getMateria().equals(curso.getMateria())
+					&& cursadas.get(i).getDias().equals(curso.getDias())) {
+
+				return true;
+
+			}
 		}
 		return false;
+
 	}
 
 	public Boolean agregarCurso(Cursada nuevo) {
-		if (!cursadas.contains(nuevo) && nuevo != null) {
+		if (!cursadas.contains(nuevo) && nuevo != null && !mismaCursada(nuevo)) {
 			cursadas.add(nuevo);
 			return true;
 		}
 		return false;
 	}
 
+	public Boolean existeAlumno(Integer dni) {
+		for (int i = 0; i < alumnos.size(); i++) {
+			if (alumnos.get(i).getDni().equals(dni)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public Alumno buscarAlumno(Integer dni) {
+		Alumno alumnoBuscado = null;
+		for (int i = 0; i < alumnos.size(); i++) {
+			if (alumnos.get(i).getDni().equals(dni)) {
+				alumnoBuscado = alumnos.get(i);
+			}
+
+		}
+		return alumnoBuscado;
+	}
+
 	public Boolean agregarAlumno(Alumno nuevo) {
-		if (!alumnos.contains(nuevo) && nuevo != null) {
+		if (!existeAlumno(nuevo.getDni()) && nuevo != null) {
 			alumnos.add(nuevo);
 			return true;
 		}
 		return false;
 	}
 
+	public Profesor existeProfesor(Integer codigoProfesor) {
+		Profesor profesor = null;
+		for (int i = 0; i < profesores.size(); i++) {
+
+			if (profesores.get(i).getCodigoProfesor().equals(codigoProfesor)) {
+				profesor = profesores.get(i);
+			}
+		}
+		return profesor;
+	}
+
 	public boolean ingresarProfesorALaUniversidad(Profesor profesoraAsignar) {
-		if (!profesores.contains(profesoraAsignar) && profesoraAsignar != null) {
+		if (existeProfesor(profesoraAsignar.getCodigoProfesor()) == null) {
 			profesores.add(profesoraAsignar);
 			return true;
 		}
 		return false;
 	}
 
-	public Boolean estaIngresadoALaUniversidad(Profesor profesoraABuscar) {
-		return profesoraABuscar != null && profesores.contains(profesoraABuscar);
+	public Boolean existeMateria(Integer codigoMateria) {
+		for (int i = 0; i < materias.size(); i++) {
+			if (materias.get(i).getCodigoMateria().equals(codigoMateria)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
-	public Boolean estaIngresadaLaCursada(Cursada cursada) {
-		return cursada != null && cursadas.contains(cursada);
+	public Boolean agregarMateria(Materia materiaAsignada) {
+		Boolean seAsignoMateria = false;
+		if (!existeMateria(materiaAsignada.getCodigoMateria()) && materiaAsignada != null) {
+			materias.add(materiaAsignada);
+			seAsignoMateria = true;
+		}
+		return seAsignoMateria;
 	}
 
-<<<<<<< Updated upstream
-=======
 	public Boolean existeCursada(Integer idCursada) {
 		for (int i = 0; i < cursadas.size(); i++) {
 
@@ -275,9 +336,8 @@ public class Universidad {
 
 	}
 
-	public Materia BuscarMateria(Integer idMateria) {
+	private Materia BuscarMateria(Integer idMateria) {
 		Materia materiaBuscada = null;
-
 		for (int i = 0; i < materias.size(); i++) {
 
 			if (materias.get(i).getId().equals(idMateria)) {
@@ -285,42 +345,6 @@ public class Universidad {
 			}
 		}
 		return materiaBuscada;
-	}
-
-	public Integer cantidadAlumnosPromocionados(Integer dniAlumno, Integer idComision) {
-		Alumno alumnoBuscado = buscarAlumno(dniAlumno);
-		Cursada cursadaBuscada = BuscarCursada(idComision);
-		Integer alumnosPromocionados = null;
-
-		if (cursadaBuscada != null && alumnoBuscado != null) {
-			alumnosPromocionados = cursadaBuscada.cantidadAlumnosPromocionados();
-		}
-
-		return alumnosPromocionados;
-	}
-
-	public Integer cantidadAlumnosReprobados(Integer dniAlumno, Integer idComision) {
-		Alumno alumnoBuscado = buscarAlumno(dniAlumno);
-		Cursada cursadaBuscada = BuscarCursada(idComision);
-		Integer alumnosReprobados = null;
-
-		if (cursadaBuscada != null && alumnoBuscado != null) {
-			alumnosReprobados = cursadaBuscada.cantidadAlumnosReprobados();
-		}
-
-		return alumnosReprobados;
-	}
-
-	public Integer cantidadAlumnosAFinal(Integer dniAlumno, Integer idComision) {
-		Alumno alumnoBuscado = buscarAlumno(dniAlumno);
-		Cursada cursadaBuscada = BuscarCursada(idComision);
-		Integer alumnosAFinal = null;
-
-		if (cursadaBuscada != null && alumnoBuscado != null) {
-			alumnosAFinal = cursadaBuscada.cantidadAlumnosReprobados();
-
-		}
-		return alumnosAFinal;
 	}
 
 	/*
@@ -334,5 +358,4 @@ public class Universidad {
 	 * return materiasQueFaltanCursar; }
 	 */
 
->>>>>>> Stashed changes
 }
