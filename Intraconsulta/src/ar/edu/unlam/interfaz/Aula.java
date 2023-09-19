@@ -16,10 +16,6 @@ public class Aula {
 		return id;
 	}
 
-	public static void setId(Integer id) {
-		Aula.id = id;
-	}
-
 	public static Integer getCapacidadMaximaAlumnos() {
 		return capacidadMaximaAlumnos;
 	}

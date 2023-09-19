@@ -25,7 +25,7 @@ public class MeteriaTest {
 		Cuatrimestre cuatrimestre = Cuatrimestre.Primer_Cuatrimestre;
 		Evaluacion evaluacion = Evaluacion.PRIMER_PARCIAL;
 
-		Materia materia = new Materia(nombreDeMateria, codigoMateria);
+		Materia materia = new Materia(nombreDeMateria, codigoMateria, null);
 		
 	Boolean seAgrego=	materia.agregarMateriasCorrelativas(1234);
 	

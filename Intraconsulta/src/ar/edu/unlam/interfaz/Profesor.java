@@ -9,7 +9,7 @@ public class Profesor {
 	private ArrayList<Cursada> cursadasActuales;
 	private static Integer id = 0;
 
-	public Profesor(String nombre, Integer codigoProfesor) {
+	public Profesor(String nombre, String apellido, Integer codigoProfesor) {
 
 		this.nombre = nombre;
 		this.codigoProfesor = codigoProfesor;

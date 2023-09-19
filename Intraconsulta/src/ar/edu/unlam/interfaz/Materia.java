@@ -4,20 +4,22 @@ import java.util.ArrayList;
 
 public class Materia {
 
+	
 	private String nombre;
 	private Integer codigoMateria;
 	private ArrayList<Integer> codigoMateriascorrelativas;
 	private Aula aula;
 	private static Integer id = 0;
 
-	public Materia(String nombre, Integer codigoMateria) {
+	public Materia(String nombre, Integer codigoMateria , Universidad universidad) {
 		this.nombre = nombre;
 		this.codigoMateria = codigoMateria;
 		this.codigoMateriascorrelativas = new ArrayList<Integer>();
+		
 		id++;
 	}
 
-	public static Integer getId() {
+	public Integer getId() {
 		return id;
 	}
 
@@ -65,15 +67,26 @@ public class Materia {
 		this.aula = aula;
 	}
 
-	public Boolean agregarMateriasCorrelativas(Integer codigoMateriaCorrelativa) {
+	public void agregarMateriasCorrelativas(Integer codigoMateriaCorrelativa ) {
 
-		Boolean seAgrego = false;
-		if (!codigoMateriascorrelativas.contains(codigoMateriaCorrelativa)) {
-			codigoMateriascorrelativas.add(codigoMateriaCorrelativa);
-			seAgrego = true;
+		codigoMateriascorrelativas.add(codigoMateriaCorrelativa);
+		
+
+	}
+
+	public void eliminarCorrelatividad(Integer idCorrelativaAELiminar) {
+		
+		Integer codigoMateriascorrelativasAEliminar=null;
+
+		for (int i = 0; i < codigoMateriascorrelativas.size(); i++) {
+			
+			if (codigoMateriascorrelativas.get(i).equals(idCorrelativaAELiminar)) {
+				codigoMateriascorrelativasAEliminar = codigoMateriascorrelativas.get(i);
+				codigoMateriascorrelativasAEliminar=null;
+				
+			}
 		}
-		return seAgrego;
-
+	
 	}
 
 }

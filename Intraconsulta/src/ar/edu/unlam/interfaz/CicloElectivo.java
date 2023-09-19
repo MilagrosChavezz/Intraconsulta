@@ -1,10 +1,9 @@
 package ar.edu.unlam.interfaz;
 
-
 import java.time.LocalDate;
 
 public class CicloElectivo {
-	
+
 	private LocalDate fechaInicioCicloLectivo;
 	private LocalDate fechaFinalizacionCicloLectivo;
 	private LocalDate fechaInicioInscripcion;
@@ -22,8 +21,6 @@ public class CicloElectivo {
 		id++;
 
 	}
-	
-
 
 	public LocalDate getFechaFinalizacionCicloLectivo() {
 		return fechaFinalizacionCicloLectivo;
@@ -64,6 +61,14 @@ public class CicloElectivo {
 
 	public void setCuatrimestre(Cuatrimestre cuatrimestre) {
 		this.cuatrimestre = cuatrimestre;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public static void setId(Integer id) {
+		CicloElectivo.id = id;
 	}
 
 }

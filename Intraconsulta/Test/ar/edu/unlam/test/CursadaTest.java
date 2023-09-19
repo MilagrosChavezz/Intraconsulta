@@ -43,19 +43,23 @@ public class CursadaTest {
 		Aula aula = new Aula(numeroAula, cupoMaximoAlumnos);
 		CicloElectivo cicloElectivo = new CicloElectivo(fechaInicioCicloLectivo, fechaFinalizacionCicloLectivo,
 				fechaInicioInscripcion, fechaFinalizacionInscripcion, cuatrimestre);
-		Cursada cursada = new Cursada(materia, comision, horarios, dias, cicloElectivo, cupoMaximoAlumnos);
+
 		Universidad unlam = new Universidad(nombreUniversidad);
+		Cursada cursada = new Cursada(materia, comision, horarios, dias, cupoMaximoAlumnos, unlam);
 		AsignacionProfeACurso nuevaAsignacion = new AsignacionProfeACurso(profesor, cursada, idAsignacionDeCursada,
 				unlam);
 
+		unlam.agregarCicloElectivo(cicloElectivo);
 		unlam.agregarMateria(materia);
 		unlam.agregarCurso(cursada);
 		unlam.agregarAula(aula);
 		unlam.ingresarProfesorALaUniversidad(profesor);
+		// cursada.AgregarCicloElectivo(cicloElectivo);
 		cursada.AgregarAula(aula);
+
 		Boolean resultado = nuevaAsignacion.asignarProfesorACurso(profesor, cursada);
 
-		assertTrue(resultado);
+		assertTrue(cursada.AgregarCicloElectivo(cicloElectivo));
 	}
 
 	@Test
@@ -77,8 +81,8 @@ public class CursadaTest {
 		Aula aula = new Aula(numeroAula, cupoMaximoAlumnos);
 		CicloElectivo cicloElectivo = new CicloElectivo(fechaInicioCicloLectivo, fechaFinalizacionCicloLectivo,
 				fechaInicioInscripcion, fechaFinalizacionInscripcion, cuatrimestre);
-		Cursada cursada = new Cursada(materia, comision, horarios, dias, aula, cicloElectivo, cupoMaximoAlumnos);
 		Universidad unlam = new Universidad(nombreUniversidad);
+		Cursada cursada = new Cursada(materia, comision, horarios, dias, cupoMaximoAlumnos, unlam);
 		AsignacionProfeACurso nuevaAsignacion = new AsignacionProfeACurso(profesor, cursada, idAsignacionDeCursada,
 				unlam);
 
@@ -110,9 +114,8 @@ public class CursadaTest {
 		Aula aula2 = new Aula(numeroAula2, cupoMaximoAlumnos2);
 		CicloElectivo cicloElectivo2 = new CicloElectivo(fechaInicioCicloLectivo, fechaFinalizacionCicloLectivo,
 				fechaInicioInscripcion, fechaFinalizacionInscripcion, cuatrimestre);
-		Cursada cursada2 = new Cursada(materia2, comision2, horarios2, dias2, aula2, cicloElectivo2,
-				cupoMaximoAlumnos2);
-
+		Cursada cursada2 = new Cursada(materia2, comision2, horarios2, dias2, cupoMaximoAlumnos2, unlam);
+		
 		unlam.agregarMateria(materia2);
 		unlam.agregarCurso(cursada2);
 		unlam.agregarAula(aula2);
@@ -143,8 +146,8 @@ public class CursadaTest {
 		Aula aula = new Aula(numeroAula, capacidadMaximaAulas);
 		CicloElectivo cicloElectivo = new CicloElectivo(fechaInicioCicloLectivo, fechaFinalizacionCicloLectivo,
 				fechaInicioInscripcion, fechaFinalizacionInscripcion, cuatrimestre);
-		Cursada cursada = new Cursada(materia, comision, horarios, dias, cicloElectivo, cupoMaximoAlumnos);
 		Universidad unlam = new Universidad(nombreUniversidad);
+		Cursada cursada = new Cursada(materia, comision, horarios, dias, cupoMaximoAlumnos, unlam);
 		AsignacionProfeACurso nuevaAsignacion = new AsignacionProfeACurso(profesor, cursada, idAsignacionDeCursada,
 				unlam);
 
@@ -181,8 +184,8 @@ public class CursadaTest {
 		Aula aula = new Aula(numeroAula, capacidadMaximaAulas);
 		CicloElectivo cicloElectivo = new CicloElectivo(fechaInicioCicloLectivo, fechaFinalizacionCicloLectivo,
 				fechaInicioInscripcion, fechaFinalizacionInscripcion, cuatrimestre);
-		Cursada cursada = new Cursada(materia, comision, horarios, dias, aula, cicloElectivo, cupoMaximoAlumnos);
 		Universidad unlam = new Universidad(nombreUniversidad);
+		Cursada cursada = new Cursada(materia, comision, horarios, dias, cupoMaximoAlumnos, unlam);
 		AsignacionProfeACurso nuevaAsignacion = new AsignacionProfeACurso(profesor, cursada, idAsignacionDeCursada,
 				unlam);
 		cursada.setCantidadAlumnosAnotados(10);
@@ -223,8 +226,8 @@ public class CursadaTest {
 		Aula aula = new Aula(numeroAula, capacidadMaximaAulas);
 		CicloElectivo cicloElectivo = new CicloElectivo(fechaInicioCicloLectivo, fechaFinalizacionCicloLectivo,
 				fechaInicioInscripcion, fechaFinalizacionInscripcion, cuatrimestre);
-		Cursada cursada = new Cursada(materia, comision, horarios, dias, aula, cicloElectivo, cupoMaximoAlumnos);
 		Universidad unlam = new Universidad(nombreUniversidad);
+		Cursada cursada = new Cursada(materia, comision, horarios, dias, cupoMaximoAlumnos, unlam);
 		AsignacionAlumnoACurso asignacion = new AsignacionAlumnoACurso(capacidadMaximaAulas, cursada, alumno, unlam);
 
 		unlam.agregarAlumno(alumno);
@@ -261,7 +264,7 @@ public class CursadaTest {
 		Aula aula = new Aula(numeroAula, capacidadMaximaAulas);
 		CicloElectivo cicloElectivo = new CicloElectivo(fechaInicioCicloLectivo, fechaFinalizacionCicloLectivo,
 				fechaInicioInscripcion, fechaFinalizacionInscripcion, cuatrimestre);
-		Cursada cursada = new Cursada(materia, comision, horarios, dias, aula, cicloElectivo, cupoMaximoAlumnos);
+		Cursada cursada = new Cursada(materia, comision, horarios, dias, cupoMaximoAlumnos, unlam);
 		AsignacionAlumnoACurso asignacion = new AsignacionAlumnoACurso(capacidadMaximaAulas, cursada, alumno, unlam);
 		Nota nota1 = new Nota(valorNota, evaluacion);
 		Nota nota2 = new Nota(valorNota, Evaluacion.SEGUNDO_PARCIAL);

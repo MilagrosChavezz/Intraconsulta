@@ -6,15 +6,15 @@ public class AsignacionProfeACurso {
 
 	private Profesor profesor;
 	private Cursada curso;
-	private static Integer id;
-	private Universidad unlam;
+	private static Integer id = 0;
 
-	public AsignacionProfeACurso(Profesor profesor, Cursada curso, Integer id, Universidad unlam) {
+
+	public AsignacionProfeACurso(Profesor profesor, Cursada curso) {
 		super();
 		this.profesor = profesor;
 		this.curso = curso;
 		id++;
-		this.unlam = unlam;
+		
 
 	}
 
