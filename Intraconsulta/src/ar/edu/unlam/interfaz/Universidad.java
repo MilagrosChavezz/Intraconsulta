@@ -335,6 +335,20 @@ public class Universidad {
 		return notaFinal;
 
 	}
+<<<<<<< Updated upstream
+=======
+	
+	public Boolean promociono(Integer dni ,Integer idCursada ) {
+		AsignacionAlumnoACurso asignacion = buscarAsignacion(idCursada, dni);
+		Boolean asignacionResultado=asignacion.promocionaMateria();
+		if(asignacionResultado) {
+			
+			return true;
+		}
+		return false;
+	}
+	
+>>>>>>> Stashed changes
 
 	public Materia BuscarMateria(Integer idMateria) {
 		Materia materiaBuscada = null;
@@ -348,37 +362,43 @@ public class Universidad {
 		return materiaBuscada;
 	}
 
-	public Integer cantidadAlumnosPromocionados(Integer dniAlumno, Integer idComision) {
-		Alumno alumnoBuscado = buscarAlumno(dniAlumno);
+	public Integer cantidadAlumnosPromocionados( Integer idComision) {
+		
 		Cursada cursadaBuscada = BuscarCursada(idComision);
 		Integer alumnosPromocionados = null;
 
 		if (cursadaBuscada != null) {
+<<<<<<< Updated upstream
+=======
+			
+		
+>>>>>>> Stashed changes
 			alumnosPromocionados = cursadaBuscada.cantidadAlumnosPromocionados();
 		}
 
 		return alumnosPromocionados;
 	}
 
-	public Integer cantidadAlumnosReprobados(Integer dniAlumno, Integer idComision) {
-		Alumno alumnoBuscado = buscarAlumno(dniAlumno);
+	public Integer cantidadAlumnosReprobados( Integer idComision) {
+		
 		Cursada cursadaBuscada = BuscarCursada(idComision);
 		Integer alumnosReprobados = null;
 
 		if (cursadaBuscada != null) {
+			cursadaBuscada.cantidadAlumnosAnotados();
 			alumnosReprobados = cursadaBuscada.cantidadAlumnosReprobados();
 		}
 
 		return alumnosReprobados;
 	}
 
-	public Integer cantidadAlumnosAFinal(Integer dniAlumno, Integer idComision) {
-		Alumno alumnoBuscado = buscarAlumno(dniAlumno);
+	public Integer cantidadAlumnosAFinal( Integer idComision) {
+		
 		Cursada cursadaBuscada = BuscarCursada(idComision);
 		Integer alumnosAFinal = null;
 
 		if (cursadaBuscada != null) {
-			alumnosAFinal = cursadaBuscada.cantidadAlumnosReprobados();
+			alumnosAFinal = cursadaBuscada.cantidadAlumnosAfinal();
 
 		}
 		return alumnosAFinal;
