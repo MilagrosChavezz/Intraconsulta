@@ -298,8 +298,7 @@ public class Universidad {
 	}
 
 	public Boolean registrarNota(Integer idComision, Integer dniAlumno, Nota nota) {
-		Cursada cursadaBuscada = BuscarCursada(idComision);
-		Alumno alumnoBuscado = buscarAlumno(dniAlumno);
+	
 
 		if (buscarAsignacion(idComision, dniAlumno) != null) {
 			AsignacionAlumnoACurso asignarNota = buscarAsignacion(idComision, dniAlumno);
@@ -412,15 +411,18 @@ public class Universidad {
 		return alumnosAFinal;
 	}
 
-	/*
-	 * public ArrayList<Materia> obtenerMateriasQueFaltanCursarParaUnAlumno(Integer
-	 * dniAlumno) { Alumno alumnoBuscado = buscarAlumno(dniAlumno);
-	 * ArrayList<Materia> materiasQueFaltanCursar = null;
-	 * 
-	 * for (int i = 0; i < materias.size(); i++) { if (alumnoBuscado != null &&
-	 * buscar) {
-	 * materiasQueFaltanCursar.add(asignaciones.get(i).getCurso().getMateria()); } }
-	 * return materiasQueFaltanCursar; }
-	 */
-
+	
+	public ArrayList<Materia> obtenerMateriasQueFaltanCursarParaUnAlumno(Integer dniAlumno) {
+	    Alumno alumnoBuscado = buscarAlumno(dniAlumno);
+	    
+	    ArrayList<Materia> materiasAprobadas = alumnoBuscado.getMateriasAprobadas();
+	    ArrayList<Materia> todasLasMaterias = getMaterias();
+	    
+	    ArrayList<Materia> materiasQueFaltanCursar = new ArrayList<>(todasLasMaterias);
+	    if(alumnoBuscado!=null) {
+	    materiasQueFaltanCursar.removeAll(materiasAprobadas);
+	    }
+	    
+	    return materiasQueFaltanCursar;
+	}
 }
