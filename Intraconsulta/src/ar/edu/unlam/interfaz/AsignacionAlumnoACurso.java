@@ -41,11 +41,12 @@ public class AsignacionAlumnoACurso {
 		return notas;
 	}
 
+
 	public Boolean AgregarNota(Nota notaNueva) {
 		if (aproboCorrelativas()) {
 			if (notaNueva.getEvaluacion().equals(Evaluacion.RECUPERATORIO) && !yaExisteNotaRecuperatorio()
-					|| notaNueva.getEvaluacion().equals(Evaluacion.PRIMER_PARCIAL)
-					|| notaNueva.getEvaluacion().equals(Evaluacion.SEGUNDO_PARCIAL)) {
+					|| notaNueva.getEvaluacion().equals(Evaluacion.PRIMER_PARCIAL ) && !yaExisteNotaPrimerParcial()
+					|| notaNueva.getEvaluacion().equals(Evaluacion.SEGUNDO_PARCIAL) && !yaExisteNotaSegundoParcial() ) {
 				this.notas.add(notaNueva);
 				return true;
 			}
@@ -53,6 +54,8 @@ public class AsignacionAlumnoACurso {
 		return false;
 	}
 
+	
+	
 	
 	public Boolean yaExisteNotaRecuperatorio() {
 		for (int i = 0; i < notas.size(); i++) {
