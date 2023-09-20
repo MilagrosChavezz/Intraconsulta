@@ -176,12 +176,14 @@ public class Cursada {
 	public Integer cantidadAlumnosPromocionados() {
 
 		for (int i = 0; i < alumnos.size(); i++) {
-
+			AsignacionAlumnoACurso asignacion = unlam.buscarAsignacion(getId(), alumnos.get(i).getDni());
 			ArrayList<Materia> alumnosMateriasAprobadas = alumnos.get(i).getMateriasAprobadas();
+			asignacion.promocionaMateria();
 			for (int j = 0; j < alumnosMateriasAprobadas.size(); j++) {
 				if (alumnosMateriasAprobadas.get(j).getCodigoMateria().equals(this.materia.getCodigoMateria())) {
+
 					cantidadAlumnosPromocionados++;
-					
+
 				}
 
 			}
@@ -190,15 +192,16 @@ public class Cursada {
 		return cantidadAlumnosPromocionados;
 	}
 
+
 	public Integer cantidadAlumnosAfinal() {
 
 		for (int i = 0; i < alumnos.size(); i++) {
-
+			AsignacionAlumnoACurso asignacion = unlam.buscarAsignacion(getId(), alumnos.get(i).getDni());
 			ArrayList<Materia> alumnosMateriasAFinal = alumnos.get(i).getMateriasAFinal();
-
+			asignacion.debeIrAFinal();
 			for (int j = 0; j < alumnosMateriasAFinal.size(); j++) {
 
-				if (alumnos.get(j).getMateriasAFinal().get(j).getNombre().equals(materia.getNombre())) {
+				if (alumnosMateriasAFinal.get(j).getCodigoMateria().equals(this.materia.getCodigoMateria())) {
 					cantidadAlumnosAFinal++;
 
 				}
@@ -208,9 +211,11 @@ public class Cursada {
 		return cantidadAlumnosAFinal;
 	}
 
+	
 	public Integer cantidadAlumnosReprobados() {
-
-		cantidadAlumnosReprobados = cantidadAlumnosAnotados - cantidadAlumnosAfinal() - cantidadAlumnosPromocionados();
+		getCantidadAlumnosAnotados();
+		cantidadAlumnosReprobados = cantidadAlumnosAnotados
+				- (cantidadAlumnosAfinal() + cantidadAlumnosPromocionados());
 		return cantidadAlumnosReprobados;
 
 	}

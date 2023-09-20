@@ -653,6 +653,7 @@ public class UniversidadTest {
 
 		Universidad unlam = new Universidad(nombreUniversidad);
 		Alumno alumno = new Alumno(dniAlumno, apellidoAlumno, nombreAlumno, fechaIngreso, fechaNacimineto);
+		Alumno alumno2 = new Alumno(123,"Llombart", "kevin", fechaIngreso, fechaNacimineto);
 		Aula aula = new Aula(nroAula, cantidadMaximaAlumnos);
 		Materia materia = new Materia(nombreDeMateria, codigoMateria, unlam);
 		Nota nota1 = new Nota(valorNota, evaluacion1);
@@ -661,6 +662,7 @@ public class UniversidadTest {
 				fechaInicioInscripcion, fechaFinalizacionInscripcion, cuatrimestre);
 		Cursada cursada = new Cursada(materia, comision, horarios, dias, cupoMaximoAlumnos, unlam, cicloElectivo);
 		AsignacionAlumnoACurso asignacion = new AsignacionAlumnoACurso(cursada, alumno);
+		AsignacionAlumnoACurso asignacion2 = new AsignacionAlumnoACurso(cursada, alumno2);
 		Integer idComision = cursada.getId();
 
 		unlam.agregarAlumno(alumno);
@@ -673,17 +675,138 @@ public class UniversidadTest {
 		unlam.registrarNota(idComision, dniAlumno, nota1);
 		unlam.registrarNota(idComision, dniAlumno, nota2);
 		
-		unlam.promociono(dniAlumno, idComision);
+		unlam.agregarAlumno(alumno2);
+		unlam.agregarAsignacion(asignacion2);
+		unlam.inscribirAlumnoACursada(123, idComision);
+		unlam.registrarNota(idComision, 123, nota1);
+		unlam.registrarNota(idComision, 123, nota2);
 		
-//		Boolean resultado = asignacion.adeudaCorrelativas();
+		
+		
 
-		Integer resultado = unlam.cantidadAlumnosPromocionados(dniAlumno, idComision);
-		Integer resultadoEsperado = 1;
+
+		Integer resultado = unlam.cantidadAlumnosPromocionados(idComision);
+		Integer resultadoEsperado = 2;
 
 		assertEquals(resultadoEsperado, resultado);
 
-// Corregir adeudaCorrelativa, y CantidadAlumnosPromocionados de unlam y cursada		
-//		assertTrue(resultado);
-	}
 
+	}
+	
+	@Test
+	public void pruebaParaQueSePuedaObtenerLaCantidadDeAlumnosAFinal() {
+
+		String nombreUniversidad = "Unlam", nombreAlumno = "Javier", apellidoAlumno = "Perez", nombreDeMateria = "pb2";
+		Integer dniAlumno = 7896, codigoMateria = 1718, comision = 64, cupoMaximoAlumnos = 6, valorNota = 5,
+				nroAula = 404, cantidadMaximaAlumnos = 100;
+		Horario horarios = Horario.Mañana;
+		Dia dias = Dia.Miercoles;
+		Cuatrimestre cuatrimestre = Cuatrimestre.Primer_Cuatrimestre;
+		Evaluacion evaluacion1 = Evaluacion.PRIMER_PARCIAL;
+		Evaluacion evaluacion2 = Evaluacion.SEGUNDO_PARCIAL;
+		LocalDate fechaIngreso = LocalDate.of(2023, Month.MARCH, 27);
+		LocalDate fechaNacimineto = LocalDate.of(2004, Month.MAY, 26);
+		LocalDate fechaInicioCicloLectivo = LocalDate.of(2023, Month.MARCH, 1);
+		LocalDate fechaFinalizacionCicloLectivo = LocalDate.of(2023, Month.JULY, 15);
+		LocalDate fechaInicioInscripcion = LocalDate.of(2023, Month.MARCH, 6);
+		LocalDate fechaFinalizacionInscripcion = LocalDate.of(2023, Month.MARCH, 30);
+
+		Universidad unlam = new Universidad(nombreUniversidad);
+		Alumno alumno = new Alumno(dniAlumno, apellidoAlumno, nombreAlumno, fechaIngreso, fechaNacimineto);
+		Alumno alumno2 = new Alumno(123,"Llombart", "kevin", fechaIngreso, fechaNacimineto);
+		Aula aula = new Aula(nroAula, cantidadMaximaAlumnos);
+		Materia materia = new Materia(nombreDeMateria, codigoMateria, unlam);
+		Nota nota1 = new Nota(valorNota, evaluacion1);
+		Nota nota2 = new Nota(valorNota, evaluacion2);
+		CicloElectivo cicloElectivo = new CicloElectivo(fechaInicioCicloLectivo, fechaFinalizacionCicloLectivo,
+				fechaInicioInscripcion, fechaFinalizacionInscripcion, cuatrimestre);
+		Cursada cursada = new Cursada(materia, comision, horarios, dias, cupoMaximoAlumnos, unlam, cicloElectivo);
+		AsignacionAlumnoACurso asignacion = new AsignacionAlumnoACurso(cursada, alumno);
+		AsignacionAlumnoACurso asignacion2 = new AsignacionAlumnoACurso(cursada, alumno2);
+		Integer idComision = cursada.getId();
+
+		unlam.agregarAlumno(alumno);
+		unlam.agregarAula(aula);
+		unlam.agregarMateria(materia);
+		unlam.agregarCurso(cursada);
+		cursada.AgregarAula(aula);
+		unlam.agregarAsignacion(asignacion);
+		unlam.inscribirAlumnoACursada(dniAlumno, idComision);
+		unlam.registrarNota(idComision, dniAlumno, nota1);
+		unlam.registrarNota(idComision, dniAlumno, nota2);
+		
+		unlam.agregarAlumno(alumno2);
+		unlam.agregarAsignacion(asignacion2);
+		unlam.inscribirAlumnoACursada(123, idComision);
+		unlam.registrarNota(idComision, 123, nota1);
+		unlam.registrarNota(idComision, 123, nota2);
+		;
+		
+		
+
+
+		Integer resultado = unlam.cantidadAlumnosAFinal( idComision);
+		Integer resultadoEsperado = 2;
+
+		assertEquals(resultadoEsperado, resultado);
+
+
+	}
+	
+	@Test
+	public void pruebaParaQueSePuedaObtenerLaCantidadDeAlumnosDesaprobados() {
+
+		String nombreUniversidad = "Unlam", nombreAlumno = "Javier", apellidoAlumno = "Perez", nombreDeMateria = "pb2";
+		Integer dniAlumno = 7896, codigoMateria = 1718, comision = 64, cupoMaximoAlumnos = 6, valorNota = 1,
+				nroAula = 404, cantidadMaximaAlumnos = 100;
+		Horario horarios = Horario.Mañana;
+		Dia dias = Dia.Miercoles;
+		Cuatrimestre cuatrimestre = Cuatrimestre.Primer_Cuatrimestre;
+		Evaluacion evaluacion1 = Evaluacion.PRIMER_PARCIAL;
+		Evaluacion evaluacion2 = Evaluacion.SEGUNDO_PARCIAL;
+		LocalDate fechaIngreso = LocalDate.of(2023, Month.MARCH, 27);
+		LocalDate fechaNacimineto = LocalDate.of(2004, Month.MAY, 26);
+		LocalDate fechaInicioCicloLectivo = LocalDate.of(2023, Month.MARCH, 1);
+		LocalDate fechaFinalizacionCicloLectivo = LocalDate.of(2023, Month.JULY, 15);
+		LocalDate fechaInicioInscripcion = LocalDate.of(2023, Month.MARCH, 6);
+		LocalDate fechaFinalizacionInscripcion = LocalDate.of(2023, Month.MARCH, 30);
+
+		Universidad unlam = new Universidad(nombreUniversidad);
+		Alumno alumno = new Alumno(dniAlumno, apellidoAlumno, nombreAlumno, fechaIngreso, fechaNacimineto);
+		Alumno alumno2 = new Alumno(123,"Llombart", "kevin", fechaIngreso, fechaNacimineto);
+		Aula aula = new Aula(nroAula, cantidadMaximaAlumnos);
+		Materia materia = new Materia(nombreDeMateria, codigoMateria, unlam);
+		Nota nota1 = new Nota(valorNota, evaluacion1);
+		Nota nota2 = new Nota(valorNota, evaluacion2);
+		CicloElectivo cicloElectivo = new CicloElectivo(fechaInicioCicloLectivo, fechaFinalizacionCicloLectivo,
+				fechaInicioInscripcion, fechaFinalizacionInscripcion, cuatrimestre);
+		Cursada cursada = new Cursada(materia, comision, horarios, dias, cupoMaximoAlumnos, unlam, cicloElectivo);
+		AsignacionAlumnoACurso asignacion = new AsignacionAlumnoACurso(cursada, alumno);
+		AsignacionAlumnoACurso asignacion2 = new AsignacionAlumnoACurso(cursada, alumno2);
+		Integer idComision = cursada.getId();
+
+		unlam.agregarAlumno(alumno);
+		unlam.agregarAula(aula);
+		unlam.agregarMateria(materia);
+		unlam.agregarCurso(cursada);
+		cursada.AgregarAula(aula);
+		unlam.agregarAsignacion(asignacion);
+		unlam.inscribirAlumnoACursada(dniAlumno, idComision);
+		unlam.registrarNota(idComision, dniAlumno, nota1);
+		unlam.registrarNota(idComision, dniAlumno, nota2);
+		
+		unlam.agregarAlumno(alumno2);
+		unlam.agregarAsignacion(asignacion2);
+		unlam.inscribirAlumnoACursada(123, idComision);
+		unlam.registrarNota(idComision, 123, nota1);
+		unlam.registrarNota(idComision, 123, nota2);
+		
+		
+		Integer resultado = unlam.cantidadAlumnosReprobados( idComision);
+		Integer resultadoEsperado = 2;
+
+		assertEquals(resultadoEsperado, resultado);
+
+
+	}
 }

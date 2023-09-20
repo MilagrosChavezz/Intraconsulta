@@ -338,11 +338,14 @@ public class Universidad {
 	
 	public Boolean promociono(Integer dni ,Integer idCursada ) {
 		AsignacionAlumnoACurso asignacion = buscarAsignacion(idCursada, dni);
-		if(asignacion.promocionaMateria()) {
+		Boolean asignacionResultado=asignacion.promocionaMateria();
+		if(asignacionResultado) {
+			
 			return true;
 		}
 		return false;
 	}
+
 	
 
 	public Boolean recurso(Integer dni ,Integer idCursada ) {
@@ -371,39 +374,41 @@ public class Universidad {
 		return materiaBuscada;
 	}
 
-	public Integer cantidadAlumnosPromocionados(Integer dniAlumno, Integer idComision) {
-		Alumno alumnoBuscado = buscarAlumno(dniAlumno);
+public Integer cantidadAlumnosPromocionados( Integer idComision) {
+		
 		Cursada cursadaBuscada = BuscarCursada(idComision);
 		Integer alumnosPromocionados = null;
 
 		if (cursadaBuscada != null) {
-
 			
+		
 			alumnosPromocionados = cursadaBuscada.cantidadAlumnosPromocionados();
 		}
 
 		return alumnosPromocionados;
 	}
 
-	public Integer cantidadAlumnosReprobados(Integer dniAlumno, Integer idComision) {
-		Alumno alumnoBuscado = buscarAlumno(dniAlumno);
+
+	public Integer cantidadAlumnosReprobados( Integer idComision) {
+		
 		Cursada cursadaBuscada = BuscarCursada(idComision);
 		Integer alumnosReprobados = null;
 
 		if (cursadaBuscada != null) {
+			cursadaBuscada.cantidadAlumnosAnotados();
 			alumnosReprobados = cursadaBuscada.cantidadAlumnosReprobados();
 		}
 
 		return alumnosReprobados;
 	}
 
-	public Integer cantidadAlumnosAFinal(Integer dniAlumno, Integer idComision) {
-		Alumno alumnoBuscado = buscarAlumno(dniAlumno);
+	public Integer cantidadAlumnosAFinal( Integer idComision) {
+		
 		Cursada cursadaBuscada = BuscarCursada(idComision);
 		Integer alumnosAFinal = null;
 
 		if (cursadaBuscada != null) {
-			alumnosAFinal = cursadaBuscada.cantidadAlumnosReprobados();
+			alumnosAFinal = cursadaBuscada.cantidadAlumnosAfinal();
 
 		}
 		return alumnosAFinal;

@@ -212,18 +212,26 @@ public class AsignacionAlumnoACurso {
 	}
 
 	public Boolean debeIrAFinal() {
+	    boolean primerParcialEncontrado = false;
+	    boolean segundoParcialEncontrado = false;
 
-		for (int i = 0; i < notas.size(); i++) {
-			if (notas.get(i).getEvaluacion().equals(Evaluacion.PRIMER_PARCIAL) && notas.get(i).getValor() >= 4
-					&& notas.get(i).getValor() <= 6 && notas.get(i).getEvaluacion().equals(Evaluacion.SEGUNDO_PARCIAL)
-					&& notas.get(i).getValor() >= 4 && notas.get(i).getValor() <= 6) {
-				alumno.setMateriasAFinal(curso.getMateria());
-				return true;
+	    for (int i = 0; i < notas.size(); i++) {
+	        if (notas.get(i).getEvaluacion().equals(Evaluacion.PRIMER_PARCIAL) &&
+	            notas.get(i).getValor() >= 4 && notas.get(i).getValor() <= 6) {
+	            primerParcialEncontrado = true;
+	        }
+	        if (notas.get(i).getEvaluacion().equals(Evaluacion.SEGUNDO_PARCIAL) &&
+	            notas.get(i).getValor() >= 4 && notas.get(i).getValor() <= 6) {
+	            segundoParcialEncontrado = true;
+	        }
+	    }
 
-			}
-		}
-		return false;
+	    if (primerParcialEncontrado && segundoParcialEncontrado) {
+	        alumno.setMateriasAFinal(curso.getMateria());
+	        return true;
+	    }
 
+	    return false;
 	}
 
 	public Boolean recursa() {
