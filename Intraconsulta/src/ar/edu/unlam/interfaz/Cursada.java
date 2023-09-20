@@ -35,7 +35,7 @@ public class Cursada {
 
 	// constructor sin aula se le asigna luego
 	public Cursada(Materia materia, Integer comision, Horario horarios, Dia dias, Integer cupoMaximoAlumnos,
-			Universidad universidad,CicloElectivo cicloElectivo) {
+			Universidad universidad, CicloElectivo cicloElectivo) {
 		this.alumnos = new ArrayList<Alumno>();
 		this.materia = materia;
 		this.comision = comision;
@@ -49,12 +49,10 @@ public class Cursada {
 		this.cantidadAlumnosReprobados = 0;
 		this.cantidadAlumnosAFinal = 0;
 		this.unlam = universidad;
-		this.cicloElectivo=cicloElectivo;
+		this.cicloElectivo = cicloElectivo;
 		id++;
 
 	}
-	
-	
 
 	public Integer getCantidadAlumnosAnotados() {
 		return cantidadAlumnosAnotados;
@@ -180,8 +178,6 @@ public class Cursada {
 		for (int i = 0; i < alumnos.size(); i++) {
 			AsignacionAlumnoACurso asignacion = unlam.buscarAsignacion(getId(), alumnos.get(i).getDni());
 			ArrayList<Materia> alumnosMateriasAprobadas = alumnos.get(i).getMateriasAprobadas();
-<<<<<<< Updated upstream
-=======
 			asignacion.promocionaMateria();
 			for (int j = 0; j < alumnosMateriasAprobadas.size(); j++) {
 				if (alumnosMateriasAprobadas.get(j).getCodigoMateria().equals(this.materia.getCodigoMateria())) {
@@ -189,14 +185,7 @@ public class Cursada {
 					cantidadAlumnosPromocionados++;
 
 				}
->>>>>>> Stashed changes
 
-			for (int j = 0; j < alumnosMateriasAprobadas.size(); j++) {
-
-				if (alumnos.get(j).getMateriasAprobadas().get(j).getNombre().equals(materia.getNombre())) {
-					cantidadAlumnosPromocionados++;
-
-				}
 			}
 
 		}
@@ -221,9 +210,11 @@ public class Cursada {
 		return cantidadAlumnosAFinal;
 	}
 
+	
 	public Integer cantidadAlumnosReprobados() {
 		getCantidadAlumnosAnotados();
-		cantidadAlumnosReprobados = cantidadAlumnosAnotados -( cantidadAlumnosAfinal() + cantidadAlumnosPromocionados());
+		cantidadAlumnosReprobados = cantidadAlumnosAnotados
+				- (cantidadAlumnosAfinal() + cantidadAlumnosPromocionados());
 		return cantidadAlumnosReprobados;
 
 	}

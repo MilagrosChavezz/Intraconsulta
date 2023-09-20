@@ -2,8 +2,11 @@ package ar.edu.unlam.test;
 
 import static org.junit.Assert.*;
 
+import static org.junit.Assert.*;
+
 import java.time.LocalDate;
 import java.time.Month;
+import java.util.ArrayList;
 
 import org.junit.Test;
 
@@ -13,38 +16,25 @@ import ar.edu.unlam.interfaz.CicloElectivo;
 import ar.edu.unlam.interfaz.Cuatrimestre;
 import ar.edu.unlam.interfaz.Cursada;
 import ar.edu.unlam.interfaz.Dia;
+import ar.edu.unlam.interfaz.Evaluacion;
 import ar.edu.unlam.interfaz.Horario;
 import ar.edu.unlam.interfaz.Materia;
+import ar.edu.unlam.interfaz.Nota;
 import ar.edu.unlam.interfaz.Profesor;
 import ar.edu.unlam.interfaz.Universidad;
+import ar.edu.unlam.interfaz.Alumno;
+import ar.edu.unlam.interfaz.AsignacionAlumnoACurso;
 
 public class UniversidadTest {
 
 	@Test
-	public void pruebaParaVerSiUNAulaPuedeSerIngresadaALAFacultad() {
-		String nombre = "Martin", nombreDeMateria = "pb2", nombreUniversidad = "Unlam";
-		Integer codigo = 1225, idAsignacionDeCursada = 1415, codigoMateria = 1918, comision = 64, numeroAula = 404,
-				año = 2023, cupoMaximoAlumnos = 35;
-		Horario horarios = Horario.Mañana;
-		Dia dias = Dia.Miercoles;
-		Cuatrimestre cuatrimestre = Cuatrimestre.Primer_Cuatrimestre;
-		LocalDate fechaInicioCicloLectivo = LocalDate.of(2023, Month.MARCH, 1);
-		LocalDate fechaFinalizacionCicloLectivo = LocalDate.of(2023, Month.JULY, 15);
-		LocalDate fechaInicioInscripcion = LocalDate.of(2023, Month.MARCH, 6);
-		LocalDate fechaFinalizacionInscripcion = LocalDate.of(2023, Month.MARCH, 30);
+	public void pruebaParaQueSePuedaAgregarUnAulaAlaUniversidad() {
 
-		Profesor profesor = new Profesor(nombre, codigo);
-		Materia materia = new Materia(nombreDeMateria, codigoMateria);
-		Aula aula = new Aula(numeroAula, 50);
-		CicloElectivo cicloElectivo = new CicloElectivo(fechaInicioCicloLectivo, fechaFinalizacionCicloLectivo,
-				fechaInicioInscripcion, fechaFinalizacionInscripcion, cuatrimestre);
-		Cursada cursada = new Cursada(materia, comision, horarios, dias, aula, cicloElectivo, cupoMaximoAlumnos);
+		String nombreUniversidad = "Unlam";
+		Integer numeroAula = 404, capacidadMaximaAlumnos = 100;
+
 		Universidad unlam = new Universidad(nombreUniversidad);
-		AsignacionProfeACurso nuevaAsignacion = new AsignacionProfeACurso(profesor, cursada, idAsignacionDeCursada,
-				unlam);
-		unlam.agregarAlumno(null);
-		unlam.agregarMateria(materia);
-		unlam.agregarCurso(cursada);
+		Aula aula = new Aula(numeroAula, capacidadMaximaAlumnos);
 
 		Boolean resultado = unlam.agregarAula(aula);
 
@@ -52,10 +42,25 @@ public class UniversidadTest {
 	}
 
 	@Test
-	public void pruebaParaQueUnCursoSePuedaAgregar() {
-		String nombre = "Martin", nombreDeMateria = "pb2", nombreUniversidad = "Unlam";
-		Integer codigo = 1225, idAsignacionDeCursada = 1415, codigoMateria = 1918, comision = 64, numeroAula = 404,
-				año = 2023, cupoMaximoAlumnos = 35;
+	public void pruebaParaQueSePuedaBuscarUnAulaAlaUniversidad() {
+
+		String nombreUniversidad = "Unlam";
+		Integer numeroAula = 404, capacidadMaximaAlumnos = 100;
+
+		Universidad unlam = new Universidad(nombreUniversidad);
+		Aula aula = new Aula(numeroAula, capacidadMaximaAlumnos);
+
+		unlam.agregarAula(aula);
+		Aula resultado = unlam.buscarAula(numeroAula);
+
+		assertNotNull(resultado);
+	}
+
+	@Test
+	public void pruebaParaQueSePuedaAgregarUnCursoAlaUniversidad() {
+
+		String nombreUniversidad = "Unlam", nombreDeMateria = "pb2";
+		Integer codigoMateria = 1918, comision = 64, cupoMaximoAlumnos = 35;
 		Horario horarios = Horario.Mañana;
 		Dia dias = Dia.Miercoles;
 		Cuatrimestre cuatrimestre = Cuatrimestre.Primer_Cuatrimestre;
@@ -64,25 +69,22 @@ public class UniversidadTest {
 		LocalDate fechaInicioInscripcion = LocalDate.of(2023, Month.MARCH, 6);
 		LocalDate fechaFinalizacionInscripcion = LocalDate.of(2023, Month.MARCH, 30);
 
-		Materia materia = new Materia(nombreDeMateria, codigoMateria);
-		Aula aula = new Aula(numeroAula, 50);
+		Universidad unlam = new Universidad(nombreUniversidad);
+		Materia materia = new Materia(nombreDeMateria, codigoMateria, unlam);
 		CicloElectivo cicloElectivo = new CicloElectivo(fechaInicioCicloLectivo, fechaFinalizacionCicloLectivo,
 				fechaInicioInscripcion, fechaFinalizacionInscripcion, cuatrimestre);
-		Cursada cursada = new Cursada(materia, comision, horarios, dias, aula, cicloElectivo, cupoMaximoAlumnos);
-		Universidad unlam = new Universidad(nombreUniversidad);
+		Cursada cursada = new Cursada(materia, comision, horarios, dias, cupoMaximoAlumnos, unlam, cicloElectivo);
 
-		unlam.agregarMateria(materia);
-
-		Boolean resultado = unlam.agregarCurso(cursada);
+		boolean resultado = unlam.agregarCurso(cursada);
 
 		assertTrue(resultado);
 	}
 
 	@Test
-	public void pruebaParaQueUnProfesorsePuedaIngresarALaUniversidad() {
-		String nombre = "Martin", nombreDeMateria = "pb2", nombreUniversidad = "Unlam";
-		Integer codigo = 1225, idAsignacionDeCursada = 1415, codigoMateria = 1918, comision = 64, numeroAula = 404,
-				año = 2023, cupoMaximoAlumnos = 35;
+	public void pruebaParaQueNoSePuedaAgregarUnCursoAlaUniversidadSiEsLaMismaCursada() {
+
+		String nombreUniversidad = "Unlam", nombreDeMateria = "pb2";
+		Integer codigoMateria = 1918, comision = 64, cupoMaximoAlumnos = 35;
 		Horario horarios = Horario.Mañana;
 		Dia dias = Dia.Miercoles;
 		Cuatrimestre cuatrimestre = Cuatrimestre.Primer_Cuatrimestre;
@@ -91,55 +93,100 @@ public class UniversidadTest {
 		LocalDate fechaInicioInscripcion = LocalDate.of(2023, Month.MARCH, 6);
 		LocalDate fechaFinalizacionInscripcion = LocalDate.of(2023, Month.MARCH, 30);
 
-		Profesor profesor = new Profesor(nombre, codigo);
-		Materia materia = new Materia(nombreDeMateria, codigoMateria);
-		Aula aula = new Aula(numeroAula, 50);
+		Universidad unlam = new Universidad(nombreUniversidad);
+		Materia materia = new Materia(nombreDeMateria, codigoMateria, unlam);
 		CicloElectivo cicloElectivo = new CicloElectivo(fechaInicioCicloLectivo, fechaFinalizacionCicloLectivo,
 				fechaInicioInscripcion, fechaFinalizacionInscripcion, cuatrimestre);
-		Cursada cursada = new Cursada(materia, comision, horarios, dias, aula, cicloElectivo, cupoMaximoAlumnos);
-		Universidad unlam = new Universidad(nombreUniversidad);
-		AsignacionProfeACurso nuevaAsignacion = new AsignacionProfeACurso(profesor, cursada, idAsignacionDeCursada,
-				unlam);
+		Cursada cursada = new Cursada(materia, comision, horarios, dias, cupoMaximoAlumnos, unlam, cicloElectivo);
+		Cursada cursada2 = new Cursada(materia, comision, horarios, dias, cupoMaximoAlumnos, unlam, cicloElectivo);
 
-		unlam.agregarMateria(materia);
 		unlam.agregarCurso(cursada);
-		unlam.agregarAula(aula);
+		Boolean resultado = unlam.agregarCurso(cursada2);
+
+		assertFalse(resultado);
+	}
+
+	@Test
+	public void pruebaParaQueSePuedaAgregarUnAlumnoAlaUniversidad() {
+
+		String nombreUniversidad = "Unlam", nombreAlumno = "Javier", apellidoAlumno = "Perez";
+		Integer dniAlumno = 7896;
+		LocalDate fechaIngreso = LocalDate.of(2023, Month.MARCH, 27);
+		LocalDate fechaNacimineto = LocalDate.of(2004, Month.MAY, 26);
+
+		Universidad unlam = new Universidad(nombreUniversidad);
+		Alumno alumno = new Alumno(dniAlumno, apellidoAlumno, nombreAlumno, fechaIngreso, fechaNacimineto);
+
+		Boolean resultado = unlam.agregarAlumno(alumno);
+
+		assertTrue(resultado);
+	}
+
+	@Test
+	public void pruebaParaQueNoSePuedaAgregarUnAlumnoSiYaEstaAgregadoAlaUniversidad() {
+
+		String nombreUniversidad = "Unlam", nombreAlumno = "Javier", apellidoAlumno = "Perez";
+		Integer dniAlumno = 7896;
+		LocalDate fechaIngreso = LocalDate.of(2023, Month.MARCH, 27);
+		LocalDate fechaNacimineto = LocalDate.of(2004, Month.MAY, 26);
+
+		Universidad unlam = new Universidad(nombreUniversidad);
+		Alumno alumno = new Alumno(dniAlumno, apellidoAlumno, nombreAlumno, fechaIngreso, fechaNacimineto);
+		Alumno Otroalumno = new Alumno(dniAlumno, apellidoAlumno, nombreAlumno, fechaIngreso, fechaNacimineto);
+
+		unlam.agregarAlumno(alumno);
+		Boolean resultado = unlam.agregarAlumno(Otroalumno);
+
+		assertFalse(resultado);
+	}
+
+	@Test
+	public void pruebaParaQueSePuedaBuscarUnAlumnoPorSuDniEnlaUniversidad() {
+
+		String nombreUniversidad = "Unlam", nombreAlumno = "Javier", apellidoAlumno = "Perez";
+		Integer dniAlumno = 7896;
+		LocalDate fechaIngreso = LocalDate.of(2023, Month.MARCH, 27);
+		LocalDate fechaNacimineto = LocalDate.of(2004, Month.MAY, 26);
+
+		Universidad unlam = new Universidad(nombreUniversidad);
+		Alumno alumno = new Alumno(dniAlumno, apellidoAlumno, nombreAlumno, fechaIngreso, fechaNacimineto);
+
+		unlam.agregarAlumno(alumno);
+		Alumno resultado = unlam.buscarAlumno(dniAlumno);
+
+		assertNotNull(resultado);
+	}
+
+	@Test
+	public void pruebaParaQueSePuedaIngresarUnProfesorAlaUniversidad() {
+
+		String nombreUniversidad = "Unlam", nombreProfesor = "Javier", apellidoProfesor = "Perez";
+		Integer CodigoProfesor = 7896;
+
+		Universidad unlam = new Universidad(nombreUniversidad);
+		Profesor profesor = new Profesor(nombreProfesor, apellidoProfesor, CodigoProfesor);
+
 		Boolean resultado = unlam.ingresarProfesorALaUniversidad(profesor);
 
 		assertTrue(resultado);
 	}
 
 	@Test
-	public void pruebaParaQueNoSePuedaAsignarDosMateriasConElMismoCodigoDeMateria() {
-		String nombreDeMateria = "pb2", nombreDeMateria2 = "pbw", nombreUniversidad = "Unlam";
-		Integer codigoMateria = 1918, comision = 64, numeroAula = 404, cupoMaximoAlumnos = 35;
-		Horario horarios = Horario.Mañana;
-		Dia dias = Dia.Miercoles;
-		Cuatrimestre cuatrimestre = Cuatrimestre.Primer_Cuatrimestre;
-		LocalDate fechaInicioCicloLectivo = LocalDate.of(2023, Month.MARCH, 1);
-		LocalDate fechaFinalizacionCicloLectivo = LocalDate.of(2023, Month.JULY, 15);
-		LocalDate fechaInicioInscripcion = LocalDate.of(2023, Month.MARCH, 6);
-		LocalDate fechaFinalizacionInscripcion = LocalDate.of(2023, Month.MARCH, 30);
+	public void pruebaParaQueNoSePuedaIngresarUnProfesorAlaUniversidadSiYaEstaIngresado() {
 
-		Materia materia = new Materia(nombreDeMateria, codigoMateria);
-		Materia materia2 = new Materia(nombreDeMateria2, codigoMateria);
-		Aula aula = new Aula(numeroAula, 50);
-		CicloElectivo cicloElectivo = new CicloElectivo(fechaInicioCicloLectivo, fechaFinalizacionCicloLectivo,
-				fechaInicioInscripcion, fechaFinalizacionInscripcion, cuatrimestre);
-		Cursada cursada = new Cursada(materia, comision, horarios, dias, aula, cicloElectivo, cupoMaximoAlumnos);
+		String nombreUniversidad = "Unlam", nombreProfesor = "Javier", apellidoProfesor = "Perez";
+		Integer CodigoProfesor = 7896;
+
 		Universidad unlam = new Universidad(nombreUniversidad);
+		Profesor profesor = new Profesor(nombreProfesor, apellidoProfesor, CodigoProfesor);
+		Profesor Otroprofesor = new Profesor(nombreProfesor, apellidoProfesor, CodigoProfesor);
 
-		unlam.agregarMateria(materia);
-		unlam.agregarCurso(cursada);
-		unlam.agregarAula(aula);
-		unlam.asignarMateria(materia2, codigoMateria);
-		boolean resultado = unlam.asignarMateria(materia, codigoMateria);
+		unlam.ingresarProfesorALaUniversidad(profesor);
+		Boolean resultado = unlam.ingresarProfesorALaUniversidad(Otroprofesor);
 
 		assertFalse(resultado);
 	}
 
-<<<<<<< Updated upstream
-=======
 	@Test
 	public void pruebaParaQueSePuedaIngresarUnaMateriaAlaUniversidad() {
 
@@ -761,9 +808,4 @@ public class UniversidadTest {
 		assertEquals(resultadoEsperado, resultado);
 
 
-	}
-	
-	
-
->>>>>>> Stashed changes
-}
+	}}
