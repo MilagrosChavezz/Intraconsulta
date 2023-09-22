@@ -27,6 +27,7 @@ import ar.edu.unlam.interfaz.AsignacionAlumnoACurso;
 
 public class UniversidadTest {
 
+	
 	@Test
 	public void pruebaParaQueSePuedaAgregarUnAulaAlaUniversidad() {
 
@@ -352,14 +353,18 @@ public class UniversidadTest {
 		Cursada cursada = new Cursada(materia, comision, horarios, dias, cupoMaximoAlumnos, unlam, cicloElectivo);
 		Integer idComision = cursada.getId();
 		AsignacionAlumnoACurso asignacion = new AsignacionAlumnoACurso(cursada, alumno);
-		unlam.agregarAlumno(alumno);
-		unlam.agregarMateria(materia);
-		unlam.agregarCurso(cursada);
-		unlam.agregarAsignacion(asignacion);
+		
+		    unlam.agregarAlumno(alumno);
+		    unlam.agregarMateria(materia);
+		    unlam.agregarCurso(cursada);
+		    unlam.agregarAsignacion(asignacion);
 
-		Boolean resultado = unlam.inscribirAlumnoACursada(dniAlumno, idComision);
+		    Boolean resultado = unlam.inscribirAlumnoACursada(dniAlumno, idComision);
 
-		assertTrue(resultado);
+		    assertTrue(resultado);
+
+
+		
 	}
 
 	@Test
@@ -465,10 +470,15 @@ public class UniversidadTest {
 				fechaInicioInscripcion, fechaFinalizacionInscripcion, cuatrimestre);
 		Cursada cursada = new Cursada(materia, comision, horarios, dias, cupoMaximoAlumnos, unlam, cicloElectivo);
 		Integer idComision = cursada.getId();
+		AsignacionProfeACurso nueva = new AsignacionProfeACurso(profesor, cursada);
+		
 		unlam.ingresarProfesorALaUniversidad(profesor);
+		unlam.setAsignacionesProfesores(nueva);
 		unlam.agregarMateria(materia);
 		unlam.agregarCurso(cursada);
+		
 
+	
 		Boolean resultado = unlam.asignarProfesorAlaComision(idComision, idProfesor);
 
 		assertTrue(resultado);

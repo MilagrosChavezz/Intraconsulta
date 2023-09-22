@@ -10,6 +10,7 @@ public class Universidad {
 	private ArrayList<Cursada> cursadas;
 	private ArrayList<Profesor> profesores;
 	private ArrayList<AsignacionAlumnoACurso> asignaciones;
+	private ArrayList<AsignacionProfeACurso> asignacionesProfesores;
 	private ArrayList<CicloElectivo> ciclosElectivos;
 
 	public Universidad(String nombre) {
@@ -22,6 +23,23 @@ public class Universidad {
 		this.profesores = new ArrayList<Profesor>();
 		this.ciclosElectivos = new ArrayList<CicloElectivo>();
 		this.asignaciones = new ArrayList<AsignacionAlumnoACurso>();
+		this.asignacionesProfesores= new ArrayList<AsignacionProfeACurso>();
+	}
+
+	public ArrayList<AsignacionProfeACurso> getAsignacionesProfesores() {
+		return asignacionesProfesores;
+	}
+
+	public void setAsignacionesProfesores(AsignacionProfeACurso asignacionesProfesores) {
+		this.asignacionesProfesores.add(asignacionesProfesores);
+	}
+
+	public ArrayList<Profesor> getProfesores() {
+		return profesores;
+	}
+
+	public void setProfesores(ArrayList<Profesor> profesores) {
+		this.profesores = profesores;
 	}
 
 	public ArrayList<Aula> getAulas() {
@@ -243,8 +261,9 @@ public class Universidad {
 		AsignacionAlumnoACurso asignacion = buscarAsignacion(idComision, dni);
 
 		if (alumnoBuscado != null && comisionBuscada != null && asignacion != null) {
+			comisionBuscada.setAsignacionAlumnos(asignacion);
+			return asignacion.inscribirAlumno();
 
-			return asignacion.inscribirAlumno(alumnoBuscado, comisionBuscada);
 		}
 		return false;
 	}
@@ -273,7 +292,10 @@ public class Universidad {
 		Cursada cursadaBuscada = BuscarCursada(idComision);
 		AsignacionProfeACurso nueva = new AsignacionProfeACurso(profesorBuscado, cursadaBuscada);
 		if (profesorBuscado != null && cursadaBuscada != null
-				&& nueva.asignarProfesorACurso(profesorBuscado, cursadaBuscada)) {
+				&& nueva.asignarProfesorACurso() && !cursadaBuscada.getAsignacionProfesor().contains(nueva)) {
+			
+			cursadaBuscada.setAsignacionProfesor(nueva);
+			
 			return true;
 		}
 		return false;
@@ -298,7 +320,6 @@ public class Universidad {
 	}
 
 	public Boolean registrarNota(Integer idComision, Integer dniAlumno, Nota nota) {
-	
 
 		if (buscarAsignacion(idComision, dniAlumno) != null) {
 			AsignacionAlumnoACurso asignarNota = buscarAsignacion(idComision, dniAlumno);
@@ -334,28 +355,34 @@ public class Universidad {
 		return notaFinal;
 
 	}
-	
-	public Boolean promociono(Integer dni ,Integer idCursada ) {
+
+	public Boolean promociono(Integer dni, Integer idCursada) {
 		AsignacionAlumnoACurso asignacion = buscarAsignacion(idCursada, dni);
-		Boolean asignacionResultado=asignacion.promocionaMateria();
-		if(asignacionResultado) {
-			
+		Boolean asignacionResultado = asignacion.promocionaMateria();
+		if (asignacionResultado) {
+
 			return true;
 		}
 		return false;
 	}
+<<<<<<< Updated upstream
 	
 
 	public Boolean recurso(Integer dni ,Integer idCursada ) {
+=======
+
+	public Boolean recurso(Integer dni, Integer idCursada) {
+>>>>>>> Stashed changes
 		AsignacionAlumnoACurso asignacion = buscarAsignacion(idCursada, dni);
-		if(asignacion.recursa()) {
+		if (asignacion.recursa()) {
 			return true;
 		}
 		return false;
 	}
-	public Boolean adeudaMateria(Integer dni ,Integer idCursada ) {
+
+	public Boolean adeudaMateria(Integer dni, Integer idCursada) {
 		AsignacionAlumnoACurso asignacion = buscarAsignacion(idCursada, dni);
-		if(asignacion.adeudaCorrelativas()) {
+		if (asignacion.adeudaCorrelativas()) {
 			return true;
 		}
 		return false;
@@ -372,22 +399,31 @@ public class Universidad {
 		return materiaBuscada;
 	}
 
+<<<<<<< Updated upstream
 	public Integer cantidadAlumnosPromocionados( Integer idComision) {
 		
+=======
+	public Integer cantidadAlumnosPromocionados(Integer idComision) {
+
+>>>>>>> Stashed changes
 		Cursada cursadaBuscada = BuscarCursada(idComision);
 		Integer alumnosPromocionados = null;
 
 		if (cursadaBuscada != null) {
-			
-		
+
 			alumnosPromocionados = cursadaBuscada.cantidadAlumnosPromocionados();
 		}
 
 		return alumnosPromocionados;
 	}
 
+<<<<<<< Updated upstream
 	public Integer cantidadAlumnosReprobados( Integer idComision) {
 		
+=======
+	public Integer cantidadAlumnosReprobados(Integer idComision) {
+
+>>>>>>> Stashed changes
 		Cursada cursadaBuscada = BuscarCursada(idComision);
 		Integer alumnosReprobados = null;
 
@@ -399,8 +435,8 @@ public class Universidad {
 		return alumnosReprobados;
 	}
 
-	public Integer cantidadAlumnosAFinal( Integer idComision) {
-		
+	public Integer cantidadAlumnosAFinal(Integer idComision) {
+
 		Cursada cursadaBuscada = BuscarCursada(idComision);
 		Integer alumnosAFinal = null;
 
@@ -411,18 +447,17 @@ public class Universidad {
 		return alumnosAFinal;
 	}
 
-	
 	public ArrayList<Materia> obtenerMateriasQueFaltanCursarParaUnAlumno(Integer dniAlumno) {
-	    Alumno alumnoBuscado = buscarAlumno(dniAlumno);
-	    
-	    ArrayList<Materia> materiasAprobadas = alumnoBuscado.getMateriasAprobadas();
-	    ArrayList<Materia> todasLasMaterias = getMaterias();
-	    
-	    ArrayList<Materia> materiasQueFaltanCursar = new ArrayList<>(todasLasMaterias);
-	    if(alumnoBuscado!=null) {
-	    materiasQueFaltanCursar.removeAll(materiasAprobadas);
-	    }
-	    
-	    return materiasQueFaltanCursar;
+		Alumno alumnoBuscado = buscarAlumno(dniAlumno);
+
+		ArrayList<Materia> materiasAprobadas = alumnoBuscado.getMateriasAprobadas();
+		ArrayList<Materia> todasLasMaterias = getMaterias();
+
+		ArrayList<Materia> materiasQueFaltanCursar = new ArrayList<>(todasLasMaterias);
+		if (alumnoBuscado != null) {
+			materiasQueFaltanCursar.removeAll(materiasAprobadas);
+		}
+
+		return materiasQueFaltanCursar;
 	}
 }

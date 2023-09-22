@@ -17,7 +17,6 @@ public class AsignacionAlumnoACurso {
 	public AsignacionAlumnoACurso(Cursada curso, Alumno alumno) {
 		super();
 		id++;
-
 		this.curso = curso;
 		this.alumno = alumno;
 		this.materiasCorrelaAprobadas = new ArrayList<Materia>();
@@ -40,48 +39,26 @@ public class AsignacionAlumnoACurso {
 	public ArrayList<Nota> getNotas() {
 		return notas;
 	}
-
-
+	
 	public Boolean AgregarNota(Nota notaNueva) {
-		if (aproboCorrelativas()) {
-			if (notaNueva.getEvaluacion().equals(Evaluacion.RECUPERATORIO) && !yaExisteNotaRecuperatorio()
-					|| notaNueva.getEvaluacion().equals(Evaluacion.PRIMER_PARCIAL ) && !yaExisteNotaPrimerParcial()
-					|| notaNueva.getEvaluacion().equals(Evaluacion.SEGUNDO_PARCIAL) && !yaExisteNotaSegundoParcial() ) {
-				this.notas.add(notaNueva);
-				return true;
-			}
-		}
-		return false;
+	    if (aproboCorrelativas()) {
+	        if ((notaNueva.getEvaluacion().equals(Evaluacion.RECUPERATORIO) && !yaExisteNota(Evaluacion.RECUPERATORIO))
+	            || (notaNueva.getEvaluacion().equals(Evaluacion.PRIMER_PARCIAL) && !yaExisteNota(Evaluacion.PRIMER_PARCIAL))
+	            || (notaNueva.getEvaluacion().equals(Evaluacion.SEGUNDO_PARCIAL) && !yaExisteNota(Evaluacion.SEGUNDO_PARCIAL))) {
+	            this.notas.add(notaNueva);
+	            return true;
+	        }
+	    }
+	    return false;
 	}
 
-	
-	
-	
-	public Boolean yaExisteNotaRecuperatorio() {
-		for (int i = 0; i < notas.size(); i++) {
-			if (notas.get(i).getEvaluacion().equals(Evaluacion.RECUPERATORIO)) {
-				return true;
-			}
-		}
-		return false;
-	}
-	
-	public Boolean yaExisteNotaPrimerParcial() {
-		for (int i = 0; i < notas.size(); i++) {
-			if (notas.get(i).getEvaluacion().equals(Evaluacion.PRIMER_PARCIAL)) {
-				return true;
-			}
-		}
-		return false;
-	}
-	
-	public Boolean yaExisteNotaSegundoParcial() {
-		for (int i = 0; i < notas.size(); i++) {
-			if (notas.get(i).getEvaluacion().equals(Evaluacion.SEGUNDO_PARCIAL)) {
-				return true;
-			}
-		}
-		return false;
+	private Boolean yaExisteNota(Evaluacion evaluacion) {
+	    for (Nota nota : notas) {
+	        if (nota.getEvaluacion().equals(evaluacion)) {
+	            return true;
+	        }
+	    }
+	    return false;
 	}
 	public ArrayList<Materia> getMateriasCorrelaAprobadas() {
 		return materiasCorrelaAprobadas;
@@ -111,14 +88,14 @@ public class AsignacionAlumnoACurso {
 		this.alumno = alumno;
 	}
 
-	public Boolean inscribirAlumno(Alumno alumnoAsignar, Cursada cursada) {
+	public Boolean inscribirAlumno() {
 		boolean sePuedeInscribir = false;
 
 		if (curso.cantidadAlumnosAnotados() <= curso.getCupoMaximoAlumnos()
-				&& !curso.getAlumnos().contains(alumnoAsignar)
-				&& curso.getUnlam().buscarAlumno(alumnoAsignar.getDni()) != null && inscripcionDentroDeFecha()) {
+				&& curso.getUnlam().buscarAsignacion(curso.getId(),alumno.getDni() )!=null
+				&& curso.getUnlam().buscarAlumno(alumno.getDni()) != null && inscripcionDentroDeFecha() ) {
 			if (aproboCorrelativas() || adeudaCorrelativas() || !recursa()) {
-				cursada.setAlumnos(alumnoAsignar);
+				
 				sePuedeInscribir = true;
 			}
 		}
@@ -331,6 +308,7 @@ public class AsignacionAlumnoACurso {
 		return true; // Si todas las correlativas requeridas se encuentran, retornar true
 	}
 
+	
 	public Boolean inscripcionDentroDeFecha() {
 
 		if (curso.getCicloElectivo().getFechaInicioInscripcion().compareTo(alumno.getFechaIngreso()) < 0
