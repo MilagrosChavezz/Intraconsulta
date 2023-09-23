@@ -17,7 +17,6 @@ public class AsignacionAlumnoACurso {
 	public AsignacionAlumnoACurso(Cursada curso, Alumno alumno) {
 		super();
 		id++;
-
 		this.curso = curso;
 		this.alumno = alumno;
 		this.materiasCorrelaAprobadas = new ArrayList<Materia>();
@@ -40,48 +39,26 @@ public class AsignacionAlumnoACurso {
 	public ArrayList<Nota> getNotas() {
 		return notas;
 	}
-
-
+	
 	public Boolean AgregarNota(Nota notaNueva) {
-		if (aproboCorrelativas()) {
-			if (notaNueva.getEvaluacion().equals(Evaluacion.RECUPERATORIO) && !yaExisteNotaRecuperatorio()
-					|| notaNueva.getEvaluacion().equals(Evaluacion.PRIMER_PARCIAL ) && !yaExisteNotaPrimerParcial()
-					|| notaNueva.getEvaluacion().equals(Evaluacion.SEGUNDO_PARCIAL) && !yaExisteNotaSegundoParcial() ) {
-				this.notas.add(notaNueva);
-				return true;
-			}
-		}
-		return false;
+	    if (aproboCorrelativas()) {
+	        if ((notaNueva.getEvaluacion().equals(Evaluacion.RECUPERATORIO) && !yaExisteNota(Evaluacion.RECUPERATORIO))
+	            || (notaNueva.getEvaluacion().equals(Evaluacion.PRIMER_PARCIAL) && !yaExisteNota(Evaluacion.PRIMER_PARCIAL))
+	            || (notaNueva.getEvaluacion().equals(Evaluacion.SEGUNDO_PARCIAL) && !yaExisteNota(Evaluacion.SEGUNDO_PARCIAL))) {
+	            this.notas.add(notaNueva);
+	            return true;
+	        }
+	    }
+	    return false;
 	}
 
-	
-	
-	
-	public Boolean yaExisteNotaRecuperatorio() {
-		for (int i = 0; i < notas.size(); i++) {
-			if (notas.get(i).getEvaluacion().equals(Evaluacion.RECUPERATORIO)) {
-				return true;
-			}
-		}
-		return false;
-	}
-	
-	public Boolean yaExisteNotaPrimerParcial() {
-		for (int i = 0; i < notas.size(); i++) {
-			if (notas.get(i).getEvaluacion().equals(Evaluacion.PRIMER_PARCIAL)) {
-				return true;
-			}
-		}
-		return false;
-	}
-	
-	public Boolean yaExisteNotaSegundoParcial() {
-		for (int i = 0; i < notas.size(); i++) {
-			if (notas.get(i).getEvaluacion().equals(Evaluacion.SEGUNDO_PARCIAL)) {
-				return true;
-			}
-		}
-		return false;
+	private Boolean yaExisteNota(Evaluacion evaluacion) {
+	    for (Nota nota : notas) {
+	        if (nota.getEvaluacion().equals(evaluacion)) {
+	            return true;
+	        }
+	    }
+	    return false;
 	}
 	public ArrayList<Materia> getMateriasCorrelaAprobadas() {
 		return materiasCorrelaAprobadas;
@@ -111,19 +88,6 @@ public class AsignacionAlumnoACurso {
 		this.alumno = alumno;
 	}
 
-	public Boolean inscribirAlumno(Alumno alumnoAsignar, Cursada cursada) {
-		boolean sePuedeInscribir = false;
-
-		if (curso.cantidadAlumnosAnotados() <= curso.getCupoMaximoAlumnos()
-				&& !curso.getAlumnos().contains(alumnoAsignar)
-				&& curso.getUnlam().buscarAlumno(alumnoAsignar.getDni()) != null && inscripcionDentroDeFecha()) {
-			if (aproboCorrelativas() || adeudaCorrelativas() || !recursa()) {
-				cursada.setAlumnos(alumnoAsignar);
-				sePuedeInscribir = true;
-			}
-		}
-		return sePuedeInscribir;
-	}
 
 	public Boolean apruebaPrimerParcial() {
 		for (int i = 0; i < notas.size(); i++) {
@@ -217,7 +181,7 @@ public class AsignacionAlumnoACurso {
 
 	public Integer obtenerNotaFinal() {
 		Integer notaFinal = null;
-		if (promocionaMateria()) {
+		if (apruebaPrimerParcial() && apruebaSegundoParcial()) {
 			notaFinal = (buscarNota(Evaluacion.PRIMER_PARCIAL).getValor()
 					+ buscarNota(Evaluacion.SEGUNDO_PARCIAL).getValor()) / 2;
 		}
@@ -257,20 +221,20 @@ public class AsignacionAlumnoACurso {
 
 	public Boolean recursa() {
 
-		if (!debeIrAFinal() && !promocionaMateria()) {
+		if (!debeIrAFinal() && !promocionaMateria() ) {
 			return true;
 		}
 		return false;
 
 	}
-
+	
 	public Boolean apruebaFinal() {
-		if (debeIrAFinal() && buscarNota(Evaluacion.FINAL) != null && buscarNota(Evaluacion.FINAL).getValor() >= 4) {
-
+		if(debeIrAFinal() && buscarNota(Evaluacion.FINAL)!=null && buscarNota(Evaluacion.FINAL).getValor()>=4) {
+			
 			return true;
 		}
 		return false;
-
+		
 	}
 
 	public Boolean aproboCorrelativas() {
@@ -306,7 +270,7 @@ public class AsignacionAlumnoACurso {
 		ArrayList<Integer> correlativasRequeridas = curso.getMateria().getCorrelativas();
 
 		if (correlativasRequeridas == null) {
-			return false; // No hay correlativas requeridas, por lo tanto, se considera aprobado
+			return true; // No hay correlativas requeridas, por lo tanto, se considera aprobado
 		}
 
 		ArrayList<Materia> materiasAdeudaAlumno = alumno.getMateriasAFinal();
@@ -319,7 +283,7 @@ public class AsignacionAlumnoACurso {
 				Materia materiasAdeuda = materiasAdeudaAlumno.get(j);
 				if (materiasAdeuda.getCodigoMateria().equals(correlativaRequerida)) {
 					encontrada = true;
-					break;
+					break; // Salir del bucle interno si se encuentra la correlativa requerida
 				}
 			}
 
@@ -331,6 +295,7 @@ public class AsignacionAlumnoACurso {
 		return true; // Si todas las correlativas requeridas se encuentran, retornar true
 	}
 
+	
 	public Boolean inscripcionDentroDeFecha() {
 
 		if (curso.getCicloElectivo().getFechaInicioInscripcion().compareTo(alumno.getFechaIngreso()) < 0

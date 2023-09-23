@@ -10,6 +10,7 @@ public class Universidad {
 	private ArrayList<Cursada> cursadas;
 	private ArrayList<Profesor> profesores;
 	private ArrayList<AsignacionAlumnoACurso> asignaciones;
+	private ArrayList<AsignacionProfeACurso> asignacionesProfesores;
 	private ArrayList<CicloElectivo> ciclosElectivos;
 
 	public Universidad(String nombre) {
@@ -22,6 +23,23 @@ public class Universidad {
 		this.profesores = new ArrayList<Profesor>();
 		this.ciclosElectivos = new ArrayList<CicloElectivo>();
 		this.asignaciones = new ArrayList<AsignacionAlumnoACurso>();
+		this.asignacionesProfesores = new ArrayList<AsignacionProfeACurso>();
+	}
+
+	public ArrayList<AsignacionProfeACurso> getAsignacionesProfesores() {
+		return asignacionesProfesores;
+	}
+
+	public void setAsignacionesProfesores(AsignacionProfeACurso asignacionesProfesores) {
+		this.asignacionesProfesores.add(asignacionesProfesores);
+	}
+
+	public ArrayList<Profesor> getProfesores() {
+		return profesores;
+	}
+
+	public void setProfesores(ArrayList<Profesor> profesores) {
+		this.profesores = profesores;
 	}
 
 	public ArrayList<Aula> getAulas() {
@@ -240,13 +258,70 @@ public class Universidad {
 	public Boolean inscribirAlumnoACursada(Integer dni, Integer idComision) {
 		Alumno alumnoBuscado = buscarAlumno(dni);
 		Cursada comisionBuscada = BuscarCursada(idComision);
-		AsignacionAlumnoACurso asignacion = buscarAsignacion(idComision, dni);
 
-		if (alumnoBuscado != null && comisionBuscada != null && asignacion != null) {
+		if (alumnoBuscado != null && comisionBuscada != null
+				&& cantidadAlumnosAnotados(idComision) <= comisionBuscada.getCupoMaximoAlumnos()
+				&& buscarAlumno(dni) != null && inscripcionDentroDeFecha(dni, idComision)
+				&& aproboCorrelativas(dni, comisionBuscada.getMateria().getCodigoMateria())
+				&& BuscarasignacionesDeUnAlumno(dni, idComision) == null) {
+			AsignacionAlumnoACurso asignacion = new AsignacionAlumnoACurso(comisionBuscada, alumnoBuscado);
+			agregarAsignacion(asignacion);
+			return true;
 
-			return asignacion.inscribirAlumno(alumnoBuscado, comisionBuscada);
 		}
 		return false;
+	}
+
+	public Integer cantidadDeProfesoresPorCursoRequerido(Integer idCursada) {
+		Integer ProfesoresRequeridos = (cantidadAlumnosAnotados(idCursada) / 20) + 1;
+		return ProfesoresRequeridos;
+	}
+
+	public Boolean aproboCorrelativas(Integer dni, Integer idMateria) {
+		AsignacionAlumnoACurso asignacion = BuscarasignacionesDeUnAlumno(dni, idMateria);
+
+		if (asignacion != null && asignacion.aproboCorrelativas()) {
+			return true;
+		}
+
+		Materia materia = buscarMateria(idMateria);
+		if (materia != null && (materia.getCorrelativas() == null || materia.getCorrelativas().isEmpty())) {
+			return true;
+		}
+
+		return false;
+	}
+
+	public AsignacionAlumnoACurso BuscarasignacionesDeUnAlumno(Integer dni, Integer idMateria) {
+
+		for (AsignacionAlumnoACurso alumno : asignaciones) {
+			if (alumno.getAlumno().getDni().equals(dni) && alumno.getCurso().getMateria().getId().equals(idMateria)) {
+				return alumno;
+			}
+		}
+		return null;
+	}
+
+	public Boolean inscripcionDentroDeFecha(Integer dni, Integer idComision) {
+
+		if (BuscarCursada(idComision).getCicloElectivo().getFechaInicioInscripcion()
+				.compareTo(buscarAlumno(dni).getFechaIngreso()) < 0
+				&& BuscarCursada(idComision).getCicloElectivo().getFechaFinalizacionInscripcion()
+						.compareTo(buscarAlumno(dni).getFechaIngreso()) > 0) {
+			return true;
+		}
+		return false;
+	}
+
+	public Integer cantidadAlumnosAnotados(Integer idCursada) {
+		Integer cantidadAlumnosAnotados = 0;
+		for (AsignacionAlumnoACurso alumnosEnCursada : asignaciones) {
+			if (alumnosEnCursada.getCurso().getId().equals(idCursada)) {
+				cantidadAlumnosAnotados++;
+			}
+
+		}
+		return cantidadAlumnosAnotados;
 	}
 
 	public Boolean agregarAsignacion(AsignacionAlumnoACurso nueva) {
@@ -272,13 +347,28 @@ public class Universidad {
 		Profesor profesorBuscado = existeProfesor(codigoDocente);
 		Cursada cursadaBuscada = BuscarCursada(idComision);
 		AsignacionProfeACurso nueva = new AsignacionProfeACurso(profesorBuscado, cursadaBuscada);
-		if (profesorBuscado != null && cursadaBuscada != null
-				&& nueva.asignarProfesorACurso(profesorBuscado, cursadaBuscada)) {
+		if (profesorBuscado != null && cursadaBuscada != null && nueva.asignarProfesorACurso()
+				&& !cursadaBuscada.getAsignacionProfesor().contains(nueva)
+				&& cantidadDeProfesoresPorCursoRequerido(idComision) > cantidadProfesoresEnAsignacion(idComision)) {
+
+			setAsignacionesProfesores(nueva);
+
 			return true;
 		}
 		return false;
 
 	}
+
+	public Integer cantidadProfesoresEnAsignacion(Integer idComision) {
+	    Integer cantidadProfesoresEnUnaComison = 0;
+	    for (AsignacionProfeACurso profesor : asignacionesProfesores) {
+	        if (profesor.getCurso().getId().equals(idComision)) {
+	             cantidadProfesoresEnUnaComison++;
+	        }
+	    }
+	    return cantidadProfesoresEnUnaComison; 
+	}
+
 
 	public void asignarAulaAlaComision(Integer idComision, Integer idAula) {
 		Cursada cursadaBuscada = BuscarCursada(idComision);
@@ -298,7 +388,6 @@ public class Universidad {
 	}
 
 	public Boolean registrarNota(Integer idComision, Integer dniAlumno, Nota nota) {
-	
 
 		if (buscarAsignacion(idComision, dniAlumno) != null) {
 			AsignacionAlumnoACurso asignarNota = buscarAsignacion(idComision, dniAlumno);
@@ -334,29 +423,29 @@ public class Universidad {
 		return notaFinal;
 
 	}
-	
-	public Boolean promociono(Integer dni ,Integer idCursada ) {
+
+	public Boolean promociono(Integer dni, Integer idCursada) {
 		AsignacionAlumnoACurso asignacion = buscarAsignacion(idCursada, dni);
-		Boolean asignacionResultado=asignacion.promocionaMateria();
-		if(asignacionResultado) {
-			
+		Boolean asignacionResultado = asignacion.promocionaMateria();
+		if (asignacionResultado) {
+
 			return true;
 		}
 		return false;
 	}
 
-	
+	public Boolean recurso(Integer dni, Integer idCursada) {
 
-	public Boolean recurso(Integer dni ,Integer idCursada ) {
 		AsignacionAlumnoACurso asignacion = buscarAsignacion(idCursada, dni);
-		if(asignacion.recursa()) {
+		if (asignacion.recursa()) {
 			return true;
 		}
 		return false;
 	}
-	public Boolean adeudaMateria(Integer dni ,Integer idCursada ) {
+
+	public Boolean adeudaMateria(Integer dni, Integer idCursada) {
 		AsignacionAlumnoACurso asignacion = buscarAsignacion(idCursada, dni);
-		if(asignacion.adeudaCorrelativas()) {
+		if (asignacion.adeudaCorrelativas()) {
 			return true;
 		}
 		return false;
@@ -373,58 +462,58 @@ public class Universidad {
 		return materiaBuscada;
 	}
 
-public Integer cantidadAlumnosPromocionados( Integer idComision) {
-		
+	public Integer cantidadAlumnosPromocionados(Integer idComision) {
+		Integer cantidadAlumnosPromocionados = 0;
 		Cursada cursadaBuscada = BuscarCursada(idComision);
-		Integer alumnosPromocionados = null;
 
-		if (cursadaBuscada != null) {
-			
-		
-			alumnosPromocionados = cursadaBuscada.cantidadAlumnosPromocionados();
+		for (AsignacionAlumnoACurso alumno : asignaciones) {
+
+			if (cursadaBuscada != null && alumno.promocionaMateria())
+				cantidadAlumnosPromocionados++;
 		}
 
-		return alumnosPromocionados;
+		return cantidadAlumnosPromocionados;
 	}
 
+	public Integer cantidadAlumnosReprobados(Integer idComision) {
 
-	public Integer cantidadAlumnosReprobados( Integer idComision) {
-		
+		Integer cantidadAlumnosReprobados = 0;
 		Cursada cursadaBuscada = BuscarCursada(idComision);
-		Integer alumnosReprobados = null;
 
-		if (cursadaBuscada != null) {
-			cursadaBuscada.cantidadAlumnosAnotados();
-			alumnosReprobados = cursadaBuscada.cantidadAlumnosReprobados();
+		for (AsignacionAlumnoACurso alumno : asignaciones) {
+
+			if (cursadaBuscada != null && alumno.recursa())
+				cantidadAlumnosReprobados++;
 		}
 
-		return alumnosReprobados;
+		return cantidadAlumnosReprobados;
 	}
 
-	public Integer cantidadAlumnosAFinal( Integer idComision) {
-		
+	public Integer cantidadAlumnosAFinal(Integer idComision) {
+
+		Integer cantidadAlumnosAFinal = 0;
 		Cursada cursadaBuscada = BuscarCursada(idComision);
-		Integer alumnosAFinal = null;
 
-		if (cursadaBuscada != null) {
-			alumnosAFinal = cursadaBuscada.cantidadAlumnosAfinal();
+		for (AsignacionAlumnoACurso alumno : asignaciones) {
 
+			if (cursadaBuscada != null && alumno.debeIrAFinal())
+				cantidadAlumnosAFinal++;
 		}
-		return alumnosAFinal;
+
+		return cantidadAlumnosAFinal;
 	}
 
-	
 	public ArrayList<Materia> obtenerMateriasQueFaltanCursarParaUnAlumno(Integer dniAlumno) {
-	    Alumno alumnoBuscado = buscarAlumno(dniAlumno);
-	    
-	    ArrayList<Materia> materiasAprobadas = alumnoBuscado.getMateriasAprobadas();
-	    ArrayList<Materia> todasLasMaterias = getMaterias();
-	    
-	    ArrayList<Materia> materiasQueFaltanCursar = new ArrayList<>(todasLasMaterias);
-	    if(alumnoBuscado!=null) {
-	    materiasQueFaltanCursar.removeAll(materiasAprobadas);
-	    }
-	    
-	    return materiasQueFaltanCursar;
+		Alumno alumnoBuscado = buscarAlumno(dniAlumno);
+
+		ArrayList<Materia> materiasAprobadas = alumnoBuscado.getMateriasAprobadas();
+		ArrayList<Materia> todasLasMaterias = getMaterias();
+
+		ArrayList<Materia> materiasQueFaltanCursar = new ArrayList<>(todasLasMaterias);
+		if (alumnoBuscado != null) {
+			materiasQueFaltanCursar.removeAll(materiasAprobadas);
+		}
+
+		return materiasQueFaltanCursar;
 	}
 }

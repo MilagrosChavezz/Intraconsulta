@@ -352,14 +352,15 @@ public class UniversidadTest {
 		Cursada cursada = new Cursada(materia, comision, horarios, dias, cupoMaximoAlumnos, unlam, cicloElectivo);
 		Integer idComision = cursada.getId();
 		AsignacionAlumnoACurso asignacion = new AsignacionAlumnoACurso(cursada, alumno);
+
 		unlam.agregarAlumno(alumno);
 		unlam.agregarMateria(materia);
 		unlam.agregarCurso(cursada);
-		unlam.agregarAsignacion(asignacion);
 
 		Boolean resultado = unlam.inscribirAlumnoACursada(dniAlumno, idComision);
 
 		assertTrue(resultado);
+
 	}
 
 	@Test
@@ -401,14 +402,12 @@ public class UniversidadTest {
 		unlam.agregarMateria(materia);
 		unlam.agregarCurso(cursada);
 		cursada.AgregarAula(aula);
-		unlam.agregarAsignacion(asignacion1);
-		unlam.agregarAsignacion(asignacion2);
-		unlam.agregarAsignacion(asignacion3);
+
 		unlam.inscribirAlumnoACursada(dniAlumno1, idComision);
 		unlam.inscribirAlumnoACursada(dniAlumno2, idComision);
 		unlam.inscribirAlumnoACursada(dniAlumno3, idComision);
 
-		Integer valor = cursada.cantidadAlumnosAnotados();
+		Integer valor = unlam.cantidadAlumnosAnotados(idComision);
 		Integer valorEsperado = 3;
 
 		assertEquals(valorEsperado, valor);
@@ -457,19 +456,19 @@ public class UniversidadTest {
 		LocalDate fechaInicioInscripcion = LocalDate.of(2023, Month.MARCH, 6);
 		LocalDate fechaFinalizacionInscripcion = LocalDate.of(2023, Month.MARCH, 30);
 
-		Integer idProfesor = Profesor.getId();
 		Universidad unlam = new Universidad(nombreUniversidad);
-		Profesor profesor = new Profesor(nombreProfesor, apellidoProfesor, idProfesor);
+		Profesor profesor = new Profesor(nombreProfesor, apellidoProfesor, 123);
 		Materia materia = new Materia(nombreDeMateria, codigoMateria, unlam);
 		CicloElectivo cicloElectivo = new CicloElectivo(fechaInicioCicloLectivo, fechaFinalizacionCicloLectivo,
 				fechaInicioInscripcion, fechaFinalizacionInscripcion, cuatrimestre);
 		Cursada cursada = new Cursada(materia, comision, horarios, dias, cupoMaximoAlumnos, unlam, cicloElectivo);
 		Integer idComision = cursada.getId();
+
 		unlam.ingresarProfesorALaUniversidad(profesor);
 		unlam.agregarMateria(materia);
 		unlam.agregarCurso(cursada);
 
-		Boolean resultado = unlam.asignarProfesorAlaComision(idComision, idProfesor);
+		Boolean resultado = unlam.asignarProfesorAlaComision(idComision, profesor.getCodigoProfesor());
 
 		assertTrue(resultado);
 	}
@@ -653,7 +652,7 @@ public class UniversidadTest {
 
 		Universidad unlam = new Universidad(nombreUniversidad);
 		Alumno alumno = new Alumno(dniAlumno, apellidoAlumno, nombreAlumno, fechaIngreso, fechaNacimineto);
-		Alumno alumno2 = new Alumno(123,"Llombart", "kevin", fechaIngreso, fechaNacimineto);
+		Alumno alumno2 = new Alumno(123, "Llombart", "kevin", fechaIngreso, fechaNacimineto);
 		Aula aula = new Aula(nroAula, cantidadMaximaAlumnos);
 		Materia materia = new Materia(nombreDeMateria, codigoMateria, unlam);
 		Nota nota1 = new Nota(valorNota, evaluacion1);
@@ -674,25 +673,20 @@ public class UniversidadTest {
 		unlam.inscribirAlumnoACursada(dniAlumno, idComision);
 		unlam.registrarNota(idComision, dniAlumno, nota1);
 		unlam.registrarNota(idComision, dniAlumno, nota2);
-		
+
 		unlam.agregarAlumno(alumno2);
 		unlam.agregarAsignacion(asignacion2);
 		unlam.inscribirAlumnoACursada(123, idComision);
 		unlam.registrarNota(idComision, 123, nota1);
 		unlam.registrarNota(idComision, 123, nota2);
-		
-		
-		
-
 
 		Integer resultado = unlam.cantidadAlumnosPromocionados(idComision);
 		Integer resultadoEsperado = 2;
 
 		assertEquals(resultadoEsperado, resultado);
 
-
 	}
-	
+
 	@Test
 	public void pruebaParaQueSePuedaObtenerLaCantidadDeAlumnosAFinal() {
 
@@ -713,7 +707,7 @@ public class UniversidadTest {
 
 		Universidad unlam = new Universidad(nombreUniversidad);
 		Alumno alumno = new Alumno(dniAlumno, apellidoAlumno, nombreAlumno, fechaIngreso, fechaNacimineto);
-		Alumno alumno2 = new Alumno(123,"Llombart", "kevin", fechaIngreso, fechaNacimineto);
+		Alumno alumno2 = new Alumno(123, "Llombart", "kevin", fechaIngreso, fechaNacimineto);
 		Aula aula = new Aula(nroAula, cantidadMaximaAlumnos);
 		Materia materia = new Materia(nombreDeMateria, codigoMateria, unlam);
 		Nota nota1 = new Nota(valorNota, evaluacion1);
@@ -730,29 +724,24 @@ public class UniversidadTest {
 		unlam.agregarMateria(materia);
 		unlam.agregarCurso(cursada);
 		cursada.AgregarAula(aula);
-		unlam.agregarAsignacion(asignacion);
+
 		unlam.inscribirAlumnoACursada(dniAlumno, idComision);
 		unlam.registrarNota(idComision, dniAlumno, nota1);
 		unlam.registrarNota(idComision, dniAlumno, nota2);
-		
+
 		unlam.agregarAlumno(alumno2);
-		unlam.agregarAsignacion(asignacion2);
+
 		unlam.inscribirAlumnoACursada(123, idComision);
 		unlam.registrarNota(idComision, 123, nota1);
 		unlam.registrarNota(idComision, 123, nota2);
-		;
-		
-		
 
-
-		Integer resultado = unlam.cantidadAlumnosAFinal( idComision);
+		Integer resultado = unlam.cantidadAlumnosAFinal(idComision);
 		Integer resultadoEsperado = 2;
 
 		assertEquals(resultadoEsperado, resultado);
 
-
 	}
-	
+
 	@Test
 	public void pruebaParaQueSePuedaObtenerLaCantidadDeAlumnosDesaprobados() {
 
@@ -773,7 +762,7 @@ public class UniversidadTest {
 
 		Universidad unlam = new Universidad(nombreUniversidad);
 		Alumno alumno = new Alumno(dniAlumno, apellidoAlumno, nombreAlumno, fechaIngreso, fechaNacimineto);
-		Alumno alumno2 = new Alumno(123,"Llombart", "kevin", fechaIngreso, fechaNacimineto);
+		Alumno alumno2 = new Alumno(123, "Llombart", "kevin", fechaIngreso, fechaNacimineto);
 		Aula aula = new Aula(nroAula, cantidadMaximaAlumnos);
 		Materia materia = new Materia(nombreDeMateria, codigoMateria, unlam);
 		Nota nota1 = new Nota(valorNota, evaluacion1);
@@ -790,23 +779,62 @@ public class UniversidadTest {
 		unlam.agregarMateria(materia);
 		unlam.agregarCurso(cursada);
 		cursada.AgregarAula(aula);
-		unlam.agregarAsignacion(asignacion);
+
 		unlam.inscribirAlumnoACursada(dniAlumno, idComision);
 		unlam.registrarNota(idComision, dniAlumno, nota1);
 		unlam.registrarNota(idComision, dniAlumno, nota2);
-		
+
 		unlam.agregarAlumno(alumno2);
-		unlam.agregarAsignacion(asignacion2);
+
 		unlam.inscribirAlumnoACursada(123, idComision);
 		unlam.registrarNota(idComision, 123, nota1);
 		unlam.registrarNota(idComision, 123, nota2);
-		
-		
-		Integer resultado = unlam.cantidadAlumnosReprobados( idComision);
+
+		Integer resultado = unlam.cantidadAlumnosReprobados(idComision);
 		Integer resultadoEsperado = 2;
 
 		assertEquals(resultadoEsperado, resultado);
 
-
 	}
+
+	@Test
+	public void pruebaParaQueUnProfesorNoSePuedaAsignarAUnaCursadaSiNOSeCumpleLaRegla20ProfesPorAlumno() {
+		String nombre = "Martin", nombreDeMateria = "pb2", nombreUniversidad = "Unlam";
+		Integer codigo = 1225, idAsignacionDeCursada = 1415, codigoMateria = 1918, comision = 64, numeroAula = 404,
+				año = 2023, cupoMaximoAlumnos = 100, capacidadMaximaAulas = 100;
+		;
+		Horario horarios = Horario.Mañana;
+		Dia dias = Dia.Miercoles;
+		Cuatrimestre cuatrimestre = Cuatrimestre.Primer_Cuatrimestre;
+		LocalDate fechaInicioCicloLectivo = LocalDate.of(2023, Month.MARCH, 1);
+		LocalDate fechaFinalizacionCicloLectivo = LocalDate.of(2023, Month.JULY, 15);
+		LocalDate fechaInicioInscripcion = LocalDate.of(2023, Month.MARCH, 6);
+		LocalDate fechaFinalizacionInscripcion = LocalDate.of(2023, Month.MARCH, 30);
+		Universidad unlam = new Universidad(nombreUniversidad);
+		Profesor profesor = new Profesor(nombre, "Chavez", codigo);
+		Materia materia = new Materia(nombreDeMateria, codigoMateria, unlam);
+		Aula aula = new Aula(numeroAula, capacidadMaximaAulas);
+		CicloElectivo cicloElectivo = new CicloElectivo(fechaInicioCicloLectivo, fechaFinalizacionCicloLectivo,
+				fechaInicioInscripcion, fechaFinalizacionInscripcion, cuatrimestre);
+
+		Cursada cursada = new Cursada(materia, comision, horarios, dias, cupoMaximoAlumnos, unlam, cicloElectivo);
+
+		unlam.cantidadAlumnosAnotados(idAsignacionDeCursada);
+
+		unlam.agregarMateria(materia);
+		unlam.agregarCurso(cursada);
+		unlam.agregarAula(aula);
+		unlam.ingresarProfesorALaUniversidad(profesor);
+
+		Profesor profesor2 = new Profesor("PAblo", "Chavez", 23);
+		unlam.ingresarProfesorALaUniversidad(profesor);
+		unlam.asignarProfesorAlaComision(comision, codigo);
+		unlam.ingresarProfesorALaUniversidad(profesor2);
+
+		Boolean seAsignaProfesor = unlam.asignarProfesorAlaComision(comision, codigo);
+
+		assertFalse(seAsignaProfesor);
+	}
+
+	
 }

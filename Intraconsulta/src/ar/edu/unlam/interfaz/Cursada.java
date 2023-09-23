@@ -5,11 +5,8 @@ import java.util.Iterator;
 
 public class Cursada {
 
+	private ArrayList<AsignacionProfeACurso> asignacionProfesor;
 	private Universidad unlam;
-	private ArrayList<Alumno> alumnos;
-	private ArrayList<Profesor> profesores;
-	private ArrayList<AsignacionAlumnoACurso> asignacionAlumnos;
-	private Profesor profesor;
 	private Materia materia;
 	private Integer comision;
 	private Horario horarios;
@@ -17,13 +14,23 @@ public class Cursada {
 	private Dia dias;
 	private Aula aula;
 	private CicloElectivo cicloElectivo;
-	private AsignacionProfeACurso profesorAAgregar;
 	private Integer cantidadAlumnosAnotados;
-	private Integer cantidadDeProfesoresEnCursada;
 	private static Integer id = 0;
-	private Integer cantidadAlumnosPromocionados;
-	private Integer cantidadAlumnosAFinal;
-	private Integer cantidadAlumnosReprobados;
+
+	public Cursada(Materia materia, Integer comision, Horario horarios, Dia dias, Integer cupoMaximoAlumnos,
+			Universidad universidad, CicloElectivo cicloElectivo) {
+
+		this.asignacionProfesor = new ArrayList<AsignacionProfeACurso>();
+		this.materia = materia;
+		this.comision = comision;
+		this.dias = dias;
+		this.horarios = horarios;
+		this.cupoMaximoAlumnos = cupoMaximoAlumnos;
+		this.cantidadAlumnosAnotados = 0;
+		this.unlam = universidad;
+		this.cicloElectivo = cicloElectivo;
+		id++;
+	}
 
 	public Integer getCupoMaximoAlumnos() {
 		return cupoMaximoAlumnos;
@@ -31,27 +38,6 @@ public class Cursada {
 
 	public void setCupoMaximoAlumnos(Integer cupoMaximoAlumnos) {
 		this.cupoMaximoAlumnos = cupoMaximoAlumnos;
-	}
-
-	// constructor sin aula se le asigna luego
-	public Cursada(Materia materia, Integer comision, Horario horarios, Dia dias, Integer cupoMaximoAlumnos,
-			Universidad universidad, CicloElectivo cicloElectivo) {
-		this.alumnos = new ArrayList<Alumno>();
-		this.materia = materia;
-		this.comision = comision;
-		this.profesores = new ArrayList<Profesor>();
-		this.dias = dias;
-		this.horarios = horarios;
-		this.cupoMaximoAlumnos = cupoMaximoAlumnos;
-		this.cantidadAlumnosAnotados = 0;
-		this.cantidadDeProfesoresEnCursada = 0;
-		this.cantidadAlumnosPromocionados = 0;
-		this.cantidadAlumnosReprobados = 0;
-		this.cantidadAlumnosAFinal = 0;
-		this.unlam = universidad;
-		this.cicloElectivo = cicloElectivo;
-		id++;
-
 	}
 
 	public Integer getCantidadAlumnosAnotados() {
@@ -94,25 +80,14 @@ public class Cursada {
 		this.comision = comision;
 	}
 
-	public ArrayList<Alumno> getAlumnos() {
-		return alumnos;
+
+
+	public ArrayList<AsignacionProfeACurso> getAsignacionProfesor() {
+		return asignacionProfesor;
 	}
 
-	public void setAlumnos(ArrayList<Alumno> alumnos) {
-		this.alumnos = alumnos;
-	}
-
-	public ArrayList<Profesor> getProfesores() {
-		return profesores;
-	}
-
-	public void setProfesores(Profesor profesor) {
-		if (!profesores.contains(profesor))
-			profesores.add(profesor);
-	}
-
-	public void setAlumnos(Alumno alumnoAsignar) {
-		alumnos.add(alumnoAsignar);
+	public void setAsignacionProfesor(AsignacionProfeACurso asignacionProfesor) {
+		this.asignacionProfesor.add(asignacionProfesor);
 	}
 
 	public Horario getHorarios() {
@@ -149,74 +124,11 @@ public class Cursada {
 
 	}
 
-	public Integer cantidadAlumnosAnotados() {
-
-		cantidadAlumnosAnotados = alumnos.size();
-		return cantidadAlumnosAnotados;
-	}
-
-	public Integer cantidadDeProfesoresPorCursoRequerido() {
-		Integer ProfesoresRequeridos = (cantidadAlumnosAnotados() / 20) + 1;
-		return ProfesoresRequeridos;
-
-	}
-
-	public Integer cantidadDeProfesoresActuales() {
-
-		cantidadDeProfesoresEnCursada = profesores.size();
-
-		return cantidadDeProfesoresEnCursada;
-	}
 
 	public void AgregarAula(Aula aula) {
 		if (cupoMaximoAlumnos <= Aula.getCapacidadMaximaAlumnos())
 			this.aula = aula;
 	}
 
-	public Integer cantidadAlumnosPromocionados() {
-
-		for (int i = 0; i < alumnos.size(); i++) {
-			AsignacionAlumnoACurso asignacion = unlam.buscarAsignacion(getId(), alumnos.get(i).getDni());
-			ArrayList<Materia> alumnosMateriasAprobadas = alumnos.get(i).getMateriasAprobadas();
-			asignacion.promocionaMateria();
-			for (int j = 0; j < alumnosMateriasAprobadas.size(); j++) {
-				if (alumnosMateriasAprobadas.get(j).getCodigoMateria().equals(this.materia.getCodigoMateria())) {
-
-					cantidadAlumnosPromocionados++;
-
-				}
-
-			}
-
-		}
-		return cantidadAlumnosPromocionados;
-	}
-
-
-	public Integer cantidadAlumnosAfinal() {
-
-		for (int i = 0; i < alumnos.size(); i++) {
-			AsignacionAlumnoACurso asignacion = unlam.buscarAsignacion(getId(), alumnos.get(i).getDni());
-			ArrayList<Materia> alumnosMateriasAFinal = alumnos.get(i).getMateriasAFinal();
-			asignacion.debeIrAFinal();
-			for (int j = 0; j < alumnosMateriasAFinal.size(); j++) {
-
-				if (alumnosMateriasAFinal.get(j).getCodigoMateria().equals(this.materia.getCodigoMateria())) {
-					cantidadAlumnosAFinal++;
-
-				}
-			}
-
-		}
-		return cantidadAlumnosAFinal;
-	}
-
 	
-	public Integer cantidadAlumnosReprobados() {
-		getCantidadAlumnosAnotados();
-		cantidadAlumnosReprobados = cantidadAlumnosAnotados
-				- (cantidadAlumnosAfinal() + cantidadAlumnosPromocionados());
-		return cantidadAlumnosReprobados;
-
-	}
 }

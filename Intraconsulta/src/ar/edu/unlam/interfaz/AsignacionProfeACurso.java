@@ -36,13 +36,11 @@ public class AsignacionProfeACurso {
 		return id;
 	}
 
-	public Boolean asignarProfesorACurso(Profesor profesoraAsignar, Cursada cursada) {
-		if (estaDisponible(profesoraAsignar, cursada) && profesoraAsignar != null) {
-			// Verifica si el profesor ya está asignado a esta cursada
-			if (!cursada.getProfesores().contains(profesoraAsignar)
-					&& cursada.cantidadDeProfesoresPorCursoRequerido() > cursada.cantidadDeProfesoresActuales()) {
-				profesor.seAgregaCursadaActual(cursada);
-				cursada.setProfesores(profesoraAsignar);
+	public Boolean asignarProfesorACurso() {
+		if (estaDisponible(profesor, curso) && profesor != null) {
+			 
+			if (curso.getUnlam().getProfesores().contains(profesor)) {
+
 				return true;
 			}
 		}
