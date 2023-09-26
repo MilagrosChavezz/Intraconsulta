@@ -1,7 +1,6 @@
 package ar.edu.unlam.interfaz;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 public class Cursada {
 

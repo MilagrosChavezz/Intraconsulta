@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 public class Materia {
 
-	
 	private String nombre;
 	private Integer codigoMateria;
 	private ArrayList<Integer> codigoMateriascorrelativas;
@@ -73,17 +72,17 @@ public class Materia {
 	}
 
 	public void eliminarCorrelatividad(Integer idCorrelativaAELiminar) {
-		
-		Integer codigoMateriascorrelativasAEliminar=null;
+
+		Integer codigoMateriascorrelativasAEliminar = null;
 
 		for (int i = 0; i < codigoMateriascorrelativas.size(); i++) {
-			
+
 			if (codigoMateriascorrelativas.get(i).equals(idCorrelativaAELiminar)) {
 				codigoMateriascorrelativasAEliminar = codigoMateriascorrelativas.get(i);
-				codigoMateriascorrelativasAEliminar=null;
-				
+				codigoMateriascorrelativasAEliminar = null;
+
 			}
 		}
-	
+
 	}
 }

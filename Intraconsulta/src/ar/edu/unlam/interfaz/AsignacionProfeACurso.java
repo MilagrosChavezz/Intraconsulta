@@ -37,26 +37,24 @@ public class AsignacionProfeACurso {
 	}
 
 	public Boolean asignarProfesorACurso() {
-		if (estaDisponible(profesor, curso) && profesor != null) {
-			 
-			if (curso.getUnlam().getProfesores().contains(profesor)) {
+		if (estaDisponible() && profesor != null) {
 
-				return true;
-			}
+			profesor.seAgregaCursadaActual(curso);
+			return true;
 		}
 		return false;
 	}
 
-	public Boolean estaDisponible(Profesor profesoraAsignar, Cursada cursada) {
-		ArrayList<Cursada> cursadaAEvaluar = profesoraAsignar.getCursadasActuales();
+	public Boolean estaDisponible() {
+		ArrayList<Cursada> cursadaAEvaluar = profesor.getCursadasActuales();
 
 		for (int i = 0; i < cursadaAEvaluar.size(); i++) {
-			if (cursadaAEvaluar.get(i).getDias().equals(cursada.getDias())
-					&& cursadaAEvaluar.get(i).getHorarios().equals(cursada.getHorarios())
+			if (cursadaAEvaluar.get(i).getDias().equals(curso.getDias())
+					&& cursadaAEvaluar.get(i).getHorarios().equals(curso.getHorarios())
 					&& cursadaAEvaluar.get(i).getCicloElectivo().getfechaInicioCicloLectivo()
-							.equals(cursada.getCicloElectivo().getfechaInicioCicloLectivo())
+							.equals(curso.getCicloElectivo().getfechaInicioCicloLectivo())
 					&& cursadaAEvaluar.get(i).getCicloElectivo().getCuatrimestre()
-							.equals(cursada.getCicloElectivo().getCuatrimestre())) {
+							.equals(curso.getCicloElectivo().getCuatrimestre())) {
 				return false; // El profesor tiene otra cursada en el mismo horario y día
 			}
 		}

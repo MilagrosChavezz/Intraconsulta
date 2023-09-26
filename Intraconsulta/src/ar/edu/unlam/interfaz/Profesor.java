@@ -45,7 +45,7 @@ public class Profesor {
 		return cursadasActuales.add(cursoNuevo);
 	}
 
-	public static Integer getId() {
+	public Integer getId() {
 		return id;
 	}
 

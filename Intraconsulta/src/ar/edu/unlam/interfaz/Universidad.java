@@ -75,7 +75,7 @@ public class Universidad {
 	}
 
 	public Boolean agregarAula(Aula nueva) {
-		if (buscarAula(nueva.getNumeroAula()) == null) {
+		if (buscarAula(nueva.getId()) == null) {
 			aulas.add(nueva);
 			return true;
 		}
@@ -85,7 +85,7 @@ public class Universidad {
 	public Aula buscarAula(Integer codigoAula) {
 		Aula aulaBuscada = null;
 		for (int i = 0; i < aulas.size(); i++) {
-			if (aulas.get(i).getNumeroAula().equals(codigoAula)) {
+			if (aulas.get(i).getId().equals(codigoAula)) {
 				aulaBuscada = aulas.get(i);
 			}
 		}
@@ -347,9 +347,10 @@ public class Universidad {
 		Profesor profesorBuscado = existeProfesor(codigoDocente);
 		Cursada cursadaBuscada = BuscarCursada(idComision);
 		AsignacionProfeACurso nueva = new AsignacionProfeACurso(profesorBuscado, cursadaBuscada);
-		if (profesorBuscado != null && cursadaBuscada != null && nueva.asignarProfesorACurso()
-				&& !cursadaBuscada.getAsignacionProfesor().contains(nueva)
-				&& cantidadDeProfesoresPorCursoRequerido(idComision) > cantidadProfesoresEnAsignacion(idComision)) {
+		if (profesorBuscado != null && cursadaBuscada != null
+				&& cantidadDeProfesoresPorCursoRequerido(idComision) > cantidadProfesoresEnAsignacion(idComision)
+				&& nueva.asignarProfesorACurso()) {
+			profesorBuscado.seAgregaCursadaActual(cursadaBuscada);
 
 			setAsignacionesProfesores(nueva);
 
@@ -360,15 +361,14 @@ public class Universidad {
 	}
 
 	public Integer cantidadProfesoresEnAsignacion(Integer idComision) {
-	    Integer cantidadProfesoresEnUnaComison = 0;
-	    for (AsignacionProfeACurso profesor : asignacionesProfesores) {
-	        if (profesor.getCurso().getId().equals(idComision)) {
-	             cantidadProfesoresEnUnaComison++;
-	        }
-	    }
-	    return cantidadProfesoresEnUnaComison; 
+		Integer cantidadProfesoresEnUnaComison = 0;
+		for (AsignacionProfeACurso profesor : asignacionesProfesores) {
+			if (profesor.getCurso().getId().equals(idComision)) {
+				cantidadProfesoresEnUnaComison++;
+			}
+		}
+		return cantidadProfesoresEnUnaComison;
 	}
-
 
 	public void asignarAulaAlaComision(Integer idComision, Integer idAula) {
 		Cursada cursadaBuscada = BuscarCursada(idComision);
@@ -438,14 +438,6 @@ public class Universidad {
 
 		AsignacionAlumnoACurso asignacion = buscarAsignacion(idCursada, dni);
 		if (asignacion.recursa()) {
-			return true;
-		}
-		return false;
-	}
-
-	public Boolean adeudaMateria(Integer dni, Integer idCursada) {
-		AsignacionAlumnoACurso asignacion = buscarAsignacion(idCursada, dni);
-		if (asignacion.adeudaCorrelativas()) {
 			return true;
 		}
 		return false;

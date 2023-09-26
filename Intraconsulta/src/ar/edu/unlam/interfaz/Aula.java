@@ -12,7 +12,7 @@ public class Aula {
 		id++;
 	}
 
-	public static Integer getId() {
+	public Integer getId() {
 		return id;
 	}
 
