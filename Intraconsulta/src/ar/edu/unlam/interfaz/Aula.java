@@ -4,12 +4,15 @@ public class Aula {
 
 	private static Integer capacidadMaximaAlumnos;
 	private Integer numeroAula;
-	private static Integer id = 0;
+	private Integer id; 
+
+    private static Integer nextId = 1;
 
 	public Aula(Integer numeroAula, Integer capacidadMaximaAlumnos) {
 		this.numeroAula = numeroAula;
 		Aula.capacidadMaximaAlumnos = capacidadMaximaAlumnos;
-		id++;
+		  this.id = nextId;
+	        nextId++;
 	}
 
 	public Integer getId() {

@@ -4,7 +4,9 @@ import java.util.ArrayList;
 
 public class AsignacionAlumnoACurso {
 
-	private static Integer id = 0;
+	private Integer id; 
+
+    private static Integer nextId = 1;
 	private Cursada curso;
 	private Alumno alumno;
 	private Universidad unlam;
@@ -13,7 +15,8 @@ public class AsignacionAlumnoACurso {
 
 	public AsignacionAlumnoACurso(Cursada curso, Alumno alumno) {
 		super();
-		id++;
+		 this.id = nextId;
+	        nextId++;
 		this.curso = curso;
 		this.alumno = alumno;
 		this.materiasCorrelaAprobadas = new ArrayList<Materia>();

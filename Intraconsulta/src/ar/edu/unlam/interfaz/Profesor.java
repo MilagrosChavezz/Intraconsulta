@@ -44,7 +44,7 @@ public class Profesor {
 	public Boolean seAgregaCursadaActual(Cursada cursoNuevo) {
 		return cursadasActuales.add(cursoNuevo);
 	}
-
+	
 	public Integer getId() {
 		return id;
 	}

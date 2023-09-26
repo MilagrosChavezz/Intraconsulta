@@ -30,6 +30,14 @@ public class Universidad {
 		return asignacionesProfesores;
 	}
 
+	public ArrayList<AsignacionAlumnoACurso> getAsignaciones() {
+		return asignaciones;
+	}
+
+	public void setAsignaciones(ArrayList<AsignacionAlumnoACurso> asignaciones) {
+		this.asignaciones = asignaciones;
+	}
+
 	public void setAsignacionesProfesores(AsignacionProfeACurso asignacionesProfesores) {
 		this.asignacionesProfesores.add(asignacionesProfesores);
 	}
@@ -349,7 +357,8 @@ public class Universidad {
 		AsignacionProfeACurso nueva = new AsignacionProfeACurso(profesorBuscado, cursadaBuscada);
 		if (profesorBuscado != null && cursadaBuscada != null
 				&& cantidadDeProfesoresPorCursoRequerido(idComision) > cantidadProfesoresEnAsignacion(idComision)
-				&& nueva.asignarProfesorACurso()) {
+				&& nueva.estaDisponible()) {
+
 			profesorBuscado.seAgregaCursadaActual(cursadaBuscada);
 
 			setAsignacionesProfesores(nueva);
@@ -362,8 +371,9 @@ public class Universidad {
 
 	public Integer cantidadProfesoresEnAsignacion(Integer idComision) {
 		Integer cantidadProfesoresEnUnaComison = 0;
+		
 		for (AsignacionProfeACurso profesor : asignacionesProfesores) {
-			if (profesor.getCurso().getId().equals(idComision)) {
+			if (profesor.getCurso().getId().equals(idComision) ) {
 				cantidadProfesoresEnUnaComison++;
 			}
 		}

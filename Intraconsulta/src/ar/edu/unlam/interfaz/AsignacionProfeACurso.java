@@ -6,13 +6,16 @@ public class AsignacionProfeACurso {
 
 	private Profesor profesor;
 	private Cursada curso;
-	private static Integer id = 0;
+	private Integer id; 
+
+    private static Integer nextId = 1;
 
 	public AsignacionProfeACurso(Profesor profesor, Cursada curso) {
 		super();
 		this.profesor = profesor;
 		this.curso = curso;
-		id++;
+		  this.id = nextId;
+	        nextId++;
 
 	}
 
@@ -54,7 +57,7 @@ public class AsignacionProfeACurso {
 					&& cursadaAEvaluar.get(i).getCicloElectivo().getfechaInicioCicloLectivo()
 							.equals(curso.getCicloElectivo().getfechaInicioCicloLectivo())
 					&& cursadaAEvaluar.get(i).getCicloElectivo().getCuatrimestre()
-							.equals(curso.getCicloElectivo().getCuatrimestre())) {
+							.equals(curso.getCicloElectivo().getCuatrimestre()) && cursadaAEvaluar.get(i).getId().equals(curso.getId())) {
 				return false; // El profesor tiene otra cursada en el mismo horario y día
 			}
 		}

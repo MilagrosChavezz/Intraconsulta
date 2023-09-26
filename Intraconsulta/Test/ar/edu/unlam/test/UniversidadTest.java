@@ -18,6 +18,7 @@ import ar.edu.unlam.interfaz.Profesor;
 import ar.edu.unlam.interfaz.Universidad;
 import ar.edu.unlam.interfaz.Alumno;
 import ar.edu.unlam.interfaz.AsignacionAlumnoACurso;
+import ar.edu.unlam.interfaz.AsignacionProfeACurso;
 
 public class UniversidadTest {
 
@@ -1213,7 +1214,7 @@ public class UniversidadTest {
 		String nombreAlumno = "Martin", apellidoAlumno = "Suarez", nombreDeMateria = "pb2",
 				nombreDeMateriaCorrelativa = "pw", nombreUniversidad = "Unlam";
 		Integer codigoMateria = 1918, codigoMateriaCorrelativa = 1919, comision = 64, numeroAula = 404,
-				cupoMaximoAlumnos = 55, capacidadMaximaAulas = 80, dniAlumno = 45868259, notaPrimerparcial = 7,
+				cupoMaximoAlumnos = 55, capacidadMaximaAulas = 80, dniAlumno = 45868259, notaPrimerparcial = 8,
 				notaSegundoParcial = 7;
 
 		Horario horarios = Horario.Mañana;
@@ -1249,23 +1250,23 @@ public class UniversidadTest {
 		unlam.agregarAlumno(alumno);
 		unlam.agregarMateria(materia);
 		unlam.agregarMateria(materiaCorrelativa);
-		unlam.agregarCorrelatividad(codigoMateria, idComisionCorrelativa);
+		unlam.agregarCorrelatividad(codigoMateria, codigoMateriaCorrelativa);
 		unlam.agregarCurso(cursada);
 		unlam.agregarCurso(cursadaCorrelativa);
-
+		
 		unlam.inscribirAlumnoACursada(dniAlumno, idComisionCorrelativa);
-		unlam.registrarNota(idComisionCorrelativa, dniAlumno, notaDelPrimerParcialCorrelativa);
-		unlam.registrarNota(idComisionCorrelativa, dniAlumno, notaDelSegundoParcialCorrelativa);
-		unlam.promociono(dniAlumno, idComisionCorrelativa);
+	    unlam.registrarNota(idComisionCorrelativa, dniAlumno, notaDelPrimerParcialCorrelativa);
+	    unlam.registrarNota(idComisionCorrelativa, dniAlumno, notaDelSegundoParcialCorrelativa);
+	    unlam.promociono(dniAlumno, idComisionCorrelativa);
 
-		unlam.agregarAula(aula);
+	  
+	    unlam.inscribirAlumnoACursada(dniAlumno, idComision);
 
-		unlam.asignarAulaAlaComision(idComision, idAula);
-		unlam.inscribirAlumnoACursada(dniAlumno, idComision);
-		Boolean resultado = unlam.registrarNota(idComision, dniAlumno, notaDelPrimerParcial);
-		unlam.registrarNota(idComision, dniAlumno, notaDelSegundoParcial);
-
-		assertFalse(resultado);
+	  
+	    Boolean resultado = unlam.registrarNota(idComision, dniAlumno, notaDelPrimerParcial);
+	    
+	   
+	    assertFalse(resultado);
 	}
 
 	@Test
@@ -1314,4 +1315,5 @@ public class UniversidadTest {
 
 		assertFalse(resultado);
 	}
+	
 }

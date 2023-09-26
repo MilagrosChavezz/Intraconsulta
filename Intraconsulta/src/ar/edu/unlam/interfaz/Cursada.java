@@ -14,7 +14,9 @@ public class Cursada {
 	private Aula aula;
 	private CicloElectivo cicloElectivo;
 	private Integer cantidadAlumnosAnotados;
-	private static Integer id = 0;
+	private Integer id; 
+
+    private static Integer nextId = 1;
 
 	public Cursada(Materia materia, Integer comision, Horario horarios, Dia dias, Integer cupoMaximoAlumnos,
 			Universidad universidad, CicloElectivo cicloElectivo) {
@@ -28,7 +30,8 @@ public class Cursada {
 		this.cantidadAlumnosAnotados = 0;
 		this.unlam = universidad;
 		this.cicloElectivo = cicloElectivo;
-		id++;
+		   this.id = nextId;
+	        nextId++;
 	}
 
 	public Integer getCupoMaximoAlumnos() {
@@ -63,9 +66,6 @@ public class Cursada {
 		return id;
 	}
 
-	public static void setId(Integer id) {
-		Cursada.id = id;
-	}
 
 	public void setMateria(Materia materia) {
 		this.materia = materia;
