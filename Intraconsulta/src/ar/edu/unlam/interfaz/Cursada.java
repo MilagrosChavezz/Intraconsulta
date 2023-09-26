@@ -7,7 +7,6 @@ public class Cursada {
 	private Universidad unlam;
 	private ArrayList<Alumno> alumnos;
 	private ArrayList<Profesor> profesores;
-	private Profesor profesor;
 	private Materia materia;
 	private Integer comision;
 	private Horario horarios;
@@ -15,13 +14,12 @@ public class Cursada {
 	private Dia dias;
 	private Aula aula;
 	private CicloElectivo cicloElectivo;
-	private AsignacionProfeACurso profesorAAgregar;
 	private Integer cantidadAlumnosAnotados;
 	private Integer cantidadDeProfesoresEnCursada;
-	private static Integer id = 0;
 	private Integer cantidadAlumnosPromocionados;
 	private Integer cantidadAlumnosAFinal;
 	private Integer cantidadAlumnosReprobados;
+	private static Integer id = 0;
 
 	public Integer getCupoMaximoAlumnos() {
 		return cupoMaximoAlumnos;

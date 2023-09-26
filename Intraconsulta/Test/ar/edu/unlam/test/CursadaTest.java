@@ -19,14 +19,14 @@ public class CursadaTest {
 	@Test
 	public void pruebaParaQueUnProfesorEsteDisponibleYPuedaSerAsignadoACurso() {
 
-		String nombre = "Martin", nombreDeMateria = "pb2", nombreUniversidad = "Unlam";
+		String nombre = "Martin", apellido = "Perez", nombreDeMateria = "pb2", nombreUniversidad = "Unlam";
 		Integer codigo = 1225, idAsignacionDeCursada = 1415, codigoMateria = 1918, comision = 64, numeroAula = 404,
 				año = 2023, cupoMaximoAlumnos = 35 ,capacidadMaximaAulas=50;
 		Horario horarios = Horario.Mañana;
 		Dia dias = Dia.Miercoles;
 		Cuatrimestre cuatrimestre = Cuatrimestre.Primer_Cuatrimestre;
 
-		Profesor profesor = new Profesor(nombre, codigo);
+		Profesor profesor = new Profesor(nombre, apellido, codigo);
 		Materia materia = new Materia(nombreDeMateria, codigoMateria);
 		Aula aula = new Aula(numeroAula, capacidadMaximaAulas);
 		CicloElectivo cicloElectivo = new CicloElectivo(año, cuatrimestre);
