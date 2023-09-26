@@ -1213,8 +1213,7 @@ public class UniversidadTest {
 		String nombreAlumno = "Martin", apellidoAlumno = "Suarez", nombreDeMateria = "pb2",
 				nombreDeMateriaCorrelativa = "pw", nombreUniversidad = "Unlam";
 		Integer codigoMateria = 1918, codigoMateriaCorrelativa = 1919, comision = 64, numeroAula = 404,
-				cupoMaximoAlumnos = 55, capacidadMaximaAulas = 80, dniAlumno = 45868259, notaPrimerparcial = 8,
-				notaSegundoParcial = 7;
+				cupoMaximoAlumnos = 55, capacidadMaximaAulas = 80, dniAlumno = 45868259, notaPrimerparcial = 8;
 
 		Horario horarios = Horario.Mañana;
 		Dia dias = Dia.Miercoles;
@@ -1239,14 +1238,13 @@ public class UniversidadTest {
 		Cursada cursadaCorrelativa = new Cursada(materiaCorrelativa, comision, horariosCorrelatica, diasCorrelativa,
 				cupoMaximoAlumnos, unlam, cicloElectivo);
 		Nota notaDelPrimerParcial = new Nota(notaPrimerparcial, Evaluacion.PRIMER_PARCIAL);
-		Nota notaDelSegundoParcial = new Nota(notaSegundoParcial, Evaluacion.SEGUNDO_PARCIAL);
 		Nota notaDelPrimerParcialCorrelativa = new Nota(5, Evaluacion.PRIMER_PARCIAL);
 		Nota notaDelSegundoParcialCorrelativa = new Nota(4, Evaluacion.SEGUNDO_PARCIAL);
 		Integer idComision = cursada.getId();
 		Integer idComisionCorrelativa = cursadaCorrelativa.getId();
-		Integer idAula = aula.getId();
 
 		unlam.agregarAlumno(alumno);
+		unlam.agregarAula(aula);
 		unlam.agregarMateria(materia);
 		unlam.agregarMateria(materiaCorrelativa);
 		unlam.agregarCorrelatividad(codigoMateria, codigoMateriaCorrelativa);
@@ -1312,4 +1310,75 @@ public class UniversidadTest {
 		assertFalse(resultado);
 	}
 
+	@Test
+	public void pruebaParaUnProfesorPuedaEstarEnDosCursadasSiTienenDistintoHorario() {
+
+		String nombreUniversidad = "Unlam", nombreProfesor = "Javier", apellidoProfesor = "Perez",
+				nombreDeMateria = "pb2";
+		Integer codigoMateria = 1718, comision = 64, cupoMaximoAlumnos = 70, codigoProfesor = 123;
+		Horario horarios = Horario.Mañana;
+		Dia dias = Dia.Miercoles;
+		Horario horariosOtraCursada = Horario.Noche;
+		Dia diasOtraCursada = Dia.Lunes;
+		Cuatrimestre cuatrimestre = Cuatrimestre.Primer_Cuatrimestre;
+		LocalDate fechaInicioCicloLectivo = LocalDate.of(2023, Month.MARCH, 1);
+		LocalDate fechaFinalizacionCicloLectivo = LocalDate.of(2023, Month.JULY, 15);
+		LocalDate fechaInicioInscripcion = LocalDate.of(2023, Month.MARCH, 6);
+		LocalDate fechaFinalizacionInscripcion = LocalDate.of(2023, Month.MARCH, 30);
+
+		Universidad unlam = new Universidad(nombreUniversidad);
+		Profesor profesor = new Profesor(nombreProfesor, apellidoProfesor, codigoProfesor);
+		Materia materia = new Materia(nombreDeMateria, codigoMateria, unlam);
+		CicloElectivo cicloElectivo = new CicloElectivo(fechaInicioCicloLectivo, fechaFinalizacionCicloLectivo,
+				fechaInicioInscripcion, fechaFinalizacionInscripcion, cuatrimestre);
+		Cursada cursada = new Cursada(materia, comision, horarios, dias, cupoMaximoAlumnos, unlam, cicloElectivo);
+		Cursada otraCursada = new Cursada(materia, comision, horariosOtraCursada, diasOtraCursada, cupoMaximoAlumnos,
+				unlam, cicloElectivo);
+
+		unlam.ingresarProfesorALaUniversidad(profesor);
+		unlam.agregarMateria(materia);
+		unlam.agregarCurso(cursada);
+		unlam.agregarCurso(otraCursada);
+		unlam.asignarProfesorAlaComision(cursada.getId(), codigoProfesor);
+
+		Boolean resultado = unlam.asignarProfesorAlaComision(otraCursada.getId(), codigoProfesor);
+
+		assertTrue(resultado);
+	}
+
+	@Test
+	public void pruebaParaUnProfesorNoPuedaEstarEnDosCursadasSiTienenMismoHorario() {
+
+		String nombreUniversidad = "Unlam", nombreProfesor = "Javier", apellidoProfesor = "Perez",
+				nombreDeMateria = "pb2";
+		Integer codigoMateria = 1718, comision = 64, cupoMaximoAlumnos = 70, codigoProfesor = 123;
+		Horario horarios = Horario.Mañana;
+		Dia dias = Dia.Miercoles;
+		Horario horariosOtraCursada = Horario.Mañana;
+		Dia diasOtraCursada = Dia.Miercoles;
+		Cuatrimestre cuatrimestre = Cuatrimestre.Primer_Cuatrimestre;
+		LocalDate fechaInicioCicloLectivo = LocalDate.of(2023, Month.MARCH, 1);
+		LocalDate fechaFinalizacionCicloLectivo = LocalDate.of(2023, Month.JULY, 15);
+		LocalDate fechaInicioInscripcion = LocalDate.of(2023, Month.MARCH, 6);
+		LocalDate fechaFinalizacionInscripcion = LocalDate.of(2023, Month.MARCH, 30);
+
+		Universidad unlam = new Universidad(nombreUniversidad);
+		Profesor profesor = new Profesor(nombreProfesor, apellidoProfesor, codigoProfesor);
+		Materia materia = new Materia(nombreDeMateria, codigoMateria, unlam);
+		CicloElectivo cicloElectivo = new CicloElectivo(fechaInicioCicloLectivo, fechaFinalizacionCicloLectivo,
+				fechaInicioInscripcion, fechaFinalizacionInscripcion, cuatrimestre);
+		Cursada cursada = new Cursada(materia, comision, horarios, dias, cupoMaximoAlumnos, unlam, cicloElectivo);
+		Cursada otraCursada = new Cursada(materia, comision, horariosOtraCursada, diasOtraCursada, cupoMaximoAlumnos,
+				unlam, cicloElectivo);
+
+		unlam.ingresarProfesorALaUniversidad(profesor);
+		unlam.agregarMateria(materia);
+		unlam.agregarCurso(cursada);
+		unlam.agregarCurso(otraCursada);
+		unlam.asignarProfesorAlaComision(cursada.getId(), codigoProfesor);
+
+		Boolean resultado = unlam.asignarProfesorAlaComision(otraCursada.getId(), codigoProfesor);
+
+		assertFalse(resultado);
+	}
 }
