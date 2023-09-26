@@ -450,7 +450,7 @@ public class UniversidadTest {
 
 		assertTrue(resultado);
 	}
-	
+
 	@Test
 	public void pruebaParaQueNoSePuedaInscribirUnAlumnoAMasDeUnaCursada() {
 
@@ -496,7 +496,6 @@ public class UniversidadTest {
 
 		assertTrue(resultado);
 	}
-
 
 	@Test
 	public void pruebaParaQueSePuedaBuscarUnaCursada() {
@@ -1253,24 +1252,21 @@ public class UniversidadTest {
 		unlam.agregarCorrelatividad(codigoMateria, codigoMateriaCorrelativa);
 		unlam.agregarCurso(cursada);
 		unlam.agregarCurso(cursadaCorrelativa);
-		
+
 		unlam.inscribirAlumnoACursada(dniAlumno, idComisionCorrelativa);
-	    unlam.registrarNota(idComisionCorrelativa, dniAlumno, notaDelPrimerParcialCorrelativa);
-	    unlam.registrarNota(idComisionCorrelativa, dniAlumno, notaDelSegundoParcialCorrelativa);
-	    unlam.promociono(dniAlumno, idComisionCorrelativa);
+		unlam.registrarNota(idComisionCorrelativa, dniAlumno, notaDelPrimerParcialCorrelativa);
+		unlam.registrarNota(idComisionCorrelativa, dniAlumno, notaDelSegundoParcialCorrelativa);
+		unlam.promociono(dniAlumno, idComisionCorrelativa);
 
-	  
-	    unlam.inscribirAlumnoACursada(dniAlumno, idComision);
+		unlam.inscribirAlumnoACursada(dniAlumno, idComision);
 
-	  
-	    Boolean resultado = unlam.registrarNota(idComision, dniAlumno, notaDelPrimerParcial);
-	    
-	   
-	    assertFalse(resultado);
+		Boolean resultado = unlam.registrarNota(idComision, dniAlumno, notaDelPrimerParcial);
+
+		assertFalse(resultado);
 	}
 
 	@Test
-	public void pruebaParaQueNoSePuedaAsignarCorrelativasSiTieneMismosHorarios() {
+	public void pruebaParaQueNoSePuedaInscribirUnAlumnoACorrelativasSiTieneMismosHorarios() {
 
 		String nombreAlumno = "Martin", apellidoAlumno = "Suarez", nombreDeMateria = "pb2",
 				nombreDeMateriaCorrelativa = "pw", nombreUniversidad = "Unlam";
@@ -1307,13 +1303,13 @@ public class UniversidadTest {
 		unlam.agregarCurso(cursada);
 		unlam.agregarCurso(cursadaCorrelativa);
 		unlam.inscribirAlumnoACursada(dniAlumno, idComision);
-		unlam.inscribirAlumnoACursada(dniAlumno, idComisionCorrelativa);
+		unlam.agregarCorrelatividad(codigoMateria, codigoMateriaCorrelativa);
 		unlam.agregarAula(aula);
 		unlam.asignarAulaAlaComision(idComision, idAula);
 
-		Boolean resultado = unlam.agregarCorrelatividad(codigoMateria, idComisionCorrelativa);
+		Boolean resultado = unlam.inscribirAlumnoACursada(dniAlumno, idComisionCorrelativa);
 
 		assertFalse(resultado);
 	}
-	
+
 }
