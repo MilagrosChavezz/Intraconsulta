@@ -114,6 +114,7 @@ public class TestAsignacionCursoProfesor {
 
 		Boolean resultado = asignacion.estaDisponible();
 
+		
 		assertFalse(resultado);
 	}
 }
