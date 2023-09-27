@@ -1381,4 +1381,54 @@ public class UniversidadTest {
 
 		assertFalse(resultado);
 	}
+	@Test
+	public void pruebaParaQueDosProfesoresSePuedanAsignarAUnaCursadaCon21Alumnos() {
+		String nombre = "Martin", nombreDeMateria = "pb2", nombreUniversidad = "Unlam";
+		Integer codigo = 1225, codigoMateria = 1918, comision = 64, numeroAula = 404, 
+				cupoMaximoAlumnos = 100, capacidadMaximaAulas = 100;
+		Horario horarios = Horario.Mañana;
+		Dia dias = Dia.Miercoles;
+		Cuatrimestre cuatrimestre = Cuatrimestre.Primer_Cuatrimestre;
+		LocalDate fechaInicioCicloLectivo = LocalDate.of(2023, Month.MARCH, 1);
+		LocalDate fechaFinalizacionCicloLectivo = LocalDate.of(2023, Month.JULY, 15);
+		LocalDate fechaInicioInscripcion = LocalDate.of(2023, Month.MARCH, 6);
+		LocalDate fechaFinalizacionInscripcion = LocalDate.of(2023, Month.MARCH, 30);
+		Universidad unlam = new Universidad(nombreUniversidad);
+		Profesor profesor = new Profesor(nombre, "Chavez", codigo);
+		Materia materia = new Materia(nombreDeMateria, codigoMateria, unlam);
+		Aula aula = new Aula(numeroAula, capacidadMaximaAulas);
+		CicloElectivo cicloElectivo = new CicloElectivo(fechaInicioCicloLectivo, fechaFinalizacionCicloLectivo,
+				fechaInicioInscripcion, fechaFinalizacionInscripcion, cuatrimestre);
+
+		Cursada cursada = new Cursada(materia, comision, horarios, dias, cupoMaximoAlumnos, unlam, cicloElectivo);
+
+		unlam.agregarMateria(materia);
+		unlam.agregarCurso(cursada);
+		unlam.agregarAula(aula);
+		unlam.ingresarProfesorALaUniversidad(profesor);
+
+		for (int i = 1; i <= 21; i++) {
+			String nombreAlumno = "Alumno" + i;
+			String apellidoAlumno = "Apellido" + i;
+			Integer dniAlumno = i; 
+			LocalDate fechaIngreso = LocalDate.of(2023, Month.MARCH, 27);
+			LocalDate fechaNacimiento = LocalDate.of(2004, Month.MAY, 26);
+
+			Alumno alumno = new Alumno(dniAlumno, apellidoAlumno, nombreAlumno, fechaIngreso,
+					fechaNacimiento);
+			unlam.agregarAlumno(alumno);
+			unlam.inscribirAlumnoACursada(alumno.getDni(), cursada.getId());
+		}
+
+		unlam.asignarProfesorAlaComision(comision, codigo);
+
+		
+		Profesor profesor2 = new Profesor("Pablo", "Chavez", 23);
+		unlam.ingresarProfesorALaUniversidad(profesor2);
+
+		
+		Boolean seAsignaSegundoProfesor = unlam.asignarProfesorAlaComision(cursada.getId(), profesor2.getCodigoProfesor());
+
+		assertTrue(seAsignaSegundoProfesor);
+	}
 }
